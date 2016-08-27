@@ -27,6 +27,8 @@ public class AssetSystem extends AbstractAssetSystem {
     public static final int DANCING_MAN_HEIGHT = 36;
     public static final int PYRAMID_WIDTH = 125;
     public static final int PYRAMID_HEIGHT = 62;
+    public static final int SUN_WIDTH = 32;
+    public static final int SUN_HEIGHT = 32;
 
 
     private TagManager tagManager;
@@ -38,6 +40,8 @@ public class AssetSystem extends AbstractAssetSystem {
         add("backgroundTop", 0, 0, 160, 133, 1);
         add("backgroundBottom", 0, 133, 160, 133, 1);
         add("pyramid", 400, 32, PYRAMID_WIDTH, PYRAMID_HEIGHT, 1);
+
+        add("sun", 400, 160+40-32,SUN_WIDTH,SUN_HEIGHT, 1);
 
         add("minion-1", 400 + 16, 160+42, 2, 4, 1);
 

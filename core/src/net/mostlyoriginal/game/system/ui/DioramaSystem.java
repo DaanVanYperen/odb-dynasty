@@ -1,9 +1,15 @@
 package net.mostlyoriginal.game.system.ui;
 
 import com.artemis.BaseSystem;
+import com.artemis.Entity;
 import com.artemis.managers.TagManager;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Path;
+import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
+import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.Burrow;
+import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.system.resource.MinionSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 
@@ -14,13 +20,16 @@ import net.mostlyoriginal.game.system.resource.StockpileSystem;
  */
 public class DioramaSystem extends BaseSystem {
 
+    private static final float SUN_DISTANCE = 64;
     protected MinionSystem minionSystem;
     protected StockpileSystem stockpileSystem;
     protected int minions = 0;
     protected int completion = -1;
+    protected float sunPercentage = 0;
 
     protected TagManager tagManager;
     protected M<Burrow> mBurrow;
+    protected M<Pos> mPos;
 
     @Override
     protected void processSystem() {
@@ -32,6 +41,22 @@ public class DioramaSystem extends BaseSystem {
         // 4. Shrink tomb.
         // 5. River state.
         // 6. situational events.
+        placeSun();
+    }
+
+    private void placeSun() {
+        float sunPercentageNew =
+                MathUtils.clamp(stockpileSystem.get(StockpileSystem.Resource.AGE) / (float)stockpileSystem.get(StockpileSystem.Resource.LIFESPAN),0,1);
+        float sunDelta = MathUtils.clamp(sunPercentageNew - sunPercentage,-1f,1f);
+        if ( Math.abs(sunDelta) > 0.01 ) {
+            sunPercentage += sunDelta * world.getDelta() * 5f;
+        }
+
+        float sunDegrees = sunPercentage * (180f + 40f) - 90f - 20f;
+
+        Entity sun = tagManager.getEntity("sun");
+        mPos.get(sun).xy.x= G.CANVAS_WIDTH / 2 - (AssetSystem.SUN_WIDTH * G.ZOOM)/2f + MathUtils.sinDeg(sunDegrees) * SUN_DISTANCE* G.ZOOM;
+        mPos.get(sun).xy.y=133 * G.ZOOM - (AssetSystem.SUN_HEIGHT * G.ZOOM)/2f + MathUtils.cosDeg(sunDegrees)* SUN_DISTANCE * G.ZOOM;
     }
 
     private void scaleTomb() {
