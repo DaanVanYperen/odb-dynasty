@@ -10,10 +10,11 @@
                 },
                 {
                     "label": ["Option B"],
-                    "success": [ "CONSEQUENCE_TAG" ]
+                    "success": [         "+LIFESPAN", "+WEALTH", "+FOOD", "+WORKERS", "+COMPLETION" ],
+                    "failure": [ "+AGE", "-LIFESPAN", "-WEALTH", "-FOOD", "-WORKERS", "-COMPLETION" ]
                 }
             ]
-        } //,
+        },
         {
             "id": "TEMPLATE POSITIVE",
             "text": [ "State the problem"],
@@ -24,9 +25,10 @@
                 },
                 {
                     "label": ["Option B"],
-                    "success": [ "CONSEQUENCE_TAG" ]
+                    "success": [         "+LIFESPAN", "+WEALTH", "+FOOD", "+WORKERS", "+COMPLETION" ],
+                    "failure": [ "+AGE", "-LIFESPAN", "-WEALTH", "-FOOD", "-WORKERS", "-COMPLETION" ]
                 }
             ]
-        } //,
+        }
     ]
 }

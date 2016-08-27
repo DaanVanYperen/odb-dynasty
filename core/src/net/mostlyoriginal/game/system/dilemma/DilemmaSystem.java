@@ -206,6 +206,18 @@ public class DilemmaSystem extends EntityProcessingSystem {
             case "RESTART":
                 restartGame();
                 break;
+            case "+AGE": stockpileSystem.alter(StockpileSystem.Resource.AGE, 1); break;
+            case "+LIFESPAN": stockpileSystem.alter(StockpileSystem.Resource.LIFESPAN, 1); break;
+            case "+WEALTH": stockpileSystem.alter(StockpileSystem.Resource.WEALTH, 1); break;
+            case "+FOOD": stockpileSystem.alter(StockpileSystem.Resource.FOOD, 1); break;
+            case "+WORKERS": stockpileSystem.alter(StockpileSystem.Resource.WORKERS, 1); break;
+            case "+COMPLETION": stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, 1); break;
+
+            case "-LIFESPAN": stockpileSystem.alter(StockpileSystem.Resource.LIFESPAN, -1); break;
+            case "-WEALTH": stockpileSystem.alter(StockpileSystem.Resource.WEALTH, -1); break;
+            case "-FOOD": stockpileSystem.alter(StockpileSystem.Resource.FOOD, -1); break;
+            case "-WORKERS": stockpileSystem.alter(StockpileSystem.Resource.WORKERS, -1); break;
+            case "-COMPLETION": stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, -1); break;
             default:
                 startDilemma(action);
                 break;

@@ -23,6 +23,7 @@ import net.mostlyoriginal.game.component.ui.Button;
 import net.mostlyoriginal.game.component.ui.ButtonListener;
 import net.mostlyoriginal.game.component.ui.Clickable;
 import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
+import net.mostlyoriginal.game.system.resource.StockpileSystem;
 
 /**
  * Game specific entity factory.
@@ -31,7 +32,7 @@ import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
  * @todo transform this into a manager.
  */
 @Wire
-public class EntityFactorySystem extends AbstractEntityFactorySystem {
+public class EntitySetupSystem extends AbstractEntityFactorySystem {
 
     public static final int MOUSE_CURSOR_LAYER = 9999;
     private TagManager tagManager;
@@ -53,12 +54,6 @@ public class EntityFactorySystem extends AbstractEntityFactorySystem {
                 dilemmaSystem.randomDilemma();
             }
         }, "test");
-    }
-
-
-
-    public Entity createBar(int x, int y, String label, String icon, String iconEmpty, int value, int valueEmpty) {
-        return new EntityBuilder(world).with(new Pos(x, y), new Renderable(), new Bar(label, icon, value, iconEmpty, valueEmpty)).build();
     }
 
     private void createDynastyMetadata() {

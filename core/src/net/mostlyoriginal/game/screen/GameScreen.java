@@ -20,7 +20,7 @@ import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.api.system.script.EntitySpawnerSystem;
 import net.mostlyoriginal.game.manager.AssetSystem;
-import net.mostlyoriginal.game.manager.EntityFactorySystem;
+import net.mostlyoriginal.game.manager.EntitySetupSystem;
 import net.mostlyoriginal.game.manager.FontManager;
 import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
 import net.mostlyoriginal.game.system.render.BarRenderSystem;
@@ -28,6 +28,7 @@ import net.mostlyoriginal.game.system.render.LabelRenderSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 import net.mostlyoriginal.game.system.ui.ButtonSystem;
 import net.mostlyoriginal.game.system.ui.MouseClickSystem;
+import net.mostlyoriginal.game.system.ui.StockpileUISystem;
 import net.mostlyoriginal.game.system.view.GameScreenSetupSystem;
 import net.mostlyoriginal.plugin.OperationsPlugin;
 
@@ -57,7 +58,7 @@ public class GameScreen extends WorldScreen {
 						new ClearScreenSystem(Color.valueOf(BACKGROUND_COLOR_HEX)),
 
 						new StockpileSystem(),
-						new EntityFactorySystem(),
+						new EntitySetupSystem(),
 
 						new DilemmaSystem(),
 
@@ -70,6 +71,8 @@ public class GameScreen extends WorldScreen {
 
 						new CollisionSystem(),
 						new PhysicsSystem(),
+
+						new StockpileUISystem(),
 
 						new ColorAnimationSystem(),
 
