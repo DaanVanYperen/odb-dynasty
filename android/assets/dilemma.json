@@ -21,7 +21,18 @@
             "groups": [ "programmatic" ],
             "choices": [
                 {
-                    "label": ["Try again"],
+                    "label": ["Play again"],
+                    "success": ["RESTART"]
+                }
+            ]
+        },
+        {
+            "id": "SUPER_DYNASTY",
+            "text": [ "Reached biggest dynasty posslbe."],
+            "groups": [ "programmatic" ],
+            "choices": [
+                {
+                    "label": ["Play again"],
                     "success": ["RESTART"]
                 }
             ]

@@ -212,6 +212,12 @@ public class DilemmaSystem extends EntityProcessingSystem {
         startDilemma("YOU_DEAD");
     }
 
+    /** best dynasty possible! */
+    public void superDynasty() {
+        stopDilemma();
+        startDilemma("SUPER_DYNASTY");
+    }
+
     /**
      * Trigger hardcodede action indicated by string. If not exists, assume we are starting a dilemma.
      */
