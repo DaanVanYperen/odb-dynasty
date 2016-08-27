@@ -23,7 +23,10 @@ import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.manager.EntityFactorySystem;
 import net.mostlyoriginal.game.manager.FontManager;
 import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
+import net.mostlyoriginal.game.system.render.BarRenderSystem;
+import net.mostlyoriginal.game.system.render.LabelRenderSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
+import net.mostlyoriginal.game.system.ui.ButtonSystem;
 import net.mostlyoriginal.game.system.ui.MouseClickSystem;
 import net.mostlyoriginal.game.system.view.GameScreenSetupSystem;
 import net.mostlyoriginal.plugin.OperationsPlugin;
@@ -63,7 +66,7 @@ public class GameScreen extends WorldScreen {
 
 						new MouseCursorSystem(),
 						new MouseClickSystem(),
-//						new ButtonSystem(),
+						new ButtonSystem(),
 
 						new CollisionSystem(),
 						new PhysicsSystem(),
@@ -75,9 +78,9 @@ public class GameScreen extends WorldScreen {
 
 						// Replace with your own systems!
 						renderBatchingSystem = new RenderBatchingSystem(),
-						new AnimRenderSystem(renderBatchingSystem)
-//						new LabelRenderSystem(renderBatchingSystem),
-//						new BarRenderSystem(renderBatchingSystem)
+						new AnimRenderSystem(renderBatchingSystem),
+						new LabelRenderSystem(renderBatchingSystem),
+						new BarRenderSystem(renderBatchingSystem)
 				).build());
 
 	}

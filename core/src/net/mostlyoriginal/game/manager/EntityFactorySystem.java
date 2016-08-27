@@ -47,7 +47,15 @@ public class EntityFactorySystem extends AbstractEntityFactorySystem {
         createDynastyMetadata();
         createMousecursor();
         createCamera(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2);
+        createButton( 5, 5, 50, 10, "btn-scan", new ButtonListener(){
+            @Override
+            public void run() {
+                dilemmaSystem.randomDilemma();
+            }
+        }, "test");
     }
+
+
 
     public Entity createBar(int x, int y, String label, String icon, String iconEmpty, int value, int valueEmpty) {
         return new EntityBuilder(world).with(new Pos(x, y), new Renderable(), new Bar(label, icon, value, iconEmpty, valueEmpty)).build();
@@ -84,10 +92,9 @@ public class EntityFactorySystem extends AbstractEntityFactorySystem {
         Entity entity = new EntityBuilder(world)
                 .with(new Bounds(0, 0, width, height),
                         new Anim(),
-                        new Tint(),
                         new Button(animPrefix, listener, hint),
                         new Clickable())
-                .with(Pos.class, Renderable.class)
+                .with(Pos.class, Renderable.class, Tint.class)
                 .build();
         mPos.get(entity).xy.set(x, y);
         mRenderable.get(entity).layer = 1100;

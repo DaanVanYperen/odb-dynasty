@@ -15,6 +15,7 @@ import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
+import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.util.GdxUtil;
 import net.mostlyoriginal.api.utils.EntityUtil;
 import net.mostlyoriginal.game.GdxArtemisGame;
@@ -43,31 +44,34 @@ public class DilemmaSystem extends EntityProcessingSystem {
 
     private GroupManager groupManager;
     private StockpileSystem stockpileSystem;
+    private M<Tint> mColor;
+    private M<Pos> mPos;
 
     public DilemmaSystem() {
         super(Aspect.all(Pos.class, DilemmaChoice.class));
     }
 
     public Entity createLabel(int x, int y, Color color, String text) {
-        return new EntityBuilder(world).with(
-                new Pos(x, y),
-                new Renderable(),
-                new Label(text),
-                GdxUtil.convert(color)
-        ).group(DILEMMA_GROUP).build();
+        Entity entity = new EntityBuilder(world)
+                .with(Pos.class, Renderable.class, Tint.class)
+                .with(new Label(text)).group(DILEMMA_GROUP).build();
+        mPos.get(entity).xy.set(x,y);
+        mColor.get(entity).set(color);
+        return entity;
     }
 
     private Entity createOption(int x, int y, String text, ButtonListener listener) {
-        return new EntityBuilder(world).with(
-                new Pos(x, y),
-                new Label(text),
-                new Renderable(),
+        //createLabel(x, y, COLOR_DILEMMA, text);
+        Entity entity = new EntityBuilder(world)
+                .with(Pos.class, Renderable.class, Tint.class).with(
                 new Bounds(0, -8, text.length() * 8, 0),
                 new Clickable(),
-                new Tint(),
-                new Button(COLOR_RAW_DIMMED, COLOR_RAW_BRIGHT, "FFFFFF", listener)
+                new Button(COLOR_RAW_DIMMED, COLOR_RAW_BRIGHT, "FFFFFF", listener),
+                new Label(text)
         )
                 .group(DILEMMA_GROUP).build();
+        mPos.get(entity).xy.set(x,y);
+        return entity;
     }
 
     public boolean isDilemmaActive() {
@@ -89,7 +93,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
     private void startDilemma(String dilemmaId) {
         Dilemma dilemma = dilemmaLibrary.getById(dilemmaId);
         if (dilemma == null) {
-            throw new RuntimeException("Missing dilemma " + dilemmaId);
+            throw new RuntimeException("Missing dilemma logic for " + dilemmaId);
         }
         startDilemma(dilemma);
     }
@@ -100,7 +104,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
 
             dilemmaActive = true;
             for (String text : dilemma.text) {
-                createLabel(10, 10 + ROW_HEIGHT * row, COLOR_DILEMMA, text);
+                createLabel(50, 50 + ROW_HEIGHT * row, COLOR_DILEMMA, text);
                 row--;
             }
 
@@ -109,7 +113,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 // random chance of succes, if no failure options defined, always failure.
                 final String[] choices = (choice.failure == null) || (MathUtils.random(0, 100) < 100 - choice.risk) ? choice.success : choice.failure;
 
-                createOption(10, 10 + ROW_HEIGHT * row, "[" + choice.label[MathUtils.random(0, choice.label.length - 1)] + "]", new DilemmaListener(choices));
+                createOption(50, 50 + ROW_HEIGHT * row, "[" + choice.label[MathUtils.random(0, choice.label.length - 1)] + "]", new DilemmaListener(choices));
                 row--;
             }
         }

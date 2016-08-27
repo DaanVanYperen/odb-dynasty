@@ -1,9 +1,23 @@
 {
     "dilemmas": [
         {
-            "id": "TEMPLATE",
+            "id": "TEMPLATE NEGATIVE",
             "text": [ "State the problem"],
-            "groups": [ "negative" ], // "positive"
+            "groups": [ "negative" ],
+            "choices": [
+                {
+                    "label": ["Option A"]
+                },
+                {
+                    "label": ["Option B"],
+                    "success": [ "CONSEQUENCE_TAG" ]
+                }
+            ]
+        } //,
+        {
+            "id": "TEMPLATE POSITIVE",
+            "text": [ "State the problem"],
+            "groups": [ "positive" ],
             "choices": [
                 {
                     "label": ["Option A"]

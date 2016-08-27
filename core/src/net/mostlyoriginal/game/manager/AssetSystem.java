@@ -31,12 +31,13 @@ public class AssetSystem extends AbstractAssetSystem {
     private M<Pos> mPos;
 
     public AssetSystem() {
-        super("dancingman.png");
+        super("tmp/tiles.png");
 
-        final Animation dancingman = add("dancingman", 0, 0, DANCING_MAN_WIDTH, DANCING_MAN_HEIGHT, 7);
-        dancingman.setFrameDuration(1/6f);
+//        final Animation dancingman = add("dancingman", 0, 0, DANCING_MAN_WIDTH, DANCING_MAN_HEIGHT, 7);
+//        dancingman.setFrameDuration(1/6f);
 
         // @todo GAME SPECIFIC, split into library and game specific logic.
+        add("dancingman", 32, 56, 24, 56, 1);
         add("cursor", 1, 1 , 1, 1, 1);
 
         add("progress-bubble-0", 56, 112, 8, 8, 1);
