@@ -18,6 +18,11 @@ public class Label extends Component {
         this.text = text;
     }
 
+    public Label(String text, float scale) {
+        this.text = text;
+        this.scale = scale;
+    }
+
     public enum Align {
         LEFT, RIGHT;
     }

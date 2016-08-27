@@ -34,10 +34,11 @@ import java.util.List;
  */
 public class DilemmaSystem extends EntityProcessingSystem {
 
+    public static final int TEXT_ZOOM = 2;
     private DilemmaLibrary dilemmaLibrary;
 
     public static final String DILEMMA_GROUP = "dilemma";
-    public static final int ROW_HEIGHT = 9;
+    public static final int ROW_HEIGHT = 16;
 
     public static final Color COLOR_DILEMMA = Color.valueOf("6AD7ED");
     public static final String COLOR_RAW_BRIGHT = "E7E045";
@@ -58,11 +59,12 @@ public class DilemmaSystem extends EntityProcessingSystem {
     public Entity createLabel(int x, int y, Color color, String text) {
         Entity e = new EntityBuilder(world)
                 .with(Pos.class, Renderable.class, Tint.class, Scale.class)
-                .with(new Label(text)).group(DILEMMA_GROUP).build();
+                .with(new Label(text, TEXT_ZOOM)).group(DILEMMA_GROUP).build();
         mPos.get(e).xy.set(x,y);
         mColor.get(e).set(color);
+
         mRenderable.get(e).layer = 100;
-        mScale.get(e).scale = G.ZOOM;
+        mScale.get(e).scale = TEXT_ZOOM;
         return e;
     }
 
@@ -73,12 +75,12 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 new Bounds(0, -8, text.length() * 8, 0),
                 new Clickable(),
                 new Button(COLOR_RAW_DIMMED, COLOR_RAW_BRIGHT, "FFFFFF", listener),
-                new Label(text)
+                new Label(text, TEXT_ZOOM)
         )
                 .group(DILEMMA_GROUP).build();
         mRenderable.get(entity).layer = 100;
         mPos.get(entity).xy.set(x,y);
-        mScale.get(entity).scale = G.ZOOM;
+        mScale.get(entity).scale = TEXT_ZOOM;
         return entity;
     }
 
@@ -90,6 +92,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
     protected void initialize() {
         super.initialize();
         loadDilemmas();
+        randomDilemma();
     }
 
     private void loadDilemmas() {

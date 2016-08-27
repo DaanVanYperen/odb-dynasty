@@ -22,20 +22,20 @@
             "choices": [
                 {
                     "label": ["Age +"],
-                    "success": [ "+AGE" ]
+                    "success": [ "+AGE", "DEBUG" ]
                 },
                 {
                     "label": ["Completion +"],
-                    "success": [ "+COMPLETION" ]
+                    "success": [ "+COMPLETION", "DEBUG" ]
                 },
                 {
                     "label": ["Workers"],
-                    "success": [ "+WORKERS" ]
+                    "success": [ "+WORKERS", "DEBUG" ]
                 },
                 {
                     "label": ["ALL"],
-                    "success": [         "+LIFESPAN", "+WEALTH", "+FOOD", "+WORKERS", "+COMPLETION" ],
-                    "failure": [ "+AGE", "-LIFESPAN", "-WEALTH", "-FOOD", "-WORKERS", "-COMPLETION" ]
+                    "success": [         "+LIFESPAN", "+WEALTH", "+FOOD", "+WORKERS", "+COMPLETION", "DEBUG" ],
+                    "failure": [ "+AGE", "-LIFESPAN", "-WEALTH", "-FOOD", "-WORKERS", "-COMPLETION", "DEBUG" ]
                 }
             ]
         }

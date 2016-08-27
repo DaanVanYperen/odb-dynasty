@@ -20,5 +20,6 @@ public class FontManager extends Manager {
         font.setColor(1f, 1f, 1f, 1f);
         bigFont = new BitmapFont(Gdx.files.internal("5x5.fnt"), false);
         bigFont.setColor(1f, 1f, 1f, 1f);
+        bigFont.getData().scale(1f);
     }
 }
