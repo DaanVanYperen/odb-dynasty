@@ -50,6 +50,7 @@ public class DioramaSystem extends BaseSystem {
             Burrow burrow = mBurrow.get(tagManager.getEntity("pyramid"));
             burrow.targetPercentage = 0.9f - completionNew * 0.1f;
             completion = completionNew;
+            minionSystem.allCheer();
         }
     }
 
