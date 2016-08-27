@@ -28,10 +28,10 @@ public class TrembleSystem extends IteratingSystem {
     protected void process(int e) {
 
         Tremble tremble = mTremble.get(e);
-        tremble.age += world.delta;
+        tremble.age += world.delta * tremble.intensity;
 
         revertTremble(e);
-        setTremble(e, MathUtils.sin(tremble.age * 100f) * 1.5f);
+        setTremble(e, MathUtils.sin(tremble.age * 100f) * (1.5f * tremble.intensity));
     }
 
     @Override

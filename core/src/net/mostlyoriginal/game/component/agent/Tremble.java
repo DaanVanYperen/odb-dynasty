@@ -8,8 +8,10 @@ import com.artemis.annotations.DelayedComponentRemoval;
  */
 @DelayedComponentRemoval
 public class Tremble extends Component {
+
     public Tremble() {}
 
     public float appliedX;
     public float age;
+    public float intensity = 1;
 }

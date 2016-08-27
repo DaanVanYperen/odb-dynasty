@@ -62,20 +62,25 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     }
 
     private void createPyramid() {
-        createStructure(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2, "dancingman");
+        createStructure(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2, "dancingman", "pyramid");
     }
 
-    private void createStructure(int x, int y, String dancingman) {
+    private void createStructure(int x, int y, String animId, String tag) {
         Entity entity = Anims.createCenteredAt(world,
                 AssetSystem.DANCING_MAN_WIDTH,
                 AssetSystem.DANCING_MAN_HEIGHT,
-                "dancingman",
+                animId,
                 Anims.scaleToScreenRoundedHeight(0.3f, AssetSystem.DANCING_MAN_HEIGHT));
         mPos.get(entity).xy.set(x,y);
 
+        if ( tag != null ) {
+            tagManager.register(tag, entity);
+        }
+
         Burrow burrow = mBurrow.create(entity);
         burrow.percentage=1.0f;
-        burrow.targetPercentage=0.0f;
+        burrow.targetPercentage=1.0f;
+        burrow.speed=10;
         burrow.surfaceY=y;
     }
 

@@ -48,7 +48,7 @@ public class MinionSystem extends EntityProcessingSystem {
     private void randomizeLocation(Entity entity) {
         mPos.get(entity).xy.set(
                 MathUtils.random(0, G.CANVAS_WIDTH),
-                MathUtils.random(G.CANVAS_HEIGHT/2, (G.CANVAS_HEIGHT/4) *3));
+                MathUtils.random(G.CANVAS_HEIGHT/2, G.CANVAS_HEIGHT/2 + 20));
     }
 
     public void spawnMultiple(int count) {

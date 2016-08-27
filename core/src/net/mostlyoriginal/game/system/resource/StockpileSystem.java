@@ -5,6 +5,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.managers.TagManager;
 import com.artemis.systems.EntityProcessingSystem;
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.game.component.resource.Stockpile;
 
 /**
@@ -47,22 +48,22 @@ public class StockpileSystem extends EntityProcessingSystem {
         if (stockpile != null) {
             switch (resource) {
                 case AGE:
-                    stockpile.age = stockpile.age + amount;
+                    stockpile.age = MathUtils.clamp(stockpile.age + amount, 0,100);
                     break;
                 case LIFESPAN:
-                    stockpile.lifespan = stockpile.lifespan + amount;
+                    stockpile.lifespan = MathUtils.clamp(stockpile.lifespan + amount, 0,100);
                     break;
                 case FOOD:
-                    stockpile.food = stockpile.food + amount;
+                    stockpile.food = MathUtils.clamp(stockpile.food + amount, 0,100);
                     break;
                 case WORKERS:
-                    stockpile.workers = stockpile.workers + amount;
+                    stockpile.workers = MathUtils.clamp(stockpile.workers + amount, 0,100);
                     break;
                 case WEALTH:
-                    stockpile.wealth = stockpile.wealth + amount;
+                    stockpile.wealth = MathUtils.clamp(stockpile.wealth + amount, 0,100);
                     break;
                 case COMPLETION:
-                    stockpile.completion = stockpile.completion + amount;
+                    stockpile.completion = MathUtils.clamp(stockpile.completion + amount, 0,100);
                     break;
             }
         }

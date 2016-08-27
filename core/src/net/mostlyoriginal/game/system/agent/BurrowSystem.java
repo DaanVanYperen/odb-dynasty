@@ -40,14 +40,20 @@ public class BurrowSystem extends EntityProcessingSystem {
         Animation animation = assetSystem.get(anim.id);
 
         if (Math.abs(burrow.targetPercentage - burrow.percentage) >= 0.01f) {
-            float delta = MathUtils.clamp(burrow.targetPercentage - burrow.percentage, -0.01f, 0.01f) * world.getDelta() *burrow.speed;
-            burrow.percentage += delta;
+            float distance = Math.abs(burrow.targetPercentage - burrow.percentage);
+            float delta = MathUtils.clamp(burrow.targetPercentage - burrow.percentage, -0.01f, 0.01f) * world.getDelta() * burrow.speed;
+            if (distance < 0.05f) {
+                burrow.percentage += delta * 0.5f;
+                startTrembling(e, 0.5f);
+            } else {
+                burrow.percentage += delta;
+                startTrembling(e, 1);
+            }
+
+
             pos.xy.y = burrow.surfaceY - (animation.getKeyFrame(0).getRegionHeight() *
+                    burrow.percentage);
 
-                    Interpolation.exp5In.apply(burrow.percentage));
-            System.out.println(pos.xy.y);
-
-            startTrembling(e);
         } else {
             stopTrembling(e);
         }
@@ -59,7 +65,7 @@ public class BurrowSystem extends EntityProcessingSystem {
         }
     }
 
-    private void startTrembling(Entity e) {
-        mTremble.create(e);
+    private void startTrembling(Entity e, float intensity) {
+        mTremble.create(e).intensity = intensity;
     }
 }
