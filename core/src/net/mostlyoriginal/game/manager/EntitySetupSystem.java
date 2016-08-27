@@ -17,13 +17,14 @@ import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.manager.AbstractEntityFactorySystem;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.game.G;
+import net.mostlyoriginal.game.component.agent.Burrow;
 import net.mostlyoriginal.game.component.resource.Stockpile;
-import net.mostlyoriginal.game.component.ui.Bar;
 import net.mostlyoriginal.game.component.ui.Button;
 import net.mostlyoriginal.game.component.ui.ButtonListener;
 import net.mostlyoriginal.game.component.ui.Clickable;
 import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
+import net.mostlyoriginal.game.util.Anims;
 
 /**
  * Game specific entity factory.
@@ -38,7 +39,9 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     private TagManager tagManager;
     private AbstractAssetSystem abstractAssetSystem;
     private DilemmaSystem dilemmaSystem;
+    private StockpileSystem stockpileSystem;
 
+    private M<Burrow> mBurrow;
     private M<Pos> mPos;
     private M<Renderable> mRenderable;
 
@@ -46,14 +49,38 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     protected void initialize() {
         super.initialize();
         createDynastyMetadata();
+        initStartingStockpile();
         createMousecursor();
         createCamera(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2);
+        createPyramid();
         createButton( 5, 5, 50, 10, "btn-scan", new ButtonListener(){
             @Override
             public void run() {
                 dilemmaSystem.randomDilemma();
             }
         }, "test");
+    }
+
+    private void createPyramid() {
+        createStructure(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2, "dancingman");
+    }
+
+    private void createStructure(int x, int y, String dancingman) {
+        Entity entity = Anims.createCenteredAt(world,
+                AssetSystem.DANCING_MAN_WIDTH,
+                AssetSystem.DANCING_MAN_HEIGHT,
+                "dancingman",
+                Anims.scaleToScreenRoundedHeight(0.3f, AssetSystem.DANCING_MAN_HEIGHT));
+        mPos.get(entity).xy.set(x,y);
+
+        Burrow burrow = mBurrow.create(entity);
+        burrow.percentage=1.0f;
+        burrow.targetPercentage=0.0f;
+        burrow.surfaceY=y;
+    }
+
+    private void initStartingStockpile() {
+        stockpileSystem.alter(StockpileSystem.Resource.WORKERS, 5);
     }
 
     private void createDynastyMetadata() {

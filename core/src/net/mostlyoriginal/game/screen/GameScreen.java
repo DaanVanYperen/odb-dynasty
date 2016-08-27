@@ -22,14 +22,17 @@ import net.mostlyoriginal.api.system.script.EntitySpawnerSystem;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.manager.EntitySetupSystem;
 import net.mostlyoriginal.game.manager.FontManager;
+import net.mostlyoriginal.game.system.agent.BurrowSystem;
+import net.mostlyoriginal.game.system.agent.TrembleSystem;
 import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
 import net.mostlyoriginal.game.system.render.BarRenderSystem;
 import net.mostlyoriginal.game.system.render.LabelRenderSystem;
+import net.mostlyoriginal.game.system.resource.MinionSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 import net.mostlyoriginal.game.system.ui.ButtonSystem;
+import net.mostlyoriginal.game.system.ui.DioramaSystem;
 import net.mostlyoriginal.game.system.ui.MouseClickSystem;
 import net.mostlyoriginal.game.system.ui.StockpileUISystem;
-import net.mostlyoriginal.game.system.view.GameScreenSetupSystem;
 import net.mostlyoriginal.plugin.OperationsPlugin;
 
 /**
@@ -54,7 +57,6 @@ public class GameScreen extends WorldScreen {
 
 						new CameraSystem(1),
 						new AssetSystem(),
-                        new GameScreenSetupSystem(),
 						new ClearScreenSystem(Color.valueOf(BACKGROUND_COLOR_HEX)),
 
 						new StockpileSystem(),
@@ -69,12 +71,16 @@ public class GameScreen extends WorldScreen {
 						new MouseClickSystem(),
 						new ButtonSystem(),
 
+						new BurrowSystem(),
+						new TrembleSystem(),
 						new CollisionSystem(),
 						new PhysicsSystem(),
 
 						new StockpileUISystem(),
+                        new DioramaSystem(),
+                        new MinionSystem(),
 
-						new ColorAnimationSystem(),
+                        new ColorAnimationSystem(),
 
 						new EntityCameraSystem(),
 						new CameraShakeSystem(),
