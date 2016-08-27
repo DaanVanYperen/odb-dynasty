@@ -66,7 +66,10 @@ public class BurrowSystem extends EntityProcessingSystem {
             if ( burrow.smokeAge > 1f/30f )
             {
                 burrow.smokeAge -= 1f/30f;
-                smokeSystem.dust(burrow.surfaceY, pos.xy.x, pos.xy.x + keyFrame.getRegionWidth() * scale, 5);
+                float maxWidth = keyFrame.getRegionWidth() * scale;
+                // some structures are wider at the bottom. account for this with the dust.
+                float surfacedWidth = Interpolation.linear.apply(maxWidth, maxWidth * burrow.topWidthPercentage, burrow.percentage);
+                smokeSystem.dust(burrow.surfaceY, pos.xy.x + maxWidth/2f - surfacedWidth/2f, pos.xy.x + maxWidth/2f + surfacedWidth/2f, 5);
             }
 
 
