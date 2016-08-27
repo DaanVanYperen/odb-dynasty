@@ -7,7 +7,6 @@ import com.artemis.managers.TagManager;
 import com.badlogic.gdx.graphics.Color;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.ExtendedComponentMapperPlugin;
 import net.mostlyoriginal.api.screen.core.WorldScreen;
-import net.mostlyoriginal.api.system.SchedulerSystem;
 import net.mostlyoriginal.api.system.camera.CameraShakeSystem;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.camera.EntityCameraSystem;
@@ -22,6 +21,7 @@ import net.mostlyoriginal.api.system.script.EntitySpawnerSystem;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.manager.EntitySetupSystem;
 import net.mostlyoriginal.game.manager.FontManager;
+import net.mostlyoriginal.game.manager.SmokeSystem;
 import net.mostlyoriginal.game.system.agent.BurrowSystem;
 import net.mostlyoriginal.game.system.agent.TrembleSystem;
 import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
@@ -50,10 +50,12 @@ public class GameScreen extends WorldScreen {
 		return new World(new WorldConfigurationBuilder()
 				.dependsOn(OperationsPlugin.class)
                 .dependsOn(ExtendedComponentMapperPlugin.class)
+				.dependsOn(OperationsPlugin.class)
 				.with(
                         new GroupManager(),
 						new TagManager(),
 						new FontManager(),
+						new SmokeSystem(),
 
 						new CameraSystem(1),
 						new AssetSystem(),
@@ -64,7 +66,6 @@ public class GameScreen extends WorldScreen {
 
 						new DilemmaSystem(),
 
-						new SchedulerSystem(),
 						new EntitySpawnerSystem(),
 
 						new MouseCursorSystem(),

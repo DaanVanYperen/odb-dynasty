@@ -33,10 +33,9 @@ public class AssetSystem extends AbstractAssetSystem {
     public AssetSystem() {
         super("tmp/tiles.png");
 
-//        final Animation dancingman = add("dancingman", 0, 0, DANCING_MAN_WIDTH, DANCING_MAN_HEIGHT, 7);
-//        dancingman.setFrameDuration(1/6f);
+        add("dust_particle",32,136, 4, 4, 1);
 
-        // @todo GAME SPECIFIC, split into library and game specific logic.
+        //
         add("dancingman", 32, 56, 24, 56, 1);
         add("cursor", 1, 1 , 1, 1, 1);
 

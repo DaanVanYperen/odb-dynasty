@@ -11,6 +11,7 @@ public class Burrow extends Component {
     }
 
     public int surfaceY;
+    public float smokeAge;
     public float speed=80;
     public float percentage=0;
     public float targetPercentage=1;
