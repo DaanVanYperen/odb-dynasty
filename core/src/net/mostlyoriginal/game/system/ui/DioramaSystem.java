@@ -17,7 +17,7 @@ public class DioramaSystem extends BaseSystem {
     protected MinionSystem minionSystem;
     protected StockpileSystem stockpileSystem;
     protected int minions = 0;
-    protected int completion = 0;
+    protected int completion = -1;
 
     protected TagManager tagManager;
     protected M<Burrow> mBurrow;
