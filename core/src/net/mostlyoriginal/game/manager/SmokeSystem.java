@@ -8,13 +8,11 @@ import net.mostlyoriginal.api.component.Schedule;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Anim;
-import net.mostlyoriginal.api.component.graphics.ColorAnimation;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.physics.Gravity;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.operation.OperationFactory;
-import net.mostlyoriginal.api.operation.common.Operation;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 
 /**

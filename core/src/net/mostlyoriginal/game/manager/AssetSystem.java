@@ -25,13 +25,23 @@ public class AssetSystem extends AbstractAssetSystem {
 
     public static final int DANCING_MAN_WIDTH = 24;
     public static final int DANCING_MAN_HEIGHT = 36;
+    public static final int PYRAMID_WIDTH = 125;
+    public static final int PYRAMID_HEIGHT = 62;
 
 
     private TagManager tagManager;
     private M<Pos> mPos;
 
     public AssetSystem() {
-        super("tmp/tiles.png");
+        super("dynasty.png");
+
+        add("backgroundTop", 0, 0, 160, 133, 1);
+        add("backgroundBottom", 0, 133, 160, 133, 1);
+        add("pyramid", 400, 32, PYRAMID_WIDTH, PYRAMID_HEIGHT, 1);
+
+        add("btn-test-up", 400, 160+40, 16, 10, 1);
+        add("btn-test-hover", 400, 160+40, 16, 10, 1);
+        add("btn-test-down", 400, 160+40, 16, 10, 1);
 
         add("dust_particle",32,136, 4, 4, 1);
 

@@ -13,11 +13,13 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.util.GdxUtil;
 import net.mostlyoriginal.api.utils.EntityUtil;
+import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.dilemma.DilemmaChoice;
 import net.mostlyoriginal.game.component.ui.*;
@@ -46,31 +48,37 @@ public class DilemmaSystem extends EntityProcessingSystem {
     private StockpileSystem stockpileSystem;
     private M<Tint> mColor;
     private M<Pos> mPos;
+    private M<Scale> mScale;
+    private M<Renderable> mRenderable;
 
     public DilemmaSystem() {
         super(Aspect.all(Pos.class, DilemmaChoice.class));
     }
 
     public Entity createLabel(int x, int y, Color color, String text) {
-        Entity entity = new EntityBuilder(world)
-                .with(Pos.class, Renderable.class, Tint.class)
+        Entity e = new EntityBuilder(world)
+                .with(Pos.class, Renderable.class, Tint.class, Scale.class)
                 .with(new Label(text)).group(DILEMMA_GROUP).build();
-        mPos.get(entity).xy.set(x,y);
-        mColor.get(entity).set(color);
-        return entity;
+        mPos.get(e).xy.set(x,y);
+        mColor.get(e).set(color);
+        mRenderable.get(e).layer = 100;
+        mScale.get(e).scale = G.ZOOM;
+        return e;
     }
 
     private Entity createOption(int x, int y, String text, ButtonListener listener) {
         //createLabel(x, y, COLOR_DILEMMA, text);
         Entity entity = new EntityBuilder(world)
-                .with(Pos.class, Renderable.class, Tint.class).with(
+                .with(Pos.class, Renderable.class, Tint.class, Scale.class).with(
                 new Bounds(0, -8, text.length() * 8, 0),
                 new Clickable(),
                 new Button(COLOR_RAW_DIMMED, COLOR_RAW_BRIGHT, "FFFFFF", listener),
                 new Label(text)
         )
                 .group(DILEMMA_GROUP).build();
+        mRenderable.get(entity).layer = 100;
         mPos.get(entity).xy.set(x,y);
+        mScale.get(entity).scale = G.ZOOM;
         return entity;
     }
 

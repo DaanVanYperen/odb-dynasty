@@ -19,6 +19,7 @@ public class StockpileUISystem extends BaseSystem {
     private TagManager tagManager;
     private M<Pos> mPos;
     private M<Bar> mBar;
+    private M<Renderable> mRenderable;
 
     @Override
     protected void initialize() {
@@ -40,6 +41,7 @@ public class StockpileUISystem extends BaseSystem {
                 .with(new Bar(label, icon, value, iconEmpty, valueEmpty))
                 .tag("resource-" + label)
                 .build();
+        mRenderable.get(entity).layer = 500;
         mPos.get(entity).xy.set(x,y);
         return entity;
     }

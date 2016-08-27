@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapProperties;
 import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.camera.Camera;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.graphics.Renderable;
@@ -44,16 +45,18 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     private M<Burrow> mBurrow;
     private M<Pos> mPos;
     private M<Renderable> mRenderable;
+    private M<Scale> mScale;
 
     @Override
     protected void initialize() {
         super.initialize();
+        createBackground();
         createDynastyMetadata();
         initStartingStockpile();
         createMousecursor();
         createCamera(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2);
         createPyramid();
-        createButton( 5, 5, 50, 10, "btn-scan", new ButtonListener(){
+        createButton(5, 5, 16*G.ZOOM, 10*G.ZOOM, "btn-test", new ButtonListener() {
             @Override
             public void run() {
                 dilemmaSystem.randomDilemma();
@@ -61,27 +64,44 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
         }, "test");
     }
 
+    private void createBackground() {
+        Entity e = new EntityBuilder(world)
+                .with(new Anim("backgroundTop"))
+                .with(Pos.class, Renderable.class, Scale.class)
+                .build();
+        mRenderable.get(e).layer=-1;
+        mScale.get(e).scale = G.ZOOM;
+        mPos.get(e).xy.y=133*G.ZOOM;
+
+        e = new EntityBuilder(world)
+                .with(new Anim("backgroundBottom"))
+                .with(Pos.class, Renderable.class, Scale.class)
+                .build();
+        mRenderable.get(e).layer=10;
+        mScale.get(e).scale = G.ZOOM;
+    }
+
     private void createPyramid() {
-        createStructure(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2, "dancingman", "pyramid");
+        createStructure(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2, "pyramid", "pyramid");
     }
 
     private void createStructure(int x, int y, String animId, String tag) {
         Entity entity = Anims.createCenteredAt(world,
-                AssetSystem.DANCING_MAN_WIDTH,
-                AssetSystem.DANCING_MAN_HEIGHT,
+                AssetSystem.PYRAMID_WIDTH,
+                AssetSystem.PYRAMID_HEIGHT,
                 animId,
-                Anims.scaleToScreenRoundedHeight(0.3f, AssetSystem.DANCING_MAN_HEIGHT));
-        mPos.get(entity).xy.set(x,y);
+                G.ZOOM);
+        mPos.get(entity).xy.y = y;
 
-        if ( tag != null ) {
+        if (tag != null) {
             tagManager.register(tag, entity);
         }
 
         Burrow burrow = mBurrow.create(entity);
-        burrow.percentage=1.0f;
-        burrow.targetPercentage=1.0f;
-        burrow.speed=10;
-        burrow.surfaceY=y;
+        burrow.percentage = 1.0f;
+        burrow.targetPercentage = 1.0f;
+        burrow.speed = 10;
+        burrow.surfaceY = y;
     }
 
     private void initStartingStockpile() {
@@ -116,16 +136,17 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     }
 
     public Entity createButton(int x, int y, int width, int height, String animPrefix, ButtonListener listener, String hint) {
-        Entity entity = new EntityBuilder(world)
+        Entity e = new EntityBuilder(world)
                 .with(new Bounds(0, 0, width, height),
                         new Anim(),
                         new Button(animPrefix, listener, hint),
                         new Clickable())
-                .with(Pos.class, Renderable.class, Tint.class)
+                .with(Pos.class, Renderable.class, Tint.class, Scale.class)
                 .build();
-        mPos.get(entity).xy.set(x, y);
-        mRenderable.get(entity).layer = 1100;
-        return entity;
+        mPos.get(e).xy.set(x, y);
+        mScale.get(e).scale = G.ZOOM;
+        mRenderable.get(e).layer = 1100;
+        return e;
     }
 
     private Entity createMousecursor() {
