@@ -206,6 +206,12 @@ public class DilemmaSystem extends EntityProcessingSystem {
         }
     }
 
+    /** pharao died */
+    public void death() {
+        stopDilemma();
+        startDilemma("YOU_DEAD");
+    }
+
     /**
      * Trigger hardcodede action indicated by string. If not exists, assume we are starting a dilemma.
      */

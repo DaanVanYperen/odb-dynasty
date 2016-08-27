@@ -23,6 +23,7 @@ import net.mostlyoriginal.game.manager.EntitySetupSystem;
 import net.mostlyoriginal.game.manager.FontManager;
 import net.mostlyoriginal.game.manager.SmokeSystem;
 import net.mostlyoriginal.game.system.agent.BurrowSystem;
+import net.mostlyoriginal.game.system.agent.PharaoDeathSystem;
 import net.mostlyoriginal.game.system.agent.TrembleSystem;
 import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
 import net.mostlyoriginal.game.system.render.BarRenderSystem;
@@ -78,6 +79,8 @@ public class GameScreen extends WorldScreen {
 
 						new DioramaSystem(),
 						new SunDioramaSystem(),
+
+						new PharaoDeathSystem(),
 
                         new MinionSystem(),
 

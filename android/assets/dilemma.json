@@ -16,6 +16,17 @@
             ]
         },
         {
+            "id": "YOU_DEAD",
+            "text": [ "Dead"],
+            "groups": [ "programmatic" ],
+            "choices": [
+                {
+                    "label": ["Try again"],
+                    "success": ["RESTART"]
+                }
+            ]
+        },
+        {
             "id": "DEBUG",
             "text": [ "Lorum Ipsum Plopsum Kabouterum"],
             "groups": [ "positive","negative" ],
