@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system.view;
 import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import net.mostlyoriginal.api.system.core.PassiveSystem;
+import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.util.Anims;
 
 /**
@@ -11,16 +12,16 @@ import net.mostlyoriginal.game.util.Anims;
 @Wire
 public class GameScreenSetupSystem extends PassiveSystem {
 
-	GameScreenAssetSystem assetSystem;
+	AssetSystem assetSystem;
 
 	@Override
 	protected void initialize() {
 
 		Anims.createCenteredAt(world,
-				GameScreenAssetSystem.DANCING_MAN_WIDTH,
-				GameScreenAssetSystem.DANCING_MAN_HEIGHT,
+				AssetSystem.DANCING_MAN_WIDTH,
+				AssetSystem.DANCING_MAN_HEIGHT,
 				"dancingman",
-				Anims.scaleToScreenRoundedHeight(0.3f, GameScreenAssetSystem.DANCING_MAN_HEIGHT));
+				Anims.scaleToScreenRoundedHeight(0.3f, AssetSystem.DANCING_MAN_HEIGHT));
 
 	}
 

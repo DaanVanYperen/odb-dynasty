@@ -1,0 +1,18 @@
+{
+    "dilemmas": [
+        {
+            "id": "TEMPLATE",
+            "text": [ "State the problem"],
+            "groups": [ "negative" ], // "positive"
+            "choices": [
+                {
+                    "label": ["Option A"]
+                },
+                {
+                    "label": ["Option B"],
+                    "success": [ "CONSEQUENCE_TAG" ]
+                }
+            ]
+        } //,
+    ]
+}
