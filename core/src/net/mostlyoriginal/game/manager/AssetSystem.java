@@ -39,6 +39,8 @@ public class AssetSystem extends AbstractAssetSystem {
         add("backgroundBottom", 0, 133, 160, 133, 1);
         add("pyramid", 400, 32, PYRAMID_WIDTH, PYRAMID_HEIGHT, 1);
 
+        add("minion-1", 400 + 16, 160+42, 2, 4, 1);
+
         add("btn-test-up", 400, 160+40, 16, 10, 1);
         add("btn-test-hover", 400, 160+40, 16, 10, 1);
         add("btn-test-down", 400, 160+40, 16, 10, 1);

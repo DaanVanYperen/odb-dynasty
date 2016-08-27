@@ -7,6 +7,7 @@ import com.artemis.utils.EntityBuilder;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.mouse.MouseCursor;
@@ -22,6 +23,7 @@ public class MinionSystem extends EntityProcessingSystem {
     public static final int MINION_LAYER = 500;
 
     private M<Renderable> mRenderable;
+    private M<Scale> mScale;
     private M<Pos> mPos;
 
     public MinionSystem() {
@@ -34,21 +36,22 @@ public class MinionSystem extends EntityProcessingSystem {
     }
 
     public Entity spawn() {
-        Entity entity = new EntityBuilder(world).with(
+        Entity e = new EntityBuilder(world).with(
                 new Bounds(0, 0, 0, 0),
-                new Anim("crew-0"))
-                .with(Pos.class,
+                new Anim("minion-1"))
+                .with(Pos.class,Scale.class,
                         Renderable.class).build();
-        randomizeLocation(entity);
-        mRenderable.get(entity).layer = MINION_LAYER;
-        return entity;
+        randomizeLocation(e);
+        mScale.get(e).scale = 2;
+        mRenderable.get(e).layer = MINION_LAYER;
+        return e;
 
     }
 
     private void randomizeLocation(Entity entity) {
         mPos.get(entity).xy.set(
                 MathUtils.random(0, G.CANVAS_WIDTH),
-                MathUtils.random(G.CANVAS_HEIGHT/2, G.CANVAS_HEIGHT/2 + 20));
+                MathUtils.random(G.CANVAS_HEIGHT/2 - 20, G.CANVAS_HEIGHT/2));
     }
 
     public void spawnMultiple(int count) {
