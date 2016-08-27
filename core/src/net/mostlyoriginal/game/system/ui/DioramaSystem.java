@@ -25,7 +25,6 @@ public class DioramaSystem extends BaseSystem {
     protected StockpileSystem stockpileSystem;
     protected int minions = 0;
     protected int completion = -1;
-    protected float sunPercentage = 0;
 
     protected TagManager tagManager;
     protected M<Burrow> mBurrow;
@@ -41,22 +40,6 @@ public class DioramaSystem extends BaseSystem {
         // 4. Shrink tomb.
         // 5. River state.
         // 6. situational events.
-        placeSun();
-    }
-
-    private void placeSun() {
-        float sunPercentageNew =
-                MathUtils.clamp(stockpileSystem.get(StockpileSystem.Resource.AGE) / (float)stockpileSystem.get(StockpileSystem.Resource.LIFESPAN),0,1);
-        float sunDelta = MathUtils.clamp(sunPercentageNew - sunPercentage,-1f,1f);
-        if ( Math.abs(sunDelta) > 0.01 ) {
-            sunPercentage += sunDelta * world.getDelta() * 5f;
-        }
-
-        float sunDegrees = sunPercentage * (180f + 40f) - 90f - 20f;
-
-        Entity sun = tagManager.getEntity("sun");
-        mPos.get(sun).xy.x= G.CANVAS_WIDTH / 2 - (AssetSystem.SUN_WIDTH * G.ZOOM)/2f + MathUtils.sinDeg(sunDegrees) * SUN_DISTANCE* G.ZOOM;
-        mPos.get(sun).xy.y=133 * G.ZOOM - (AssetSystem.SUN_HEIGHT * G.ZOOM)/2f + MathUtils.cosDeg(sunDegrees)* SUN_DISTANCE * G.ZOOM;
     }
 
     private void scaleTomb() {

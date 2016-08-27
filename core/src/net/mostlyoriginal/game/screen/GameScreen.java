@@ -29,10 +29,7 @@ import net.mostlyoriginal.game.system.render.BarRenderSystem;
 import net.mostlyoriginal.game.system.render.LabelRenderSystem;
 import net.mostlyoriginal.game.system.resource.MinionSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
-import net.mostlyoriginal.game.system.ui.ButtonSystem;
-import net.mostlyoriginal.game.system.ui.DioramaSystem;
-import net.mostlyoriginal.game.system.ui.MouseClickSystem;
-import net.mostlyoriginal.game.system.ui.StockpileUISystem;
+import net.mostlyoriginal.game.system.ui.*;
 import net.mostlyoriginal.plugin.OperationsPlugin;
 
 /**
@@ -78,7 +75,10 @@ public class GameScreen extends WorldScreen {
 						new PhysicsSystem(),
 
 						new StockpileUISystem(),
-                        new DioramaSystem(),
+
+						new DioramaSystem(),
+						new SunDioramaSystem(),
+
                         new MinionSystem(),
 
                         new ColorAnimationSystem(),
