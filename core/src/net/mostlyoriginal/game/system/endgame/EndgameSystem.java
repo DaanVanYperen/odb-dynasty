@@ -6,6 +6,7 @@ import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.EndgameReached;
 import net.mostlyoriginal.game.component.resource.Stockpile;
+import net.mostlyoriginal.game.manager.EntitySetupSystem;
 import net.mostlyoriginal.game.manager.StructureSystem;
 import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
 import net.mostlyoriginal.game.system.resource.MinionSystem;
@@ -24,6 +25,7 @@ public class EndgameSystem extends IteratingSystem {
     ScaffoldDioramaSystem scaffoldDioramaSystem;
     protected M<EndgameReached> mEndgameReached;
     private StructureSystem structureSystem;
+    private EntitySetupSystem entitySetupSystem;
 
     public EndgameSystem() {
         super(Aspect.all(Stockpile.class).exclude(EndgameReached.class));
@@ -96,6 +98,7 @@ public class EndgameSystem extends IteratingSystem {
     }
 
     public void setFutureScene() {
+        entitySetupSystem.createSkyscrapers();
         scaffoldDioramaSystem.kill();
         minionSystem.future();
     }

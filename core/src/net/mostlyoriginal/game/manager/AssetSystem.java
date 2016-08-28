@@ -132,6 +132,16 @@ public class AssetSystem extends AbstractAssetSystem {
 
         add("LOGO", 170, 36, LOGO_WIDTH, LOGO_HEIGHT, 1);
 
+        add("ROCK", 514, 253, 10, 10, 1);
+        add("FIREBALL", 525, 241, 14, 22,1);
+
+        add("SKYSCRAPERS", 0, 266, 160, 133, 1);
+
+//        FIRE PARTICLE 1: x:540, y:256, width:3, height:3
+//        FIRE PARTICLE 2: x:540, y:260, width:3, height:3
+//        FIRE PARTICLE 3: x:544, y:256, width:3, height:3
+//        FIRE PARTICLE 4: x:544, y:260, width:3, height:3
+
 
 
         /*

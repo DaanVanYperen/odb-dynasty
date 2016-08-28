@@ -5,16 +5,16 @@ import com.artemis.managers.GroupManager;
 import com.artemis.managers.PlayerManager;
 import com.artemis.managers.TagManager;
 import com.artemis.managers.UuidEntityManager;
-import com.artemis.utils.EntityBuilder;
 import com.artemis.utils.reflect.ClassReflection;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g3d.utils.shapebuilders.EllipseShapeBuilder;
 import net.mostlyoriginal.api.component.Schedule;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
+import net.mostlyoriginal.api.component.physics.Gravity;
+import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.operation.common.Operation;
 import net.mostlyoriginal.game.component.resource.Minion;
 import net.mostlyoriginal.game.component.resource.ZPos;
@@ -273,6 +273,21 @@ public class DynastyEntityBuilder {
 
     public DynastyEntityBuilder minion(int productivity) {
         edit.create(Minion.class).productivity = productivity;
+        return this;
+    }
+
+    public DynastyEntityBuilder velocity(float vx, float vy, float friction) {
+        Physics velocity = edit.create(Physics.class);
+        velocity.vx = vx;
+        velocity.vy = vy;
+        velocity.friction = friction;
+        return this;
+    }
+
+    public DynastyEntityBuilder gravity(float x, float y) {
+        Gravity gravity = edit.create(Gravity.class);
+        gravity.x=x;
+        gravity.y=y;
         return this;
     }
 }

@@ -29,6 +29,7 @@ import net.mostlyoriginal.game.system.logic.ProgressAlgorithmSystem;
 import net.mostlyoriginal.game.system.render.BarRenderSystem;
 import net.mostlyoriginal.game.system.render.LabelRenderSystem;
 import net.mostlyoriginal.game.system.render.ProgressRenderSystem;
+import net.mostlyoriginal.game.system.resource.FireballSystem;
 import net.mostlyoriginal.game.system.resource.MinionSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 import net.mostlyoriginal.game.system.resource.ZPosSystem;
@@ -72,6 +73,8 @@ public class GameScreen extends WorldScreen {
 						new MouseCursorSystem(),
 						new MouseClickSystem(),
 						new ButtonSystem(),
+
+						new FireballSystem(),
 
 						new BurrowSystem(),
 

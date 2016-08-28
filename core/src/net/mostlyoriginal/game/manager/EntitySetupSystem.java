@@ -85,6 +85,17 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
         mScale.get(e).scale = G.ZOOM;
     }
 
+    public void createSkyscrapers() {
+        Entity e = new DynastyEntityBuilder(world)
+                .with(new Anim("SKYSCRAPERS"))
+                .with(Pos.class, Renderable.class, Scale.class, Tint.class)
+                .schedule(OperationFactory.tween(new Tint("ffffff00"), new Tint("ffffffff"), 2f))
+                .build();
+        mRenderable.get(e).layer = -99;
+        mScale.get(e).scale = G.ZOOM;
+        mPos.get(e).xy.y = 133 * G.ZOOM;
+    }
+
     private void createLogo() {
         float y = G.CANVAS_HEIGHT * 0.75f - (AssetSystem.LOGO_HEIGHT / 2) * G.ZOOM;
         float x = G.CANVAS_WIDTH * 0.5f - (AssetSystem.LOGO_WIDTH / 2) * G.ZOOM;
