@@ -57,23 +57,12 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
         createMousecursor();
         createCamera(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2);
         createPyramid();
-        createSun();
         createButton(5, 5, 16*G.ZOOM, 10*G.ZOOM, "btn-test", new ButtonListener() {
             @Override
             public void run() {
                 dilemmaSystem.randomDilemma();
             }
         }, "test");
-    }
-
-    private void createSun() {
-        Entity e = new DynastyEntityBuilder(world)
-                .with(new Anim("SUN"))
-                .with(Pos.class, Renderable.class, Scale.class)
-                .tag("sun")
-                .build();
-        mRenderable.get(e).layer=-1;
-        mScale.get(e).scale = G.ZOOM;
     }
 
     private void createBackground() {

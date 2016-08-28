@@ -33,6 +33,7 @@ public class AssetSystem extends AbstractAssetSystem {
     public static final int SLAB_HEIGHT = 94;
     public static final int DEFAULT_ACTOR_WIDTH = 32;
     public static final int SCROLL_HEIGHT = 29;
+    public static final int RIVER_HEIGHT = 17;
 
 
     private TagManager tagManager;
@@ -54,6 +55,9 @@ public class AssetSystem extends AbstractAssetSystem {
         add("SCROLL", 548, 391, 89,SCROLL_HEIGHT, 1);
 
         add("STOCKPILE-TICK", 456, 236, 12, 10, 1);
+
+        add("RIVER", 400, 272, 160, RIVER_HEIGHT, 1, 4);
+        add("RIVER-BLOOD", 561, 272, 160, RIVER_HEIGHT, 1, 4);
 
         /*
         WAVES: x:160, y:129, width:160, height:4

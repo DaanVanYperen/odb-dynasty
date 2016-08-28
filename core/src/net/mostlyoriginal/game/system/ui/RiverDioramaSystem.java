@@ -11,9 +11,7 @@ import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.util.DynastyEntityBuilder;
 import net.mostlyoriginal.game.G;
-import net.mostlyoriginal.game.component.agent.Burrow;
 import net.mostlyoriginal.game.manager.AssetSystem;
-import net.mostlyoriginal.game.system.resource.MinionSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 
 /**
@@ -21,7 +19,7 @@ import net.mostlyoriginal.game.system.resource.StockpileSystem;
  * <p>
  * Created by Daan on 27-8-2016.
  */
-public class SunDioramaSystem extends BaseSystem {
+public class RiverDioramaSystem extends BaseSystem {
 
     private static final float SUN_DISTANCE = 64;
     protected StockpileSystem stockpileSystem;
@@ -36,11 +34,13 @@ public class SunDioramaSystem extends BaseSystem {
     }
 
     private void createSun() {
+        int riverMarginY = 8;
         new DynastyEntityBuilder(world)
-                .with(new Anim("SUN"))
+                .with(new Anim("RIVER"))
                 .with(Pos.class, Renderable.class, Scale.class)
-                .tag("sun")
-                .renderable(-1)
+                .tag("river")
+                .renderable(101)
+                .pos(0,(133 - riverMarginY - AssetSystem.RIVER_HEIGHT)*G.ZOOM)
                 .scale(G.ZOOM)
                 .build();
     }
@@ -48,17 +48,5 @@ public class SunDioramaSystem extends BaseSystem {
 
     @Override
     protected void processSystem() {
-        float sunPercentageNew =
-                MathUtils.clamp(stockpileSystem.get(StockpileSystem.Resource.AGE) / (float) stockpileSystem.get(StockpileSystem.Resource.LIFESPAN), 0, 1);
-        float sunDelta = MathUtils.clamp(sunPercentageNew - sunPercentage, -1f, 1f);
-        if (Math.abs(sunDelta) > 0.01) {
-            sunPercentage += sunDelta * world.getDelta() * 5f;
-        }
-
-        float sunDegrees = sunPercentage * (180f + 40f) - 90f - 20f;
-
-        Entity sun = tagManager.getEntity("sun");
-        mPos.get(sun).xy.x = G.CANVAS_WIDTH / 2 - (AssetSystem.SUN_WIDTH * G.ZOOM) / 2f + MathUtils.sinDeg(sunDegrees) * SUN_DISTANCE * G.ZOOM;
-        mPos.get(sun).xy.y = 133 * G.ZOOM - (AssetSystem.SUN_HEIGHT * G.ZOOM) / 2f + MathUtils.cosDeg(sunDegrees) * SUN_DISTANCE * G.ZOOM;
     }
 }
