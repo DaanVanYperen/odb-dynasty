@@ -97,7 +97,11 @@ public class DilemmaSystem extends EntityProcessingSystem {
     protected void initialize() {
         super.initialize();
         loadDilemmas();
-        randomDilemma();
+        startDebugDilemma();
+    }
+
+    private void startDebugDilemma() {
+        startDilemma("DEBUG");
     }
 
     private void loadDilemmas() {

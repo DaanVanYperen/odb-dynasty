@@ -6,10 +6,17 @@
             "name":"Bleeblebrox",
             "role":"Head Architect"
         }
+        {
+            "id": "GUIDE",
+            "asset":"ALIEN",
+            "name":"Anissa Semut",
+            "role":"Tour guide"
+        }
     ],
     "dilemmas": [
         {
-            "id": "TEMPLATE NEGATIVE",
+            "id": "TEMPLATE",
+            "comment": "Example dilemma.",
             "actor": "ALIEN",
             "text": [ "State the problem"],
             "groups": [ "template" ],
@@ -26,7 +33,8 @@
         },
         {
             "id": "YOU_DEAD",
-            "actor": "ALIEN",
+            "comment": "Shown when the pharao dies due to old age, with typical dynasty.",
+            "actor": "GUIDE",
             "text": [ "Dead"],
             "groups": [ "programmatic" ],
             "choices": [
@@ -38,21 +46,23 @@
         },
         {
             "id": "SUPER_DYNASTY",
-            "actor": "ALIEN",
-            "text": [ "Reached biggest dynasty posslbe."],
+            "comment": "Shown when a great dynasty has been achieved.",
+            "actor": "GUIDE",
+            "text": [ "Reached biggest dynasty possible."],
             "groups": [ "programmatic" ],
             "choices": [
                 {
                     "label": ["Play again"],
-                    "success": ["RESTART"]
+                    "success": ["RESTART"],
                 }
             ]
         },
         {
             "id": "DEBUG",
+            "comment": "Shown while debugging.",
             "actor": "ALIEN",
-            "text": [ "Lorum Ipsum Plopsum Kabouterum"],
-            "groups": [ "positive","negative" ],
+            "text": [ "Debug options"],
+            "groups": [ "programmatic" ],
             "choices": [
                 {
                     "label": ["Age +"],

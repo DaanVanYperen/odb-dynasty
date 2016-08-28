@@ -7,6 +7,7 @@ public class Dilemma {
 
     public String id;
     public String actor;
+    public String comment; // not used.
     public String[] text;
     public Choice[] choices;
     public String[] groups;
