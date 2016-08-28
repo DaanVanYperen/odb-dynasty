@@ -10,7 +10,7 @@ public class Label extends Component {
     public String text;
     public Align align = Align.LEFT;
 
-    /** target layer, higher is in front, lower is behind. */
+    /** target smokeLayer, higher is in front, lower is behind. */
     public float scale = 1f;
 
     public Label() {}

@@ -70,6 +70,7 @@ public class StructureSystem extends Manager {
 
         Burrow burrow = mBurrow.create(entity);
         burrow.percentage = burrowPercentage;
+        burrow.smokeLayer = layer + 1;
         burrow.targetPercentage = burrowTargetPercentage;
         burrow.speed = speed;
         burrow.surfaceY = y;

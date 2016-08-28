@@ -46,7 +46,7 @@ public class SmokeSystem extends Manager {
                 .add(Physics.class).build(world);
     }
 
-    public void dust(float y, float x1, float x2, int particles )
+    public void dust(float y, float x1, float x2, int particles, int layer )
     {
         for(int i = 0; i<particles; i++) {
             int e = world.create(dustParticle);
@@ -57,7 +57,7 @@ public class SmokeSystem extends Manager {
             physics.vy=5 + MathUtils.random(0,10f);
             physics.friction=0.01f;
             mScale.get(e).scale=MathUtils.random(0.5f,3f);
-            mRenderable.get(e).layer = 10;
+            mRenderable.get(e).layer = layer;
 
             mSchedule.get(e).operation.add(
                     OperationFactory.sequence(

@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Anim;
-import net.mostlyoriginal.api.operation.temporal.TweenOperation;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.game.component.agent.Burrow;
 import net.mostlyoriginal.game.component.agent.Tremble;
@@ -69,7 +68,7 @@ public class BurrowSystem extends EntityProcessingSystem {
                 float maxWidth = keyFrame.getRegionWidth() * scale;
                 // some structures are wider at the bottom. account for this with the dust.
                 float surfacedWidth = Interpolation.linear.apply(maxWidth, maxWidth * burrow.topWidthPercentage, burrow.percentage);
-                smokeSystem.dust(burrow.surfaceY, pos.xy.x + maxWidth/2f - surfacedWidth/2f, pos.xy.x + maxWidth/2f + surfacedWidth/2f, 5);
+                smokeSystem.dust(burrow.surfaceY, pos.xy.x + maxWidth/2f - surfacedWidth/2f, pos.xy.x + maxWidth/2f + surfacedWidth/2f, 5, burrow.smokeLayer);
             }
 
 
