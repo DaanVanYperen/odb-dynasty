@@ -10,6 +10,7 @@ import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Anim;
+import net.mostlyoriginal.api.component.graphics.Invisible;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
@@ -32,7 +33,9 @@ public class MinionSystem extends IteratingSystem {
     private M<Pos> mPos;
     private M<Schedule> mSchedule;
     private M<Cheer> mCheer;
+    private M<Invisible> mInvisible;
     private M<Minion> mMinion;
+    private M<Anim> mAnim;
 
     public MinionSystem() {
         super(Aspect.all(Minion.class));
@@ -40,7 +43,10 @@ public class MinionSystem extends IteratingSystem {
 
     @Override
     protected void process(int e) {
-
+        mInvisible.remove(e);
+        Minion minion = mMinion.get(e);
+        mPos.get(e).xy.y = G.CANVAS_HEIGHT/2 - minion.z / 2;
+        mRenderable.get(e).layer = MINION_LAYER + (int)minion.z;
     }
 
     /** How productive is the total work force? */
@@ -63,7 +69,7 @@ public class MinionSystem extends IteratingSystem {
         Entity e = new DynastyEntityBuilder(world).with(
                 new Bounds(0, 0, 0, 0),
                 new Anim(id))
-                .with(Pos.class,Scale.class,
+                .with(Pos.class,Scale.class,Invisible.class,
                         Renderable.class)
                 .minion(productivity).build();
         randomizeLocation(e);
@@ -91,8 +97,7 @@ public class MinionSystem extends IteratingSystem {
 
     private void randomizeLocation(Entity entity) {
         mPos.get(entity).xy.set(
-                MathUtils.random(8 * G.ZOOM, G.CANVAS_WIDTH - 8*G.ZOOM),
-                MathUtils.random(G.CANVAS_HEIGHT/2 - 20, G.CANVAS_HEIGHT/2 - 2));
+                MathUtils.random(8 * G.ZOOM, G.CANVAS_WIDTH - 8*G.ZOOM),0);
     }
 
     public void spawnMultiple(int count, String id, int productivity) {
