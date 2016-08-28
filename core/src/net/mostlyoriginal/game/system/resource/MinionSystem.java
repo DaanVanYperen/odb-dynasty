@@ -31,6 +31,7 @@ import net.mostlyoriginal.game.system.endgame.EndgameSystem;
 public class MinionSystem extends IteratingSystem {
 
     public static final int MINION_LAYER = 600;
+    public static final String TINT_INVISIBLE = "ffffff00";
 
     protected AssetSystem assetSystem;
     private M<Renderable> mRenderable;
@@ -43,6 +44,7 @@ public class MinionSystem extends IteratingSystem {
     private M<Anim> mAnim;
     private M<Physics> mPhysics;
     private EndgameSystem endgameSystem;
+    private M<Tint> mColor;
 
     public MinionSystem() {
         super(Aspect.all(Minion.class));
@@ -50,7 +52,6 @@ public class MinionSystem extends IteratingSystem {
 
     @Override
     protected void process(int e) {
-        mInvisible.remove(e);
         Minion minion = mMinion.get(e);
     }
 
@@ -74,14 +75,15 @@ public class MinionSystem extends IteratingSystem {
         Entity e = new DynastyEntityBuilder(world).with(
                 new Bounds(0, 0, 0, 0),
                 new Anim(id))
-                .with(Pos.class,Scale.class,Invisible.class,
+                .with(Pos.class,Scale.class,
                         Renderable.class, Physics.class, Gravity.class, Tint.class, ZPos.class)
-                .schedule(OperationFactory.tween(new Tint("ffffff00"), new Tint("ffffffff"), 0.5f))
+                .schedule(OperationFactory.tween(new Tint(TINT_INVISIBLE), new Tint("ffffffff"), 0.5f))
                 .minion(productivity).build();
         randomizeLocation(e);
         Physics physics = mPhysics.get(e);
         physics.vy = 500;
         physics.friction = 20f;
+        mColor.get(e).setHex(TINT_INVISIBLE);
         mScale.get(e).scale = G.ZOOM;
         mRenderable.get(e).layer = MINION_LAYER;
         return e;
