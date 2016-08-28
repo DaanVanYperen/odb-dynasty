@@ -23,6 +23,7 @@ import net.mostlyoriginal.game.component.agent.Cheer;
 import net.mostlyoriginal.game.component.resource.Minion;
 import net.mostlyoriginal.game.component.resource.ZPos;
 import net.mostlyoriginal.game.manager.AssetSystem;
+import net.mostlyoriginal.game.system.endgame.EndgameSystem;
 
 /**
  * Created by Daan on 27-8-2016.
@@ -41,6 +42,7 @@ public class MinionSystem extends IteratingSystem {
     private M<Minion> mMinion;
     private M<Anim> mAnim;
     private M<Physics> mPhysics;
+    private EndgameSystem endgameSystem;
 
     public MinionSystem() {
         super(Aspect.all(Minion.class));
@@ -102,6 +104,32 @@ public class MinionSystem extends IteratingSystem {
         }
     }
 
+    public void future()
+    {
+        clear();
+        spawnMultiple(endgameSystem.getSuccess().ordinal()*endgameSystem.getSuccess().ordinal()*5, new String[]{
+                "TOURIST MALE 1",
+                "TOURIST MALE 2",
+                "TOURIST MALE 3",
+                "TOURIST MALE 4",
+                "TOURIST FEMALE 1",
+                "TOURIST FEMALE 2",
+                "TOURIST FEMALE 3",
+                "TOURIST FEMALE 4"
+        },0);
+
+        spawnMultiple(1,"GUIDE PUPPET",0);
+    }
+
+    private void clear() {
+        IntBag actives = subscription.getEntities();
+        int[] ids = actives.getData();
+        for (int i = 0, s = actives.size(); s > i; i++) {
+            int entity = ids[i];
+            mInvisible.create(entity); // invisible, cause we still want to count them towards score.
+        }
+    }
+
     private void randomizeLocation(Entity entity) {
         mPos.get(entity).xy.set(
                 MathUtils.random(8 * G.ZOOM, G.CANVAS_WIDTH - 8*G.ZOOM),0);
@@ -109,5 +137,9 @@ public class MinionSystem extends IteratingSystem {
 
     public void spawnMultiple(int count, String id, int productivity) {
         for(int i=0;i<count;i++) spawn(id, productivity);
+    }
+
+    public void spawnMultiple(int count, String[] id, int productivity) {
+        for(int i=0;i<count;i++) spawn(id[MathUtils.random(0, id.length-1)], productivity);
     }
 }

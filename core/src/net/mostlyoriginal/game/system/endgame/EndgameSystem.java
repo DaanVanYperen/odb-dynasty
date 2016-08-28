@@ -97,5 +97,6 @@ public class EndgameSystem extends IteratingSystem {
 
     public void setFutureScene() {
         scaffoldDioramaSystem.kill();
+        minionSystem.future();
     }
 }

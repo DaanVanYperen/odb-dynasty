@@ -310,6 +310,10 @@
             "success": [ "+COMPLETION", "DEBUG_PROGRESS" ]
           },
           {
+            "label": ["Time travel"],
+            "success": [ "TIMETRAVEL" ]
+          },
+          {
             "label": ["Back"],
             "success": [ "DEBUG" ]
           },

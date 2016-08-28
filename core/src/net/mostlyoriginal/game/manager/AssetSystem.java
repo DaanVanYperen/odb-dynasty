@@ -70,6 +70,17 @@ public class AssetSystem extends AbstractAssetSystem {
         add("PHARAOH", 427, 200, 4, 7, 1);
         add("CAMEL", 434, 201, 12, 8, 1);
 
+
+        add("TOURIST MALE 1", 464, 202, 3, 5, 1);
+        add("TOURIST MALE 2", 468, 202, 3, 5, 1);
+        add("TOURIST MALE 3", 472, 202, 3, 5, 1);
+        add("TOURIST MALE 4", 476, 202, 3, 5, 1);
+        add("TOURIST FEMALE 1", 480, 202, 2, 5, 1);
+        add("TOURIST FEMALE 2", 483, 202, 2, 5, 1);
+        add("TOURIST FEMALE 3", 486, 202, 2, 5, 1);
+        add("TOURIST FEMALE 4", 489, 202, 2, 5, 1);
+        add("GUIDE PUPPET", 492, 202, 2, 5, 1);
+
         add("SLAB", 400, 391, SLAB_WIDTH, SLAB_HEIGHT, 1);
         add("SCROLL", 548, 391, 89, SCROLL_HEIGHT, 1);
 
