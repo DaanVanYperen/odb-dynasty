@@ -70,6 +70,7 @@
             "actor": "ALIEN",
             "text": [ "Curse upon us! The river runs red with blood and dead fish!"],
             "groups": [ "negative" ],
+            "predicates": ["RIVER_WATER"],
             "immediate": ["RIVER_BLOOD"],
             "choices": [
                 {

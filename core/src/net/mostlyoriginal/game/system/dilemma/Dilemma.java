@@ -11,6 +11,7 @@ public class Dilemma {
     public String[] text;
     public Choice[] choices;
     public String[] immediate;
+    public String[] predicates;
     public String[] groups;
 
 	public Dilemma() {

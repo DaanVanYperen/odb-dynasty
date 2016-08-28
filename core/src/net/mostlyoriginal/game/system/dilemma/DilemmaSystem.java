@@ -246,11 +246,26 @@ public class DilemmaSystem extends EntityProcessingSystem {
         while (dilemma == null) {
             dilemma = dilemmas.get(MathUtils.random(0, dilemmas.size() - 1));
 
-            if (dilemma != null) {
+            if (dilemma != null && predicatesMet(dilemma)) {
                 dilemma = startDilemma(dilemma);
                 // if startdilemma fails, it returns NULL and we will search again.
             }
         }
+    }
+
+    /** @return {@code true} if all predicates met (or no predicates. {@code false} if failed. */
+    private boolean predicatesMet(Dilemma dilemma) {
+        if ( dilemma.predicates != null )
+        {
+            for (String predicate : dilemma.predicates) {
+                switch (predicate)
+                {
+                    case "RIVER_WATER" : return riverSystem.getState() == RiverDioramaSystem.RiverState.RIVER_WATER;
+                    case "RIVER_BLOOD" : return riverSystem.getState() == RiverDioramaSystem.RiverState.RIVER_BLOOD;
+                }
+            }
+        }
+        return true;
     }
 
     /**

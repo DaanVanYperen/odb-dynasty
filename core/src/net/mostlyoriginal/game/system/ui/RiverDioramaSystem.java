@@ -43,7 +43,7 @@ public class RiverDioramaSystem extends BaseSystem {
     private Tint invis = new Tint(1f, 1f, 1f, 0f);
     private RiverState state =RIVER_NONE;
 
-    public static enum RiverState {
+    public enum RiverState {
         RIVER_NONE,
         RIVER_BLOOD,
         RIVER_WATER
