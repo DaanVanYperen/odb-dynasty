@@ -24,6 +24,7 @@ import net.mostlyoriginal.game.system.agent.CheerSystem;
 import net.mostlyoriginal.game.system.endgame.EndgameSystem;
 import net.mostlyoriginal.game.system.agent.TrembleSystem;
 import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
+import net.mostlyoriginal.game.system.logic.ProgressAlgorithmSystem;
 import net.mostlyoriginal.game.system.render.BarRenderSystem;
 import net.mostlyoriginal.game.system.render.LabelRenderSystem;
 import net.mostlyoriginal.game.system.resource.MinionSystem;
@@ -75,6 +76,8 @@ public class GameScreen extends WorldScreen {
 
 						new CollisionSystem(),
 						new PhysicsSystem(),
+
+						new ProgressAlgorithmSystem(),
 
 						new StockpileUISystem(),
 

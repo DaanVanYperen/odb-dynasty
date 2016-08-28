@@ -21,6 +21,7 @@ import net.mostlyoriginal.game.component.dilemma.DilemmaChoice;
 import net.mostlyoriginal.game.component.ui.*;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.manager.StructureSystem;
+import net.mostlyoriginal.game.system.logic.ProgressAlgorithmSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 import net.mostlyoriginal.game.system.ui.RiverDioramaSystem;
 
@@ -53,6 +54,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
     private M<Scale> mScale;
     private M<Renderable> mRenderable;
     private RiverDioramaSystem riverSystem;
+    private ProgressAlgorithmSystem progressAlgorithmSystem;
 
     public DilemmaSystem() {
         super(Aspect.all(Pos.class, DilemmaChoice.class));
@@ -316,6 +318,9 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 break;
             case "+COMPLETION":
                 stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, 1);
+                break;
+            case "PROGRESS":
+                progressAlgorithmSystem.progress();
                 break;
             case "+WORSHIP":
                 stockpileSystem.alter(StockpileSystem.Resource.WORSHIP, 1);

@@ -28,13 +28,24 @@ public class StockpileSystem extends EntityProcessingSystem {
     }
 
     public enum Resource {
-        AGE,
-        LIFESPAN,
-        WEALTH,
-        FOOD,
-        WORKERS,
-        COMPLETION,
-        WORSHIP
+        AGE(1),
+        LIFESPAN(1),
+        WEALTH(1),
+        FOOD(1),
+        WORKERS(1),
+        COMPLETION(1),
+        COMPLETION_PERCENTILE(50),
+        WORSHIP(1);
+
+        private int barScale;
+
+        Resource(int barScale) {
+            this.barScale = barScale;
+        }
+
+        public int getBarScale() {
+            return barScale;
+        }
     }
 
     public StockpileSystem() {
@@ -66,6 +77,9 @@ public class StockpileSystem extends EntityProcessingSystem {
                 case COMPLETION:
                     stockpile.completion = MathUtils.clamp(stockpile.completion + amount, 0,100);
                     break;
+                case COMPLETION_PERCENTILE:
+                    stockpile.completionPercentile = MathUtils.clamp(stockpile.completionPercentile + amount, 0,2000);
+                    break;
                 case WORSHIP:
                     stockpile.worship = MathUtils.clamp(stockpile.worship + amount, 0,100);
                     break;
@@ -92,6 +106,8 @@ public class StockpileSystem extends EntityProcessingSystem {
                     return stockpile.wealth;
                 case COMPLETION:
                     return stockpile.completion;
+                case COMPLETION_PERCENTILE:
+                    return stockpile.completionPercentile;
                 case WORSHIP:
                     return stockpile.worship;
             }

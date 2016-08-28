@@ -15,6 +15,7 @@ import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.delegate.DeferredEntityProcessingSystem;
 import net.mostlyoriginal.api.system.delegate.EntityProcessPrincipal;
+import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.ui.Bar;
 import net.mostlyoriginal.game.manager.FontManager;
 
@@ -107,11 +108,18 @@ public class BarRenderSystem extends DeferredEntityProcessingSystem {
         if ( bar.value + bar.valueEmpty >= 30 ) barWidth -=1;
         if ( bar.value + bar.valueEmpty >= 40 ) barWidth -=1;
 
+        if ( bar.value >= 8 )
+            barWidth=10;
+        if ( bar.value >= 16 )
+            barWidth=6;
+        if ( bar.value >= 24 )
+            barWidth=3;
         for ( int i =0; i< bar.value; i++)
         {
+
             batch.draw(frame,
-                    roundToPixels(pos.xy.x + glyphLayout.width + i * barWidth),
-                    roundToPixels(pos.xy.y - glyphLayout.height),
+                    roundToPixels(pos.xy.x + glyphLayout.width + 5 + i * barWidth),
+                    roundToPixels(pos.xy.y - glyphLayout.height - 2),
                     frame.getRegionWidth(),
                     frame.getRegionHeight());
         }
@@ -122,8 +130,8 @@ public class BarRenderSystem extends DeferredEntityProcessingSystem {
         for ( int i =0; i< emptyCount; i++)
         {
             batch.draw(frame2,
-                    roundToPixels(pos.xy.x + glyphLayout.width + (i+bar.value) * barWidth),
-                    roundToPixels(pos.xy.y - glyphLayout.height),
+                    roundToPixels(pos.xy.x + glyphLayout.width + 5 + (i+bar.value) * barWidth),
+                    roundToPixels(pos.xy.y - glyphLayout.height - 2),
                     frame.getRegionWidth(),
                     frame.getRegionHeight());
         }

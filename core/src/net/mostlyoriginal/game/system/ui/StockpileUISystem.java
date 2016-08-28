@@ -32,7 +32,7 @@ public class StockpileUISystem extends BaseSystem {
     private void createStockpileUI() {
         int index=1;
         for (StockpileSystem.Resource resource : StockpileSystem.Resource.values()) {
-            createBar(10, G.CANVAS_HEIGHT - (index * 10),  resource.name(), "STOCKPILE-TICK", null, 0 , 0);
+            createBar(10, G.CANVAS_HEIGHT - (index * 11),  resource.name(), "STOCKPILE-TICK", null, 0 , 0);
             index++;
         }
     }
@@ -53,8 +53,8 @@ public class StockpileUISystem extends BaseSystem {
     protected void processSystem() {
         for (StockpileSystem.Resource resource : StockpileSystem.Resource.values()) {
             Entity barEntity = tagManager.getEntity("resource-" + resource.name());
-            mBar.get(barEntity).value = stockpileSystem.get(resource);
-            mBar.get(barEntity).valueEmpty = 10 - stockpileSystem.get(resource);
+            mBar.get(barEntity).value = stockpileSystem.get(resource) / resource.getBarScale();
+            mBar.get(barEntity).valueEmpty = 0;
         }
     }
 }

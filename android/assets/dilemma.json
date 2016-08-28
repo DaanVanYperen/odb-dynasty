@@ -59,7 +59,11 @@
                     "success": [ "+AGE", "DEBUG" ]
                 },
                 {
-                    "label": ["Completion +"],
+                    "label": ["Progress"],
+                    "success": [ "PROGRESS", "DEBUG" ]
+                },
+                {
+                    "label": ["Instant progress"],
                     "success": [ "+COMPLETION", "DEBUG" ]
                 },
                 {
