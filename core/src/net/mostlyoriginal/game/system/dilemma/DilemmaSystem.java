@@ -74,15 +74,15 @@ public class DilemmaSystem extends EntityProcessingSystem {
         Label label = new Label(text, TEXT_ZOOM);
         label.shadowColor = new Tint(shadowTextColor);
         label.maxWidth = maxWidth;
+        int insertDistanceY =AssetSystem.SLAB_HEIGHT*G.ZOOM;
         DynastyEntityBuilder builder = new DynastyEntityBuilder(world)
                 .with(label)
                 .group(DILEMMA_GROUP)
-                .pos(x, y)
+                .pos(x, y- insertDistanceY)
                 .renderable(920)
                 .scale(TEXT_ZOOM)
                 .tint(color);
 
-        int insertDistanceY =AssetSystem.SLAB_HEIGHT*G.ZOOM;
         builder.schedule(OperationFactory.tween(new Pos(x,y -insertDistanceY ),
                 new Pos(x, y), 1f, Interpolation.pow4Out ));
 
@@ -97,6 +97,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
         label.shadowColor = new Tint(DILEMMA_SHADOW_TEXT_COLOR);
         label.maxWidth = maxWidth;
         float height = labelRenderSystem.estimateHeight(label);
+        int insertDistanceY =AssetSystem.SLAB_HEIGHT*G.ZOOM;
         DynastyEntityBuilder builder = new DynastyEntityBuilder(world)
                 .with(Tint.class).with(
                         new Bounds(0, (int) -height, text.length() * 8, 0),
@@ -106,10 +107,9 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 )
                 .group(DILEMMA_GROUP)
                 .renderable(920)
-                .pos(x, y)
+                .pos(x, y-insertDistanceY)
                 .scale(TEXT_ZOOM);
 
-        int insertDistanceY =AssetSystem.SLAB_HEIGHT*G.ZOOM;
         builder.schedule(OperationFactory.tween(new Pos(x,y-insertDistanceY),
                 new Pos(x, y), 1f, Interpolation.pow4Out ));
         builder.build();
@@ -204,7 +204,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
 
         Entity slab =
                 new DynastyEntityBuilder(world)
-                        .pos(x, y)
+                        .pos(x, y- insertDistanceY)
                         .anim("SLAB")
                         .renderable(910)
                         .scale(G.ZOOM)
@@ -219,7 +219,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
         if (actorId != null) {
             Entity actor =
                     new DynastyEntityBuilder(world)
-                            .pos(x + actorOffsetX, y + actorOffsetY)
+                            .pos(x + actorOffsetX, y + actorOffsetY- insertDistanceY)
                             .anim(actorId)
                             .renderable(908)
                             .scale(G.ZOOM)
@@ -234,7 +234,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
 
             Entity scroll =
                     new DynastyEntityBuilder(world)
-                            .pos(x + scrollOffsetX, y + scrollOffsetY)
+                            .pos(x + scrollOffsetX, y + scrollOffsetY- insertDistanceY)
                             .anim("SCROLL")
                             .renderable(912)
                             .scale(G.ZOOM)
