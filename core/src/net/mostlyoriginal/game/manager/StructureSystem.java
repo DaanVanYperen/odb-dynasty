@@ -44,11 +44,22 @@ public class StructureSystem extends Manager {
         Entity entity = createStructure(MathUtils.randomBoolean() ? (int) MathUtils.random(G.CANVAS_WIDTH * 0.05f, G.CANVAS_WIDTH * 0.35f) :
                 (int) MathUtils.random(G.CANVAS_WIDTH * 0.65f, G.CANVAS_WIDTH * 0.95f) ,
                 G.CANVAS_HEIGHT / 2,
-                "OBELISK",
+                randomObeliskId(),
                 "obelisk", 1.0f, 0f, AssetSystem.OBELISK_WIDTH, AssetSystem.OBELISK_HEIGHT, PYRAMID_BURROW_SPEED * 6, -5);
         groupManager.add(entity, "obelisks");
 
         minionSystem.allCheer();
+    }
+
+    private String randomObeliskId() {
+        switch (MathUtils.random(1,5))
+        {
+            case 1: return "OBELISK BASE 1";
+            case 2: return "OBELISK BASE 2";
+            case 3: return "OBELISK BASE 3";
+            case 4: return "OBELISK BASE 4";
+            default: return "OBELISK BASE 5";
+        }
     }
 
     public void createPyramid() {
