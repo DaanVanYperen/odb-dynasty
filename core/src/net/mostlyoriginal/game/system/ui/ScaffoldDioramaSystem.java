@@ -3,9 +3,11 @@ package net.mostlyoriginal.game.system.ui;
 import com.artemis.Aspect;
 import com.artemis.BaseSystem;
 import com.artemis.Entity;
+import com.artemis.EntitySubscription;
 import com.artemis.managers.TagManager;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.systems.IteratingSystem;
+import com.artemis.utils.IntBag;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.Schedule;
@@ -37,6 +39,8 @@ public class ScaffoldDioramaSystem extends BaseSystem {
     private static final int BIG_SCAFFOLD_WIDTH = 16;
     public static final int MAX_COLUMNS = 10;
 
+    protected M<Pos> mPos;
+
     protected SmokeSystem smokeSystem;
     private int targetHeight[] = new int[MAX_COLUMNS];
     private int actualHeight[] = new int[MAX_COLUMNS];
@@ -60,6 +64,7 @@ public class ScaffoldDioramaSystem extends BaseSystem {
 
     };
     private AssetSystem assetSystem;
+    private EntitySubscription scaffoldSubscription;
 
     /*
     add("SCAFFOLDING SMALL TILE 1", 488, 224, 8,  8,1);
@@ -78,6 +83,7 @@ public class ScaffoldDioramaSystem extends BaseSystem {
 
     @Override
     protected void initialize() {
+        scaffoldSubscription = world.getAspectSubscriptionManager().get(Aspect.all(Scaffold.class));
         for(int column=0;column<MAX_COLUMNS;column++)
         {
             targetHeight[column] = MathUtils.random(0,4);
@@ -98,10 +104,11 @@ public class ScaffoldDioramaSystem extends BaseSystem {
         }
 
         if (height % 2 == 0) {
-            createScaffold(x + MathUtils.random(0,BIG_SCAFFOLD_WIDTH/2-1) * G.ZOOM, yy, smallScaffolds);
+            int smallX = x + MathUtils.random(0, BIG_SCAFFOLD_WIDTH / 2 - 1) * G.ZOOM;
+            createScaffold(smallX, yy, smallScaffolds);
             yy += BIG_SCAFFOLD_HEIGHT / 2 * G.ZOOM;
             if (MathUtils.random(0,100)<75) {
-                createScaffold(x, yy, items);
+                createScaffold(smallX, yy, items);
             }
         }
     }
@@ -115,7 +122,7 @@ public class ScaffoldDioramaSystem extends BaseSystem {
                 .scale(G.ZOOM).build();
 
         TextureRegion frame = assetSystem.get(id).getKeyFrame(0,true);
-        smokeSystem.cloud(x,y,x+frame.getRegionWidth()*G.ZOOM,y+frame.getRegionHeight()*G.ZOOM, 100, 505);
+        smokeSystem.cloud(x,y,x+frame.getRegionWidth()*G.ZOOM,y+frame.getRegionHeight()*G.ZOOM, 20, 505);
     }
 
     float age;
@@ -134,10 +141,24 @@ public class ScaffoldDioramaSystem extends BaseSystem {
         for (int column = 0; column < MAX_COLUMNS; column++) {
 
             if ( targetHeight[column] > actualHeight[column] && MathUtils.random(0,100) < 25 ) {
+                int x = column * BIG_SCAFFOLD_WIDTH * G.ZOOM;
+                expireScaffolds(x, x+ BIG_SCAFFOLD_WIDTH-1);
                 actualHeight[column] =
                         MathUtils.clamp(targetHeight[column], actualHeight[column]+1, actualHeight[column]+2);
+                spawn(x, 133 * G.ZOOM - 4 * G.ZOOM, actualHeight[column]);
+            }
+        }
+    }
 
-                spawn(column * BIG_SCAFFOLD_WIDTH * G.ZOOM, 133 * G.ZOOM - 4 * G.ZOOM, actualHeight[column]);
+    private void expireScaffolds(int x, int x2) {
+        IntBag entities = scaffoldSubscription.getEntities();
+        for(int i=0,s=entities.size();i<s;i++)
+        {
+            int entity = entities.get(i);
+            float entityX = mPos.get(entity).xy.x;
+            if ( entityX >= x && entityX <= x2 )
+            {
+                world.delete(entity);
             }
         }
     }
