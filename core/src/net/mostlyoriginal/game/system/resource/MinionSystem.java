@@ -12,6 +12,7 @@ import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.graphics.Invisible;
 import net.mostlyoriginal.api.component.graphics.Renderable;
+import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.physics.Gravity;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.operation.OperationFactory;
@@ -80,7 +81,8 @@ public class MinionSystem extends IteratingSystem {
                 new Bounds(0, 0, 0, 0),
                 new Anim(id))
                 .with(Pos.class,Scale.class,Invisible.class,
-                        Renderable.class, Physics.class, Gravity.class)
+                        Renderable.class, Physics.class, Gravity.class, Tint.class)
+                .schedule(OperationFactory.tween(new Tint("ffffff00"), new Tint("ffffffff"), 0.5f))
                 .minion(productivity).build();
         randomizeLocation(e);
         Physics physics = mPhysics.get(e);
