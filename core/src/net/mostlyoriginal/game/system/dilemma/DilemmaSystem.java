@@ -7,7 +7,6 @@ import com.artemis.systems.EntityProcessingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
@@ -42,6 +41,8 @@ public class DilemmaSystem extends EntityProcessingSystem {
     public static final int TEXT_ZOOM = G.ZOOM;
     public static final String DILEMMA_SHADOW_TEXT_COLOR = "9f9a9b";
     public static final String DILEMMA_SCROLL_SHADOW_COLOR = "f3b072";
+    public static final int DISCIPLINE_FOLLOWUP_WAIT_TIME = 6;
+    public static final int INITIAL_DISCIPLINE_WAIT_TIME = 6;
     private DilemmaLibrary dilemmaLibrary;
 
     public static final String DILEMMA_GROUP = "dilemma";
@@ -123,7 +124,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
     protected void initialize() {
         super.initialize();
         loadDilemmas();
-        startDebugDilemma();
+        //startDebugDilemma();
     }
 
     public void startDebugDilemma() {
@@ -261,6 +262,20 @@ public class DilemmaSystem extends EntityProcessingSystem {
         dilemmaActive = false;
     }
 
+    float noDisciplineCooldown = INITIAL_DISCIPLINE_WAIT_TIME;
+
+    @Override
+    protected void begin() {
+        super.begin();
+
+        if ( !dilemmaActive ) {
+            noDisciplineCooldown -= world.delta;
+            if (noDisciplineCooldown <= 0) {
+                noDisciplineCooldown = DISCIPLINE_FOLLOWUP_WAIT_TIME;
+                randomDilemma();
+            }
+        }
+    }
 
     @Override
     protected void process(Entity e) {
