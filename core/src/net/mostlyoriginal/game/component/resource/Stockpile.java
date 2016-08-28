@@ -13,7 +13,7 @@ public class Stockpile extends Component {
     public int wealth;
     public int workers;
     public int completion;
-
+    public int worship;
 
     public Stockpile() {}
 }

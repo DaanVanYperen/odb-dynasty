@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Anim;
+import net.mostlyoriginal.api.component.graphics.Invisible;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.util.DynastyEntityBuilder;
@@ -27,6 +28,8 @@ public class RiverDioramaSystem extends BaseSystem {
 
     protected TagManager tagManager;
     protected M<Pos> mPos;
+    protected M<Invisible> mInvisible;
+    protected M<Anim> mAnim;
 
     @Override
     protected void initialize() {
@@ -43,6 +46,27 @@ public class RiverDioramaSystem extends BaseSystem {
                 .pos(0,(133 - riverMarginY - AssetSystem.RIVER_HEIGHT)*G.ZOOM)
                 .scale(G.ZOOM)
                 .build();
+    }
+
+    public void clear()
+    {
+        mInvisible.create(getRiver());
+    }
+
+    public void water()
+    {
+        mInvisible.remove(getRiver());
+        mAnim.get(getRiver()).id="RIVER-WATER";
+    }
+
+    public void blood()
+    {
+        mInvisible.remove(getRiver());
+        mAnim.get(getRiver()).id="RIVER-BLOOD";
+    }
+
+    private Entity getRiver() {
+        return tagManager.getEntity("river");
     }
 
 

@@ -19,8 +19,8 @@
                 },
                 {
                     "label": ["Option B"],
-                    "success": [         "+LIFESPAN", "+WEALTH", "+FOOD", "+WORKERS", "+COMPLETION" ],
-                    "failure": [ "+AGE", "-LIFESPAN", "-WEALTH", "-FOOD", "-WORKERS", "-COMPLETION" ]
+                    "success": [         "+LIFESPAN", "+WEALTH", "+FOOD", "+WORKERS", "+COMPLETION", "+WORSHIP" ],
+                    "failure": [ "+AGE", "-LIFESPAN", "-WEALTH", "-FOOD", "-WORKERS", "-COMPLETION", "-WORSHIP" ]
                 }
             ]
         },

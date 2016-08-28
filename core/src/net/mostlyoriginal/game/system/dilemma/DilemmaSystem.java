@@ -312,6 +312,9 @@ public class DilemmaSystem extends EntityProcessingSystem {
             case "+COMPLETION":
                 stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, 1);
                 break;
+            case "+WORSHIP":
+                stockpileSystem.alter(StockpileSystem.Resource.WORSHIP, 1);
+                break;
 
             case "-LIFESPAN":
                 stockpileSystem.alter(StockpileSystem.Resource.LIFESPAN, -1);
@@ -327,6 +330,9 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 break;
             case "-COMPLETION":
                 stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, -1);
+                break;
+            case "-WORSHIP":
+                stockpileSystem.alter(StockpileSystem.Resource.WORSHIP, -1);
                 break;
             default:
                 startDilemma(action);

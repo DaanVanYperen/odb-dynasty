@@ -33,7 +33,8 @@ public class StockpileSystem extends EntityProcessingSystem {
         WEALTH,
         FOOD,
         WORKERS,
-        COMPLETION
+        COMPLETION,
+        WORSHIP
     }
 
     public StockpileSystem() {
@@ -65,6 +66,9 @@ public class StockpileSystem extends EntityProcessingSystem {
                 case COMPLETION:
                     stockpile.completion = MathUtils.clamp(stockpile.completion + amount, 0,100);
                     break;
+                case WORSHIP:
+                    stockpile.worship = MathUtils.clamp(stockpile.worship + amount, 0,100);
+                    break;
             }
         }
     }
@@ -88,6 +92,8 @@ public class StockpileSystem extends EntityProcessingSystem {
                     return stockpile.wealth;
                 case COMPLETION:
                     return stockpile.completion;
+                case WORSHIP:
+                    return stockpile.worship;
             }
         }
         return 0;
