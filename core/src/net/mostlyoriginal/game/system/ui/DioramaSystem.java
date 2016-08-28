@@ -35,13 +35,20 @@ public class DioramaSystem extends BaseSystem {
     private int camels = 0;
     private int elephants = 0;
 
+    private float spawnCooldown = 0;
+
     @Override
     protected void processSystem() {
         // 1. Spawn new workers.
-        spawnWorkers();
-        spawnCamels();
-        spawnElephants();
-        spawnSoldiers();
+        spawnCooldown -= world.delta;
+        if ( spawnCooldown <= 0 )
+        {
+            spawnCooldown= MathUtils.random(0.2f,0.5f);
+            spawnWorkers();
+            spawnCamels();
+            spawnElephants();
+            spawnSoldiers();
+        }
         // 2. Kill excessive workers.
         // 3. Grow tomb.
         scaleTomb();
@@ -82,32 +89,32 @@ public class DioramaSystem extends BaseSystem {
     private void spawnWorkers() {
         final int minionDelta = stockpileSystem.get(StockpileSystem.Resource.WORKERS) - workers;
         if (minionDelta > 0) {
-            minionSystem.spawnMultiple(minionDelta, "WORKER", 1);
-            workers += minionDelta;
+            minionSystem.spawnMultiple(1, "WORKER", 1);
+            workers += 1;
         }
     }
 
     private void spawnSoldiers() {
         final int minionDelta = stockpileSystem.get(StockpileSystem.Resource.SOLDIERS) - soldiers;
         if (minionDelta > 0) {
-            minionSystem.spawnMultiple(minionDelta, "SOLDIER", 0);
-            soldiers += minionDelta;
+            minionSystem.spawnMultiple(MathUtils.clamp(1,0,2), "SOLDIER", 0);
+            soldiers += 1;
         }
     }
 
     private void spawnCamels() {
         final int minionDelta = stockpileSystem.get(StockpileSystem.Resource.CAMELS) - camels;
         if (minionDelta > 0) {
-            minionSystem.spawnMultiple(minionDelta, "CAMEL", 5);
-            camels += minionDelta;
+            minionSystem.spawnMultiple(MathUtils.clamp(1,0,2), "CAMEL", 5);
+            camels += 1;
         }
     }
 
     private void spawnElephants() {
         final int minionDelta = stockpileSystem.get(StockpileSystem.Resource.ELEPHANTS) - elephants;
         if (minionDelta > 0) {
-            minionSystem.spawnMultiple(minionDelta, "ELEPHANT", 10);
-            elephants += minionDelta;
+            minionSystem.spawnMultiple(MathUtils.clamp(1,0,2), "ELEPHANT", 10);
+            elephants += 1;
         }
     }
 }

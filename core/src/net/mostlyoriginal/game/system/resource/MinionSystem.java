@@ -12,6 +12,8 @@ import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.graphics.Invisible;
 import net.mostlyoriginal.api.component.graphics.Renderable;
+import net.mostlyoriginal.api.component.physics.Gravity;
+import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.util.DynastyEntityBuilder;
@@ -36,6 +38,7 @@ public class MinionSystem extends IteratingSystem {
     private M<Invisible> mInvisible;
     private M<Minion> mMinion;
     private M<Anim> mAnim;
+    private M<Physics> mPhysics;
 
     public MinionSystem() {
         super(Aspect.all(Minion.class));
@@ -45,7 +48,14 @@ public class MinionSystem extends IteratingSystem {
     protected void process(int e) {
         mInvisible.remove(e);
         Minion minion = mMinion.get(e);
-        mPos.get(e).xy.y = G.CANVAS_HEIGHT/2 - minion.z / 2;
+
+        // min-y based on z.
+        Pos pos = mPos.get(e);
+        float minY = G.CANVAS_HEIGHT / 2 - minion.z / 2;
+        if ( pos.xy.y < minY ) {
+            pos.xy.y = minY;
+        }
+
         mRenderable.get(e).layer = MINION_LAYER + (int)minion.z;
     }
 
@@ -70,9 +80,12 @@ public class MinionSystem extends IteratingSystem {
                 new Bounds(0, 0, 0, 0),
                 new Anim(id))
                 .with(Pos.class,Scale.class,Invisible.class,
-                        Renderable.class)
+                        Renderable.class, Physics.class, Gravity.class)
                 .minion(productivity).build();
         randomizeLocation(e);
+        Physics physics = mPhysics.get(e);
+        physics.vy = 500;
+        physics.friction = 20f;
         mScale.get(e).scale = G.ZOOM;
         mRenderable.get(e).layer = MINION_LAYER;
         return e;

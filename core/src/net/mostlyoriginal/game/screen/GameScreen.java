@@ -14,6 +14,7 @@ import net.mostlyoriginal.api.system.graphics.ColorAnimationSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.mouse.MouseCursorSystem;
 import net.mostlyoriginal.api.system.physics.CollisionSystem;
+import net.mostlyoriginal.api.system.physics.GravitySystem;
 import net.mostlyoriginal.api.system.physics.PhysicsSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
@@ -77,6 +78,7 @@ public class GameScreen extends WorldScreen {
 
 						new CollisionSystem(),
 						new PhysicsSystem(),
+						new GravitySystem(),
 
 						new ProgressAlgorithmSystem(),
 
