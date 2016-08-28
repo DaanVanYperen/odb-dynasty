@@ -1,12 +1,9 @@
 package net.mostlyoriginal.game.system.ui;
 
 import com.artemis.BaseSystem;
-import com.artemis.Entity;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Path;
 import net.mostlyoriginal.api.component.basic.Pos;
-import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.Burrow;
@@ -25,7 +22,7 @@ public class DioramaSystem extends BaseSystem {
     protected MinionSystem minionSystem;
     protected StockpileSystem stockpileSystem;
     protected ScaffoldDioramaSystem scaffoldDioramaSystem;
-    protected int minions = 0;
+    protected int workers = 0;
     protected int completion = -1;
 
     protected TagManager tagManager;
@@ -34,12 +31,18 @@ public class DioramaSystem extends BaseSystem {
     private AssetSystem assetSystem;
 
     float chiselCooldown = 0;
+    private int soldiers = 0;
+    private int camels = 0;
+    private int elephants = 0;
 
     @Override
     protected void processSystem() {
-        // 1. Spawn new minions.
-        spawnMinions();
-        // 2. Kill excessive minions.
+        // 1. Spawn new workers.
+        spawnWorkers();
+        spawnCamels();
+        spawnElephants();
+        spawnSoldiers();
+        // 2. Kill excessive workers.
         // 3. Grow tomb.
         scaleTomb();
         // 4. Shrink tomb.
@@ -76,11 +79,35 @@ public class DioramaSystem extends BaseSystem {
         }
     }
 
-    private void spawnMinions() {
-        final int minionDelta = stockpileSystem.get(StockpileSystem.Resource.WORKERS) - minions;
+    private void spawnWorkers() {
+        final int minionDelta = stockpileSystem.get(StockpileSystem.Resource.WORKERS) - workers;
         if (minionDelta > 0) {
-            minionSystem.spawnMultiple(minionDelta);
-            minions += minionDelta;
+            minionSystem.spawnMultiple(minionDelta, "WORKER", 1);
+            workers += minionDelta;
+        }
+    }
+
+    private void spawnSoldiers() {
+        final int minionDelta = stockpileSystem.get(StockpileSystem.Resource.SOLDIERS) - soldiers;
+        if (minionDelta > 0) {
+            minionSystem.spawnMultiple(minionDelta, "SOLDIER", 0);
+            soldiers += minionDelta;
+        }
+    }
+
+    private void spawnCamels() {
+        final int minionDelta = stockpileSystem.get(StockpileSystem.Resource.CAMELS) - camels;
+        if (minionDelta > 0) {
+            minionSystem.spawnMultiple(minionDelta, "CAMEL", 5);
+            camels += minionDelta;
+        }
+    }
+
+    private void spawnElephants() {
+        final int minionDelta = stockpileSystem.get(StockpileSystem.Resource.ELEPHANTS) - elephants;
+        if (minionDelta > 0) {
+            minionSystem.spawnMultiple(minionDelta, "ELEPHANT", 10);
+            elephants += minionDelta;
         }
     }
 }

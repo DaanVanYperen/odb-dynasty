@@ -211,8 +211,8 @@
                     "success": [ "+COMPLETION", "DEBUG" ]
                 },
                 {
-                    "label": ["Workers"],
-                    "success": [ "+WORKERS", "DEBUG" ]
+                    "label": ["Spawn .."],
+                    "success": [ "DEBUG_SPAWN" ]
                 },
                 {
                     "label": ["build .."],
@@ -221,6 +221,35 @@
                 {
                     "label": ["Events .."],
                     "success": [ "DEBUG_EVENTS" ]
+                },
+            ]
+        },
+        {
+            "id": "DEBUG_SPAWN",
+            "comment": "Shown while debugging.",
+            "actor": "GUIDE",
+            "text": [ "Debug options"],
+            "groups": [ "programmatic" ],
+            "choices": [
+                {
+                    "label": ["Worker"],
+                    "success": [ "+WORKERS", "DEBUG_SPAWN" ]
+                },
+                {
+                    "label": ["Elephant"],
+                    "success": [ "+ELEPHANTS", "DEBUG_SPAWN" ]
+                },
+                {
+                    "label": ["Camel"],
+                    "success": [ "+CAMELS", "DEBUG_SPAWN" ]
+                },
+                {
+                    "label": ["Soldier"],
+                    "success": [ "+SOLDIERS", "DEBUG_SPAWN" ]
+                },
+                {
+                    "label": ["Back"],
+                    "success": [ "DEBUG" ]
                 },
             ]
         },

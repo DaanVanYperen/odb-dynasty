@@ -59,6 +59,10 @@ public class AssetSystem extends AbstractAssetSystem {
         add("SUN", 392, 152, SUN_WIDTH, SUN_HEIGHT, 1);
 
         add("WORKER", 416, 202, 2, 5, 1);
+        add("ELEPHANT", 399, 200, 16, 9, 1);
+        add("SOLDIER", 420, 202, 2, 5, 1);
+        add("PHARAOH", 427, 200, 4, 7, 1);
+        add("CAMEL", 434, 201, 12, 8, 1);
 
         add("SLAB", 400, 391, SLAB_WIDTH, SLAB_HEIGHT, 1);
         add("SCROLL", 548, 391, 89, SCROLL_HEIGHT, 1);
@@ -99,7 +103,7 @@ public class AssetSystem extends AbstractAssetSystem {
         add("SCAFFOLDING OBJECTS 10", 536, 224, 8, 8, 1);
 
 
-        add("PYRAMID Granite",712, 0, 160, 133,1);
+        add("PYRAMID Granite", 712, 0, 160, 133, 1);
 
         add("ALIEN", 400, 344, 22, 39, 4);
 
@@ -116,10 +120,6 @@ public class AssetSystem extends AbstractAssetSystem {
         FLOOD: 160, 133, 160, 133
 
         DUST: 440, 160, 3,  3
-        ELEPHANT: 399, 200, 16,  9
-        SOLDIER: 420, 202, 2,  5
-        PHARAOH: 427, 200, 4,  7
-        CAMEL: 434, 201, 12,  8
 
 
 

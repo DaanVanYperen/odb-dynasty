@@ -399,6 +399,15 @@ public class DilemmaSystem extends EntityProcessingSystem {
             case "+WORKERS":
                 stockpileSystem.alter(StockpileSystem.Resource.WORKERS, 1);
                 break;
+            case "+ELEPHANTS":
+                stockpileSystem.alter(StockpileSystem.Resource.ELEPHANTS, 1);
+                break;
+            case "+CAMELS":
+                stockpileSystem.alter(StockpileSystem.Resource.CAMELS, 1);
+                break;
+            case "+SOLDIERS":
+                stockpileSystem.alter(StockpileSystem.Resource.SOLDIERS, 1);
+                break;
             case "+COMPLETION":
                 stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, 1);
                 break;
@@ -419,6 +428,15 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 break;
             case "-WORKERS":
                 stockpileSystem.alter(StockpileSystem.Resource.WORKERS, -1);
+                break;
+            case "-ELEPHANTS":
+                stockpileSystem.alter(StockpileSystem.Resource.ELEPHANTS, -1);
+                break;
+            case "-CAMELS":
+                stockpileSystem.alter(StockpileSystem.Resource.CAMELS, -1);
+                break;
+            case "-SOLDIERS":
+                stockpileSystem.alter(StockpileSystem.Resource.SOLDIERS, -1);
                 break;
             case "-COMPLETION":
                 stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, -1);

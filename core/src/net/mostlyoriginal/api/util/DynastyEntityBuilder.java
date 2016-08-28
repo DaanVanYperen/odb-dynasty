@@ -8,6 +8,7 @@ import com.artemis.managers.UuidEntityManager;
 import com.artemis.utils.EntityBuilder;
 import com.artemis.utils.reflect.ClassReflection;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g3d.utils.shapebuilders.EllipseShapeBuilder;
 import net.mostlyoriginal.api.component.Schedule;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
@@ -15,6 +16,7 @@ import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.operation.common.Operation;
+import net.mostlyoriginal.game.component.resource.Minion;
 
 import java.util.UUID;
 
@@ -225,6 +227,11 @@ public class DynastyEntityBuilder {
 
     public DynastyEntityBuilder schedule( Operation operation ) {
         edit.create(Schedule.class).operation.add(operation);
+        return this;
+    }
+
+    public DynastyEntityBuilder minion( int productivity ) {
+        edit.create(Minion.class).productivity = productivity;
         return this;
     }
 }

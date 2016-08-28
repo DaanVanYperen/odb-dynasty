@@ -58,7 +58,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
         createMousecursor();
         createCamera(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2);
         structureSystem.createPyramid();
-        createButton(5, 5, 16*G.ZOOM, 10*G.ZOOM, "btn-test", new ButtonListener() {
+        createButton(5, 5, 16 * G.ZOOM, 10 * G.ZOOM, "btn-test", new ButtonListener() {
             @Override
             public void run() {
                 dilemmaSystem.startDebugDilemma();
@@ -71,23 +71,24 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
                 .with(new Anim("SKY"))
                 .with(Pos.class, Renderable.class, Scale.class)
                 .build();
-        mRenderable.get(e).layer=-100;
+        mRenderable.get(e).layer = -100;
         mScale.get(e).scale = G.ZOOM;
-        mPos.get(e).xy.y=133*G.ZOOM;
+        mPos.get(e).xy.y = 133 * G.ZOOM;
 
         e = new DynastyEntityBuilder(world)
                 .with(new Anim("DESERT"))
                 .with(Pos.class, Renderable.class, Scale.class)
                 .build();
-        mRenderable.get(e).layer=100;
+        mRenderable.get(e).layer = 100;
         mScale.get(e).scale = G.ZOOM;
     }
-
 
 
     private void initStartingStockpile() {
         stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, 1);
         stockpileSystem.alter(StockpileSystem.Resource.WORKERS, 5);
+        stockpileSystem.alter(StockpileSystem.Resource.CAMELS, 1);
+
         stockpileSystem.alter(StockpileSystem.Resource.LIFESPAN, 40);
     }
 

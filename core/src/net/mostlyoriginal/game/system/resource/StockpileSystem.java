@@ -33,6 +33,9 @@ public class StockpileSystem extends EntityProcessingSystem {
         WEALTH(1),
         FOOD(1),
         WORKERS(1),
+        ELEPHANTS(1),
+        CAMELS(1),
+        SOLDIERS(1),
         COMPLETION(1),
         COMPLETION_PERCENTILE(50),
         WORSHIP(1);
@@ -69,7 +72,16 @@ public class StockpileSystem extends EntityProcessingSystem {
                     stockpile.food = MathUtils.clamp(stockpile.food + amount, 0,100);
                     break;
                 case WORKERS:
-                    stockpile.workers = MathUtils.clamp(stockpile.workers + amount, 0,100);
+                    stockpile.workers = MathUtils.clamp(stockpile.workers + amount, 0,1000);
+                    break;
+                case ELEPHANTS:
+                    stockpile.elephants = MathUtils.clamp(stockpile.elephants + amount, 0,1000);
+                    break;
+                case CAMELS:
+                    stockpile.camels = MathUtils.clamp(stockpile.camels + amount, 0,1000);
+                    break;
+                case SOLDIERS:
+                    stockpile.soldiers = MathUtils.clamp(stockpile.soldiers + amount, 0,1000);
                     break;
                 case WEALTH:
                     stockpile.wealth = MathUtils.clamp(stockpile.wealth + amount, 0,100);
@@ -102,6 +114,12 @@ public class StockpileSystem extends EntityProcessingSystem {
                     return stockpile.food;
                 case WORKERS:
                     return stockpile.workers;
+                case CAMELS:
+                    return stockpile.camels;
+                case ELEPHANTS:
+                    return stockpile.elephants;
+                case SOLDIERS:
+                    return stockpile.soldiers;
                 case WEALTH:
                     return stockpile.wealth;
                 case COMPLETION:

@@ -15,6 +15,9 @@ public class Stockpile extends Component {
     public int completion;
     public int completionPercentile;
     public int worship;
+    public int elephants;
+    public int soldiers;
+    public int camels;
 
     public Stockpile() {}
 }
