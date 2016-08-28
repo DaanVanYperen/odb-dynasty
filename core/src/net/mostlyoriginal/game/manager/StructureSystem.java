@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.Schedule;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
+import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
@@ -36,6 +37,7 @@ public class StructureSystem extends Manager {
     private M<Renderable> mRenderable;
     private M<Scale> mScale;
     private M<Schedule> mSchedule;
+    private M<Anim> mAnim;
 
     public void createWifePyramid() {
         createStructure((int) (G.CANVAS_WIDTH * 0.75f), G.CANVAS_HEIGHT / 2, "PYRAMID-WIFE", TAG_WIFE_PYRAMID, 1.0f, 0f, AssetSystem.PYRAMID_WIFE_WIDTH, AssetSystem.PYRAMID_WIFE_HEIGHT, PYRAMID_BURROW_SPEED*3, -10);
@@ -65,7 +67,7 @@ public class StructureSystem extends Manager {
     }
 
     public void createPyramid() {
-        createStructure(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2, "PYRAMID", "pyramid", 1.0f, 1.0f, AssetSystem.PYRAMID_WIDTH, AssetSystem.PYRAMID_HEIGHT, PYRAMID_BURROW_SPEED, 0);
+        createStructure(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2, "PYRAMID-SANDSTONE", "pyramid", 1.0f, 1.0f, AssetSystem.PYRAMID_WIDTH, AssetSystem.PYRAMID_HEIGHT, PYRAMID_BURROW_SPEED, 0);
     }
 
     private Entity createStructure(int x, int y, String animId, String tag, float burrowPercentage, float burrowTargetPercentage, int width, int height, int speed, int layer) {
@@ -113,4 +115,10 @@ public class StructureSystem extends Manager {
     public float getObeliskCount() {
         return groupManager.getEntities("obelisks").size();
     }
+
+    public void pyramidDecor(Decor decor) {
+        mAnim.get(tagManager.getEntity("pyramid")).id = "PYRAMID-" + decor.name();
+    }
+
+    public enum Decor {MARBLE, GRANITE, PLAID, SANDSTONE}
 }

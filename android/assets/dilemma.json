@@ -269,21 +269,17 @@
             "groups": [ "programmatic" ],
             "choices": [
                 {
-                    "label": ["Age +"],
-                    "success": [ "+AGE", "DEBUG" ]
+                    "label": ["Progression .."],
+                    "success": [ "DEBUG_PROGRESS" ]
                 },
-                {
-                    "label": ["Progress"],
-                    "success": [ "PROGRESS", "DEBUG" ]
-                },
-                {
-                    "label": ["Instant progress"],
-                    "success": [ "+COMPLETION", "DEBUG" ]
-                },
-                {
-                    "label": ["Spawn .."],
-                    "success": [ "DEBUG_SPAWN" ]
-                },
+              {
+                "label": ["Decor .."],
+                "success": [ "DEBUG_DECOR" ]
+              },
+              {
+                "label": ["Spawn .."],
+                "success": [ "DEBUG_SPAWN" ]
+              },
                 {
                     "label": ["build .."],
                     "success": [ "DEBUG_BUILD" ]
@@ -294,11 +290,36 @@
                 },
             ]
         },
+      {
+        "id": "DEBUG_PROGRESS",
+        "comment": "Shown while debugging.",
+        "actor": "ALIEN",
+        "text": [ "Debug options > progression"],
+        "groups": [ "programmatic" ],
+        "choices": [
+          {
+            "label": ["Age Pharaoh"],
+            "success": [ "+AGE", "DEBUG_PROGRESS" ]
+          },
+          {
+            "label": ["Progress building"],
+            "success": [ "PROGRESS", "DEBUG_PROGRESS" ]
+          },
+          {
+            "label": ["Instant progress"],
+            "success": [ "+COMPLETION", "DEBUG_PROGRESS" ]
+          },
+          {
+            "label": ["Back"],
+            "success": [ "DEBUG" ]
+          },
+        ]
+      },
         {
             "id": "DEBUG_SPAWN",
             "comment": "Shown while debugging.",
             "actor": "GUIDE",
-            "text": [ "Debug options"],
+          "text": [ "Debug options > spawn"],
             "groups": [ "programmatic" ],
             "choices": [
                 {
@@ -317,38 +338,68 @@
                     "label": ["Soldier"],
                     "success": [ "+SOLDIERS", "DEBUG_SPAWN" ]
                 },
-                {
-                    "label": ["Back"],
-                    "success": [ "DEBUG" ]
-                },
+              {
+                "label": ["Back"],
+                "success": [ "DEBUG" ]
+              },
             ]
         },
-        {
-            "id": "DEBUG_EVENTS",
-            "comment": "Event tests shown while debugging.",
-            "actor": "PRIEST",
-            "text": [ "Debug options > events"],
-            "groups": [ "programmatic" ],
-            "choices": [
-                {
-                    "label": ["Positive"],
-                    "success": [ "POSITIVE" ]
-                },
-                {
-                    "label": ["Negative"],
-                    "success": [ "NEGATIVE" ]
-                },
-                {
-                    "label": ["Test"],
-                    "success": [ "DEBUG_EVENTS" ]
-                },
-                {
-                    "label": ["Back"],
-                    "success": [ "DEBUG" ]
-                },
+      {
+        "id": "DEBUG_EVENTS",
+        "comment": "Event tests shown while debugging.",
+        "actor": "PRIEST",
+        "text": [ "Debug options > events"],
+        "groups": [ "programmatic" ],
+        "choices": [
+          {
+            "label": ["Positive"],
+            "success": [ "POSITIVE" ]
+          },
+          {
+            "label": ["Negative"],
+            "success": [ "NEGATIVE" ]
+          },
+          {
+            "label": ["Test"],
+            "success": [ "DEBUG_EVENTS" ]
+          },
+          {
+            "label": ["Back"],
+            "success": [ "DEBUG" ]
+          },
 
-            ]
-        },
+        ]
+      },
+      {
+        "id": "DEBUG_DECOR",
+        "comment": "Style tests shown while debugging.",
+        "actor": "PRIEST",
+        "text": [ "Debug options > decor"],
+        "groups": [ "programmatic" ],
+        "choices": [
+          {
+            "label": ["Sandstone"],
+            "success": [ "PYRAMID_SANDSTONE", "DEBUG_DECOR" ]
+          },
+          {
+            "label": ["Granite"],
+            "success": [ "PYRAMID_GRANITE", "DEBUG_DECOR" ]
+          },
+          {
+            "label": ["Marble"],
+            "success": [ "PYRAMID_MARBLE", "DEBUG_DECOR" ]
+          },
+          {
+            "label": ["Pliad"],
+            "success": [ "PYRAMID_PLAID", "DEBUG_DECOR" ]
+          },
+          {
+            "label": ["Back"],
+            "success": [ "DEBUG" ]
+          },
+
+        ]
+      },
         {
             "id": "DEBUG_BUILD",
             "comment": "Build menu for debugging.",

@@ -54,7 +54,11 @@ public class AssetSystem extends AbstractAssetSystem {
 
         add("SKY", 0, 0, 160, 133, 1);
         add("DESERT", 0, 133, 160, 133, 1);
-        add("PYRAMID", 392, 0, PYRAMID_WIDTH, PYRAMID_HEIGHT, 1);
+
+        add("PYRAMID-SANDSTONE", 392, 0, PYRAMID_WIDTH, PYRAMID_HEIGHT, 1);
+        add("PYRAMID-MARBLE", 552, 0, PYRAMID_WIDTH, PYRAMID_HEIGHT, 1);
+        add("PYRAMID-GRANITE", 712, 0, PYRAMID_WIDTH, PYRAMID_HEIGHT, 1);
+        add("PYRAMID-PLAID", 764, 162, PYRAMID_WIDTH, PYRAMID_HEIGHT, 1);
 
         add("PYRAMID-WIFE", 400, 216, PYRAMID_WIFE_WIDTH, PYRAMID_WIFE_HEIGHT, 1);
 

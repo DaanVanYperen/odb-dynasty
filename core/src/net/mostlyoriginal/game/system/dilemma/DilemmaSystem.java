@@ -466,6 +466,18 @@ public class DilemmaSystem extends EntityProcessingSystem {
             case "-OBELISK":
                 structureSystem.destroyObelisks();
                 break;
+            case "PYRAMID_SANDSTONE":
+                structureSystem.pyramidDecor(StructureSystem.Decor.SANDSTONE);
+                break;
+            case "PYRAMID_MARBLE":
+                structureSystem.pyramidDecor(StructureSystem.Decor.MARBLE);
+                break;
+            case "PYRAMID_GRANITE":
+                structureSystem.pyramidDecor(StructureSystem.Decor.GRANITE);
+                break;
+            case "PYRAMID_PLAID":
+                structureSystem.pyramidDecor(StructureSystem.Decor.PLAID);
+                break;
             case "RIVER_BLOOD":
                 riverSystem.blood();
                 break;
