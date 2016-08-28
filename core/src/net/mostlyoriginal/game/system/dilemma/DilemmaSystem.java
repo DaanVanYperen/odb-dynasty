@@ -22,6 +22,7 @@ import net.mostlyoriginal.game.component.ui.*;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.manager.StructureSystem;
 import net.mostlyoriginal.game.system.logic.ProgressAlgorithmSystem;
+import net.mostlyoriginal.game.system.render.LabelRenderSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 import net.mostlyoriginal.game.system.ui.RiverDioramaSystem;
 
@@ -43,8 +44,8 @@ public class DilemmaSystem extends EntityProcessingSystem {
     public static final int ROW_HEIGHT = 16;
 
     public static final String COLOR_DILEMMA = "00000080";
-    public static final String COLOR_RAW_BRIGHT = "86161f";
-    public static final String COLOR_RAW_DIMMED = "ae121f";
+    public static final String COLOR_RAW_BRIGHT = "ae121f";
+    public static final String COLOR_RAW_DIMMED = "86161f";
     private boolean dilemmaActive;
 
     private GroupManager groupManager;
@@ -57,14 +58,16 @@ public class DilemmaSystem extends EntityProcessingSystem {
     private M<Renderable> mRenderable;
     private RiverDioramaSystem riverSystem;
     private ProgressAlgorithmSystem progressAlgorithmSystem;
+    private LabelRenderSystem labelRenderSystem;
 
     public DilemmaSystem() {
         super(Aspect.all(Pos.class, DilemmaChoice.class));
     }
 
-    public Entity createLabel(int x, int y, String color, String text, String shadowTextColor) {
+    public float createLabel(int x, int y, String color, String text, String shadowTextColor, int maxWidth) {
         Label label = new Label(text, TEXT_ZOOM);
         label.shadowColor = new Tint(shadowTextColor);
+        label.maxWidth = maxWidth;
         Entity e = new DynastyEntityBuilder(world)
                 .with(label)
                 .group(DILEMMA_GROUP)
@@ -73,18 +76,20 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 .scale(TEXT_ZOOM)
                 .tint(color)
                 .build();
-        return e;
+        return labelRenderSystem.estimateHeight(label);
     }
 
-    private Entity createOption(int x, int y, String text, ButtonListener listener) {
+    private float createOption(int x, int y, String text, ButtonListener listener, int maxWidth) {
         //createLabel(x, y, COLOR_DILEMMA, text);
         Label label = new Label(text, TEXT_ZOOM);
         label.shadowColor = new Tint(DILEMMA_SHADOW_TEXT_COLOR);
+        label.maxWidth = maxWidth;
+        float height = labelRenderSystem.estimateHeight(label);
         Entity entity = new DynastyEntityBuilder(world)
                 .with(Tint.class).with(
-                        new Bounds(0, -8, text.length() * 8, 0),
+                        new Bounds(0, (int) -height, text.length() * 8, 0),
                         new Clickable(),
-                        new Button(COLOR_RAW_DIMMED, COLOR_RAW_BRIGHT, "FFFFFF", listener),
+                        new Button(COLOR_RAW_DIMMED, COLOR_RAW_BRIGHT, COLOR_RAW_BRIGHT, listener),
                         label
                 )
                 .group(DILEMMA_GROUP)
@@ -92,7 +97,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 .pos(x, y)
                 .scale(TEXT_ZOOM)
                 .build();
-        return entity;
+        return height;
     }
 
     public boolean isDilemmaActive() {
@@ -158,9 +163,10 @@ public class DilemmaSystem extends EntityProcessingSystem {
             int optionMarginY = 5 * G.ZOOM;
 
             dilemmaActive = true;
+            int maxLabelWidth = AssetSystem.SLAB_WIDTH * G.ZOOM - 20 * G.ZOOM;
+
             for (String text : dilemma.text) {
-                createLabel(slabX + textMarginX, slabY - textMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - ROW_HEIGHT * row, COLOR_DILEMMA, text, DILEMMA_SHADOW_TEXT_COLOR);
-                row++;
+                row+=2*G.ZOOM+createLabel(slabX + textMarginX, slabY - textMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - row, COLOR_DILEMMA, text, DILEMMA_SHADOW_TEXT_COLOR, maxLabelWidth);
             }
 
             for (Dilemma.Choice choice : dilemma.choices) {
@@ -168,8 +174,8 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 // random chance of succes, if no failure options defined, always failure.
                 final String[] choices = (choice.failure == null) || (MathUtils.random(0, 100) < 100 - choice.risk) ? choice.success : choice.failure;
 
-                createOption(slabX + textMarginX, slabY - textMarginY - optionMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - ROW_HEIGHT * row, "] " + choice.label[MathUtils.random(0, choice.label.length - 1)], new DilemmaListener(choices));
-                row++;
+                String choiceText = "] " + choice.label[MathUtils.random(0, choice.label.length - 1)];
+                row+= 3*G.ZOOM+createOption(slabX + textMarginX, slabY - textMarginY - optionMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - row, choiceText, new DilemmaListener(choices), maxLabelWidth);
             }
         }
 
@@ -220,8 +226,8 @@ public class DilemmaSystem extends EntityProcessingSystem {
             int labelOffsetY = scrollOffsetY + AssetSystem.SCROLL_HEIGHT * G.ZOOM;
 
 
-            createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY - labelMarginY, "3e2819", actorName, DILEMMA_SCROLL_SHADOW_COLOR);
-            createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY - labelHeight * 1 - labelMarginY, "333333", actorRole, DILEMMA_SCROLL_SHADOW_COLOR);
+            createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY - labelMarginY, "3e2819", actorName, DILEMMA_SCROLL_SHADOW_COLOR, G.CANVAS_WIDTH - 10);
+            createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY - labelHeight * 1 - labelMarginY, "333333", actorRole, DILEMMA_SCROLL_SHADOW_COLOR, G.CANVAS_WIDTH - 10);
         }
     }
 

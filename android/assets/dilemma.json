@@ -181,6 +181,10 @@
                 {
                     "label": ["Uh ok but if that is the case why can I respond with such a giant story that confuses everyone amazing lalalalala. "],
                     "success": ["PROGRESS"]
+                },
+                {
+                    "label": ["Bottles Bottles Chickens And Bottles Bottling Banana All Other What Ramble Ramble X."],
+                    "success": ["PROGRESS"]
                 }
             ]
         },
@@ -209,32 +213,49 @@
                     "success": [ "+WORKERS", "DEBUG" ]
                 },
                 {
-                    "label": ["Wife pyramid"],
-                    "success": [ "+WIFE_PYRAMID", "DEBUG" ]
-                },
-                {
-                    "label": ["Obelisk!"],
-                    "success": [ "+OBELISK", "DEBUG" ]
-                },
-                {
-                    "label": ["Obelisks gone :("],
-                    "success": [ "-OBELISK", "DEBUG" ]
-                },
-                {
-                    "label": ["River!"],
-                    "success": [ "RIVER_WATER", "DEBUG" ]
-                },
-                {
-                    "label": ["River Blood!"],
-                    "success": [ "RIVER_BLOOD", "DEBUG" ]
-                },
-                {
-                    "label": ["Dry river!"],
-                    "success": [ "RIVER_DRY", "DEBUG" ]
+                    "label": ["build .."],
+                    "success": [ "DEBUG_BUILD" ]
                 },
                 {
                     "label": ["Test event"],
                     "success": [ "TEST" ]
+                },
+            ]
+        },
+        {
+            "id": "DEBUG_BUILD",
+            "comment": "Build menu for debugging.",
+            "actor": "ALIEN",
+            "text": [ "Debug options > Build"],
+            "groups": [ "programmatic" ],
+            "choices": [
+                {
+                    "label": ["Wife pyramid"],
+                    "success": [ "+WIFE_PYRAMID", "DEBUG_BUILD" ]
+                },
+                {
+                    "label": ["Obelisk!"],
+                    "success": [ "+OBELISK", "DEBUG_BUILD" ]
+                },
+                {
+                    "label": ["Obelisks gone :("],
+                    "success": [ "-OBELISK", "DEBUG_BUILD" ]
+                },
+                {
+                    "label": ["River!"],
+                    "success": [ "RIVER_WATER", "DEBUG_BUILD" ]
+                },
+                {
+                    "label": ["River Blood!"],
+                    "success": [ "RIVER_BLOOD", "DEBUG_BUILD" ]
+                },
+                {
+                    "label": ["Dry river!"],
+                    "success": [ "RIVER_DRY", "DEBUG_BUILD" ]
+                },
+                {
+                    "label": ["Back"],
+                    "success": [ "DEBUG" ]
                 },
             ]
         }

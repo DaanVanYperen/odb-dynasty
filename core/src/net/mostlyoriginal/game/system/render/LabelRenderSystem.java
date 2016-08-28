@@ -88,12 +88,12 @@ public class LabelRenderSystem extends DeferredEntityProcessingSystem {
                 font.setColor(color.r, color.g, color.b, color.a);
                 switch (label.align) {
                     case LEFT:
-                        font.draw(batch, label.text, pos.xy.x - 1, pos.xy.y + 1, label.maxWidth, Align.topLeft, true);
-                        font.draw(batch, label.text, pos.xy.x + 1, pos.xy.y - 1, label.maxWidth, Align.topLeft, true);
+                        font.draw(batch, label.text, pos.xy.x - 2, pos.xy.y + 2, label.maxWidth, Align.topLeft, true);
+                        font.draw(batch, label.text, pos.xy.x + 2, pos.xy.y - 2, label.maxWidth, Align.topLeft, true);
                         break;
                     case RIGHT:
-                        font.draw(batch, label.text, pos.xy.x - glyphLayout.width + 1, pos.xy.y - 1);
-                        font.draw(batch, label.text, pos.xy.x - glyphLayout.width - 1, pos.xy.y + 1);
+                        font.draw(batch, label.text, pos.xy.x - glyphLayout.width + 2, pos.xy.y - 2);
+                        font.draw(batch, label.text, pos.xy.x - glyphLayout.width - 2, pos.xy.y + 2);
                         break;
                 }
             }
@@ -113,5 +113,10 @@ public class LabelRenderSystem extends DeferredEntityProcessingSystem {
                     break;
             }
         }
+    }
+
+    public float estimateHeight(Label label) {
+        final BitmapFont font = label.scale == 3f ? fontManager.bigFont : fontManager.font;
+        return new GlyphLayout(font, label.text,new Color(),label.maxWidth, Align.topLeft, true).height;
     }
 }
