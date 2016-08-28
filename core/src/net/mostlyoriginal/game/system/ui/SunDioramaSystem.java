@@ -40,7 +40,7 @@ public class SunDioramaSystem extends BaseSystem {
                 .with(new Anim("SUN"))
                 .with(Pos.class, Renderable.class, Scale.class)
                 .tag("sun")
-                .renderable(-1)
+                .renderable(-20)
                 .scale(G.ZOOM)
                 .build();
     }
