@@ -18,6 +18,10 @@ import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 
+import static net.mostlyoriginal.game.system.ui.RiverDioramaSystem.RiverState.RIVER_BLOOD;
+import static net.mostlyoriginal.game.system.ui.RiverDioramaSystem.RiverState.RIVER_NONE;
+import static net.mostlyoriginal.game.system.ui.RiverDioramaSystem.RiverState.RIVER_WATER;
+
 /**
  * Sets the scene to reflect stockpiles, sun specifically.
  * <p>
@@ -37,6 +41,13 @@ public class RiverDioramaSystem extends BaseSystem {
     protected M<Anim> mAnim;
     private Tint vis = new Tint(1f, 1f, 1f, 1f);
     private Tint invis = new Tint(1f, 1f, 1f, 0f);
+    private RiverState state =RIVER_NONE;
+
+    public static enum RiverState {
+        RIVER_NONE,
+        RIVER_BLOOD,
+        RIVER_WATER
+    }
 
     @Override
     protected void initialize() {
@@ -61,16 +72,19 @@ public class RiverDioramaSystem extends BaseSystem {
                 .pos(0, (133 - riverMarginY - AssetSystem.RIVER_HEIGHT) * G.ZOOM)
                 .scale(G.ZOOM)
                 .build();
+        clear();
     }
 
     public void clear() {
         slowHide(getRiver());
         slowHide(getRiverBlood());
+        state = RIVER_NONE;
     }
 
     public void water() {
         slowHide(getRiverBlood());
         slowReveal(getRiver());
+        state = RIVER_WATER;
     }
 
     private void slowHide(Entity e) {
@@ -88,6 +102,7 @@ public class RiverDioramaSystem extends BaseSystem {
     public void blood() {
         slowHide(getRiver());
         slowReveal(getRiverBlood());
+        state = RIVER_BLOOD;
     }
 
     private Entity getRiver() {
@@ -101,5 +116,9 @@ public class RiverDioramaSystem extends BaseSystem {
 
     @Override
     protected void processSystem() {
+    }
+
+    public RiverState getState() {
+        return state;
     }
 }
