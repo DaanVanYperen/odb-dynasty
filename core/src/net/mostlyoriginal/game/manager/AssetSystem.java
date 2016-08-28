@@ -26,8 +26,8 @@ public class AssetSystem extends AbstractAssetSystem {
 
     public static final int DANCING_MAN_WIDTH = 24;
     public static final int DANCING_MAN_HEIGHT = 36;
-    public static final int PYRAMID_WIDTH = 126;
-    public static final int PYRAMID_HEIGHT = 63;
+    public static final int PYRAMID_WIDTH = 160;
+    public static final int PYRAMID_HEIGHT = 80;
     public static final int PYRAMID_WIFE_WIDTH = 55;
     public static final int PYRAMID_WIFE_HEIGHT = 28;
     public static final int OBELISK_WIDTH = 9;
@@ -48,7 +48,8 @@ public class AssetSystem extends AbstractAssetSystem {
 
         add("SKY", 0, 0, 160, 133, 1);
         add("DESERT", 0, 133, 160, 133, 1);
-        add("PYRAMID", 401, 41, PYRAMID_WIDTH, PYRAMID_HEIGHT, 1);
+        add("PYRAMID", 392, 0, PYRAMID_WIDTH, PYRAMID_HEIGHT, 1);
+
         add("PYRAMID-WIFE", 400, 216, PYRAMID_WIFE_WIDTH, PYRAMID_WIFE_HEIGHT, 1);
 
         add("SUN", 392, 152, SUN_WIDTH, SUN_HEIGHT, 1);
@@ -113,7 +114,7 @@ GROUND BLOCKS: x:500, y:248, width:13,  height:15
 
 WARELEPHANT: x:399, y:200, width:16,  height:9
 
-PYRAMID SANDSTONE: x:392, y:0, width:160, height:133
+PYRAMID SANDSTONE:
 PYRAMID MARBLE: x:552, y:0, width:160, height:133
 
 PROGRESS BAR BACKGROUND: x:400, y:490, width:147, height:16

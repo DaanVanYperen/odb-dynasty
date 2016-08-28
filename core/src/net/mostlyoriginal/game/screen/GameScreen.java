@@ -80,7 +80,7 @@ public class GameScreen extends WorldScreen {
 
 						new ProgressAlgorithmSystem(),
 
-						new StockpileUISystem(),
+//						new StockpileUISystem(),
 						new ProgressUISystem(),
 
 						new DioramaSystem(),
