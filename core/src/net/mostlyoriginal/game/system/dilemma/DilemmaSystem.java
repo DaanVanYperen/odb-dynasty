@@ -374,18 +374,11 @@ public class DilemmaSystem extends EntityProcessingSystem {
 
     /**
      * pharao died
+     * @param success
      */
-    public void death() {
+    public void ENDGAME(EndgameSystem.Success success) {
         stopDilemma();
-        startDilemma("YOU_DEAD");
-    }
-
-    /**
-     * best dynasty possible!
-     */
-    public void superDynasty() {
-        stopDilemma();
-        startDilemma("SUPER_DYNASTY");
+        startDilemma(success.name() + "_DYNASTY");
     }
 
     /**

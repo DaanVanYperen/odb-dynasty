@@ -71,8 +71,8 @@ public class AssetSystem extends AbstractAssetSystem {
 
         add("STOCKPILE-TICK", 456, 236, 12, 10, 1);
 
-        add("RIVER", 400, 272, 160, RIVER_HEIGHT, 1, 4);
-        add("RIVER-BLOOD", 561, 272, 160, RIVER_HEIGHT, 1, 4);
+        add("RIVER", 400, 272, 160, RIVER_HEIGHT, 1, 4, tileset, 0.2f);
+        add("RIVER-BLOOD", 561, 272, 160, RIVER_HEIGHT, 1, 4, tileset, 0.2f);
 
         add("OBELISK BASE 1", 352, 212 - 11, OBELISK_WIDTH, OBELISK_HEIGHT, 1);
         add("OBELISK BASE 2", 361, 212 - 11, OBELISK_WIDTH, OBELISK_HEIGHT, 1);

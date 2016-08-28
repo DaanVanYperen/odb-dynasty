@@ -31,18 +31,29 @@ public class EndgameSystem extends IteratingSystem {
 
     private void checkForSuperDynasty(int e) {
         Stockpile stockpile = mStockpile.get(e);
-        if ( stockpile.completion >= G.MAX_COMPLETION )
-        {
-            dilemmaSystem.superDynasty();
+        if (stockpile.completion >= G.MAX_COMPLETION) {
+            dilemmaSystem.ENDGAME(Success.SUPER);
             mEndgameReached.create(e);
         }
     }
 
+    public Success getSuccess() {
+        return Success.BAD;
+    }
+
+    public enum Success {
+        BAD,
+        TINY,
+        MODERATE,
+        GREAT,
+        AMAZING,
+        SUPER
+    };
+
     private void checkForDeath(int e) {
         Stockpile stockpile = mStockpile.get(e);
-        if ( stockpile.age >= stockpile.lifespan  )
-        {
-            dilemmaSystem.death();
+        if (stockpile.age >= stockpile.lifespan) {
+            dilemmaSystem.ENDGAME(getSuccess());
             mEndgameReached.create(e);
         }
     }

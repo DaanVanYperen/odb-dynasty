@@ -44,16 +44,72 @@
             ]
         },
         {
-            "id": "YOU_DEAD",
-            "comment": "Shown when the pharao dies due to old age, with typical dynasty.",
+            "id": "BAD_DYNASTY",
+            "comment": "Shown when a bad dynasty (almost no pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "Dead"],
+            "text": [ "Kinda sad dynasty."],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
                 {
                     "label": ["Play again"],
-                    "success": ["RESTART"]
+                    "success": ["RESTART"],
+                }
+            ]
+        },
+        {
+            "id": "TINY_DYNASTY",
+            "comment": "Shown when a tiny dynasty (some pyramid) has been achieved.",
+            "actor": "GUIDE",
+            "text": [ "Tiny dynasty."],
+            "groups": [ "programmatic" ],
+            "immediate": ["TIMETRAVEL"],
+            "choices": [
+                {
+                    "label": ["Play again"],
+                    "success": ["RESTART"],
+                }
+            ]
+        },
+        {
+            "id": "MODERATE_DYNASTY",
+            "comment": "Shown when a moderate dynasty (some pyramid) has been achieved.",
+            "actor": "GUIDE",
+            "text": [ "Tiny dynasty."],
+            "groups": [ "programmatic" ],
+            "immediate": ["TIMETRAVEL"],
+            "choices": [
+                {
+                    "label": ["Play again"],
+                    "success": ["RESTART"],
+                }
+            ]
+        },
+        {
+            "id": "GREAT_DYNASTY",
+            "comment": "Shown when a great dynasty (wealthy pyramid) has been achieved.",
+            "actor": "GUIDE",
+            "text": [ "Tiny dynasty."],
+            "groups": [ "programmatic" ],
+            "immediate": ["TIMETRAVEL"],
+            "choices": [
+                {
+                    "label": ["Play again"],
+                    "success": ["RESTART"],
+                }
+            ]
+        },
+        {
+            "id": "AMAZING_DYNASTY",
+            "comment": "Shown when an amazing dynasty (very wealthy pyramid) has been achieved.",
+            "actor": "GUIDE",
+            "text": [ "Tiny dynasty."],
+            "groups": [ "programmatic" ],
+            "immediate": ["TIMETRAVEL"],
+            "choices": [
+                {
+                    "label": ["Play again"],
+                    "success": ["RESTART"],
                 }
             ]
         },
