@@ -13,13 +13,14 @@ import net.mostlyoriginal.game.system.ui.RiverDioramaSystem;
  */
 public class ProgressAlgorithmSystem extends IteratingSystem {
 
+    public static final float COMPLETION_SCALE = 0.001f;
     protected StockpileSystem stockpileSystem;
     protected MinionSystem minionSystem;
 
     protected M<Stockpile> mStockpile;
     protected RiverDioramaSystem riverDioramaSystem;
 
-    private int projectedIncrease = 0;
+    public int projectedIncrease = 0;
     private boolean increaseAlert = false;
 
     public ProgressAlgorithmSystem() {
@@ -30,7 +31,7 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
     {
         processSystem();
 
-        System.out.println("Completion increase by " +(projectedIncrease*0.001f));
+        System.out.println("Completion increase by " +(projectedIncrease* COMPLETION_SCALE));
         System.out.println("Alert? " +increaseAlert);
 
         stockpileSystem.alter(StockpileSystem.Resource.COMPLETION_PERCENTILE, projectedIncrease);
@@ -78,5 +79,13 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
 
         projectedIncrease = getProjectedIncrease();
         increaseAlert = getRiverFactor() < 1f; // anything wrong?
+    }
+
+    public float getProgressPercentile() {
+        return stockpileSystem.get(StockpileSystem.Resource.COMPLETION_PERCENTILE) * COMPLETION_SCALE;
+    }
+
+    public float getProjectedPercentile() {
+        return projectedIncrease * COMPLETION_SCALE;
     }
 }

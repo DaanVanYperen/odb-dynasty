@@ -70,31 +70,55 @@ public class AssetSystem extends AbstractAssetSystem {
         add("OBELISK BASE 4", 379, 212-11, OBELISK_WIDTH, OBELISK_HEIGHT,1);
         add("OBELISK BASE 5", 388, 212-11, OBELISK_WIDTH, OBELISK_HEIGHT,1);
 
+        add("PROGRESS BAR BACKGROUND", 400, 490, 147, 16,1);
+        add("PROGRESS BAR", 552, 495, 8, 7,1);
+        add("PROGRESS BAR PLANNED", 560, 495, 8, 7,1);
+
+
         /*
         WAVES: 160, 129, 160, 4
         FLOOD: 160, 133, 160, 133
-        PYRAMID STAGE 1: 528, 68, 126,  42
-        PYRAMID STAGE 2: 656, 62, 126,  42
+
         DUST: 440, 160, 3,  3
         ELEPHANT: 399, 200, 16,  9
         SOLDIER: 420, 202, 2,  5
         PHARAOH: 427, 200, 4,  7
         CAMEL: 434, 201, 12,  8
-        WIFE'S PYRAMID: 400, 216, 55,  28
-        BLOCKS: 456, 236 , 12,  10
-        BLOCKS & SCAFFOLDING: 469, 225 , 33,  22
-        SCAFFOLDING: 503, 219, 16,  28
-        WATER: 400, 272, 160,  17
-        WATER ANIM 1: 400, 289, 160,  17
-        WATER ANIM 2: 400, 306, 160,  17
-        WATER ANIM 3: 400, 323, 160,  17
-        BLOODWATER: 561, 272, 160,  17
-        BLOODWATER ANIM 1: 561, 289, 160,  17
-        BLOODWATER ANIM 2: 561, 306, 160,  17
-        BLOODWATER ANIM 3: 561, 323, 160,  17
-        ALIEN: 400, 344, 31,  39
-        SLAB: 400, 391, 147,  94
-        SCROLL: 548, 391, 89,  29
+
+
+SCAFFOLDING BIG 1: x:464, y:216, width:16,  height:16
+SCAFFOLDING BIG 1: x:464, y:232, width:16,  height:16
+SCAFFOLDING BIG 1: x:480, y:232, width:16,  height:16
+SCAFFOLDING SMALL TOP 1: x:480, y:216, width:8,  height:8
+SCAFFOLDING SMALL TOP 1: x:480, y:224, width:8,  height:8
+SCAFFOLDING SMALL TOP 1: x:488, y:216, width:8,  height:8
+SCAFFOLDING SMALL TILE 1: x:488, y:224, width:8,  height:8
+SCAFFOLDING BACKGROUND SMALL 1: x:496, y:224, width:8,  height:8
+SCAFFOLDING FLAG: x:496, y:216, width:8,  height:8
+SCAFFOLDING OBJECTS 1: x:504, y:216, width:8,  height:8
+SCAFFOLDING OBJECTS 2: x:512, y:216, width:8,  height:8
+SCAFFOLDING OBJECTS 3: x:520, y:216, width:8,  height:8
+SCAFFOLDING OBJECTS 4: x:528, y:216, width:8,  height:8
+SCAFFOLDING OBJECTS 5: x:536 , y:216, width:8,  height:8
+SCAFFOLDING OBJECTS 6: x:504, y:224, width:8,  height:8
+SCAFFOLDING OBJECTS 7: x:512, y:224, width:8,  height:8
+SCAFFOLDING OBJECTS 8: x:520, y:224, width:8,  height:8
+SCAFFOLDING OBJECTS 9: x:528, y:224, width:8,  height:8
+SCAFFOLDING OBJECTS 10: x:536, y:224, width:8,  height:8
+
+GROUND BLOCKS: x:464, y:253, width:12,  height:10
+GROUND BLOCKS: x:476, y:250, width:13,  height:13
+GROUND BLOCKS: x:489, y:255, width:11 ,  height:8
+GROUND BLOCKS: x:500, y:248, width:13,  height:15
+
+WARELEPHANT: x:399, y:200, width:16,  height:9
+
+PYRAMID SANDSTONE: x:392, y:0, width:160, height:133
+PYRAMID MARBLE: x:552, y:0, width:160, height:133
+
+PROGRESS BAR BACKGROUND: x:400, y:490, width:147, height:16
+PROGRESS BAR GREEN: x:552, y:495, width:8, height:7
+PROGRESS BAR GREY: x:560, y:495, width:8, height:7
         */
 
         add("btn-test-up", 400, 160 + 40, 16, 10, 1);

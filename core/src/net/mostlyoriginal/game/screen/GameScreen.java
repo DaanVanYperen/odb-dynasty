@@ -27,6 +27,7 @@ import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
 import net.mostlyoriginal.game.system.logic.ProgressAlgorithmSystem;
 import net.mostlyoriginal.game.system.render.BarRenderSystem;
 import net.mostlyoriginal.game.system.render.LabelRenderSystem;
+import net.mostlyoriginal.game.system.render.ProgressRenderSystem;
 import net.mostlyoriginal.game.system.resource.MinionSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 import net.mostlyoriginal.game.system.ui.*;
@@ -80,6 +81,7 @@ public class GameScreen extends WorldScreen {
 						new ProgressAlgorithmSystem(),
 
 						new StockpileUISystem(),
+						new ProgressUISystem(),
 
 						new DioramaSystem(),
 						new SunDioramaSystem(),
@@ -98,7 +100,8 @@ public class GameScreen extends WorldScreen {
 						renderBatchingSystem = new RenderBatchingSystem(),
 						new AnimRenderSystem(renderBatchingSystem),
 						new LabelRenderSystem(renderBatchingSystem),
-						new BarRenderSystem(renderBatchingSystem)
+						new BarRenderSystem(renderBatchingSystem),
+						new ProgressRenderSystem(renderBatchingSystem)
 				).build());
 
 	}
