@@ -35,6 +35,8 @@ import java.util.List;
 public class DilemmaSystem extends EntityProcessingSystem {
 
     public static final int TEXT_ZOOM = G.ZOOM;
+    public static final String DILEMMA_SHADOW_TEXT_COLOR = "9f9a9b";
+    public static final String DILEMMA_SCROLL_SHADOW_COLOR = "f3b072";
     private DilemmaLibrary dilemmaLibrary;
 
     public static final String DILEMMA_GROUP = "dilemma";
@@ -60,9 +62,11 @@ public class DilemmaSystem extends EntityProcessingSystem {
         super(Aspect.all(Pos.class, DilemmaChoice.class));
     }
 
-    public Entity createLabel(int x, int y, String color, String text) {
+    public Entity createLabel(int x, int y, String color, String text, String shadowTextColor) {
+        Label label = new Label(text, TEXT_ZOOM);
+        label.shadowColor = new Tint(shadowTextColor);
         Entity e = new DynastyEntityBuilder(world)
-                .with(new Label(text, TEXT_ZOOM))
+                .with(label)
                 .group(DILEMMA_GROUP)
                 .pos(x, y)
                 .renderable(920)
@@ -74,12 +78,14 @@ public class DilemmaSystem extends EntityProcessingSystem {
 
     private Entity createOption(int x, int y, String text, ButtonListener listener) {
         //createLabel(x, y, COLOR_DILEMMA, text);
+        Label label = new Label(text, TEXT_ZOOM);
+        label.shadowColor = new Tint(DILEMMA_SHADOW_TEXT_COLOR);
         Entity entity = new DynastyEntityBuilder(world)
                 .with(Tint.class).with(
                         new Bounds(0, -8, text.length() * 8, 0),
                         new Clickable(),
                         new Button(COLOR_RAW_DIMMED, COLOR_RAW_BRIGHT, "FFFFFF", listener),
-                        new Label(text, TEXT_ZOOM)
+                        label
                 )
                 .group(DILEMMA_GROUP)
                 .renderable(920)
@@ -153,7 +159,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
 
             dilemmaActive = true;
             for (String text : dilemma.text) {
-                createLabel(slabX + textMarginX, slabY - textMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - ROW_HEIGHT * row, COLOR_DILEMMA, text);
+                createLabel(slabX + textMarginX, slabY - textMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - ROW_HEIGHT * row, COLOR_DILEMMA, text, DILEMMA_SHADOW_TEXT_COLOR);
                 row++;
             }
 
@@ -214,8 +220,8 @@ public class DilemmaSystem extends EntityProcessingSystem {
             int labelOffsetY = scrollOffsetY + AssetSystem.SCROLL_HEIGHT * G.ZOOM;
 
 
-            createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY - labelMarginY, "3e2819", actorName);
-            createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY - labelHeight * 1 - labelMarginY, "333333", actorRole);
+            createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY - labelMarginY, "3e2819", actorName, DILEMMA_SCROLL_SHADOW_COLOR);
+            createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY - labelHeight * 1 - labelMarginY, "333333", actorRole, DILEMMA_SCROLL_SHADOW_COLOR);
         }
     }
 

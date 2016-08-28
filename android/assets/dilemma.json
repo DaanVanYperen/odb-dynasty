@@ -160,12 +160,26 @@
             "comment": "Earthquake destroys all obelisks.",
             "actor": "PRIEST",
             "text": [ "The gods shake your kingdom!" ],
-            "groups": [ "negative", "test" ],
+            "groups": [ "negative" ],
             "predicates": ["OBELISK"],
             "immediate": ["-OBELISK"],
             "choices": [
                 {
                     "label": ["No! My obelisks!"],
+                    "success": ["PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "TEST",
+            "comment": "Length test.",
+            "actor": "ALIEN",
+            "text": [ "Word has travelled of your great project. They offer to build you nothing, because this is just a test message to test linebreaks." ],
+            "groups": [ "negative", "test" ],
+            "choices": [
+                {
+                    "label": ["Uh ok but if that is the case why can I respond with such a giant story that confuses everyone amazing lalalalala. "],
                     "success": ["PROGRESS"]
                 }
             ]

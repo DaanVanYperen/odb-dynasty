@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Align;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Invisible;
 import net.mostlyoriginal.api.component.graphics.Renderable;
@@ -78,18 +79,34 @@ public class LabelRenderSystem extends DeferredEntityProcessingSystem {
 
             final BitmapFont font = label.scale == 3f ? fontManager.bigFont : fontManager.font;
 
+
+            glyphLayout.setText(font, label.text);
+
+            // shadow, if any.
+            if (label.shadowColor != null) {
+                final Color color = label.shadowColor.color;
+                font.setColor(color.r, color.g, color.b, color.a);
+                switch (label.align) {
+                    case LEFT:
+                        font.draw(batch, label.text, pos.xy.x - 1, pos.xy.y + 1, label.maxWidth, Align.topLeft, true);
+                        font.draw(batch, label.text, pos.xy.x + 1, pos.xy.y - 1, label.maxWidth, Align.topLeft, true);
+                        break;
+                    case RIGHT:
+                        font.draw(batch, label.text, pos.xy.x - glyphLayout.width + 1, pos.xy.y - 1);
+                        font.draw(batch, label.text, pos.xy.x - glyphLayout.width - 1, pos.xy.y + 1);
+                        break;
+                }
+            }
+
             if (mTint.has(entity)) {
                 final Color color = mTint.get(entity).color;
                 font.setColor(color.r, color.g, color.b, color.a);
             } else {
                 font.setColor(1f, 1f, 1f, 1f);
             }
-
-            glyphLayout.setText(font, label.text);
-
             switch (label.align) {
                 case LEFT:
-                    font.draw(batch, label.text, pos.xy.x, pos.xy.y);
+                    font.draw(batch, label.text, pos.xy.x, pos.xy.y, label.maxWidth, Align.topLeft, true);
                     break;
                 case RIGHT:
                     font.draw(batch, label.text, pos.xy.x - glyphLayout.width, pos.xy.y);
