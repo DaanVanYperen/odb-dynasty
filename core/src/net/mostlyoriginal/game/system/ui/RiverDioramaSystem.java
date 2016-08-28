@@ -4,11 +4,14 @@ import com.artemis.BaseSystem;
 import com.artemis.Entity;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.math.MathUtils;
+import net.mostlyoriginal.api.component.Schedule;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.graphics.Invisible;
 import net.mostlyoriginal.api.component.graphics.Renderable;
+import net.mostlyoriginal.api.component.graphics.Tint;
+import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.util.DynastyEntityBuilder;
 import net.mostlyoriginal.game.G;
@@ -29,7 +32,11 @@ public class RiverDioramaSystem extends BaseSystem {
     protected TagManager tagManager;
     protected M<Pos> mPos;
     protected M<Invisible> mInvisible;
+    protected M<Schedule> mSchedule;
+    protected M<Tint> mColor;
     protected M<Anim> mAnim;
+    private Tint vis = new Tint(1f, 1f, 1f, 1f);
+    private Tint invis = new Tint(1f, 1f, 1f, 0f);
 
     @Override
     protected void initialize() {
@@ -40,33 +47,55 @@ public class RiverDioramaSystem extends BaseSystem {
         int riverMarginY = 8;
         new DynastyEntityBuilder(world)
                 .with(new Anim("RIVER"))
-                .with(Pos.class, Renderable.class, Scale.class)
+                .with(Pos.class, Renderable.class, Scale.class, Tint.class)
                 .tag("river")
                 .renderable(101)
-                .pos(0,(133 - riverMarginY - AssetSystem.RIVER_HEIGHT)*G.ZOOM)
+                .pos(0, (133 - riverMarginY - AssetSystem.RIVER_HEIGHT) * G.ZOOM)
+                .scale(G.ZOOM)
+                .build();
+        new DynastyEntityBuilder(world)
+                .with(new Anim("RIVER-BLOOD"))
+                .with(Pos.class, Renderable.class, Scale.class, Tint.class)
+                .tag("river-blood")
+                .renderable(101)
+                .pos(0, (133 - riverMarginY - AssetSystem.RIVER_HEIGHT) * G.ZOOM)
                 .scale(G.ZOOM)
                 .build();
     }
 
-    public void clear()
-    {
-        mInvisible.create(getRiver());
+    public void clear() {
+        slowHide(getRiver());
+        slowHide(getRiverBlood());
     }
 
-    public void water()
-    {
-        mInvisible.remove(getRiver());
-        mAnim.get(getRiver()).id="RIVER";
+    public void water() {
+        slowHide(getRiverBlood());
+        slowReveal(getRiver());
     }
 
-    public void blood()
-    {
-        mInvisible.remove(getRiver());
-        mAnim.get(getRiver()).id="RIVER-BLOOD";
+    private void slowHide(Entity e) {
+        mSchedule.remove(e);
+        mSchedule.create(e).operation.add(
+                OperationFactory.tween(new Tint(mColor.get(e).color), invis, 3f));
+    }
+
+    private void slowReveal(Entity e) {
+        mSchedule.remove(e);
+        mSchedule.create(e).operation.add(
+                OperationFactory.tween(new Tint(mColor.get(e).color), vis, 3f));
+    }
+
+    public void blood() {
+        slowHide(getRiver());
+        slowReveal(getRiverBlood());
     }
 
     private Entity getRiver() {
         return tagManager.getEntity("river");
+    }
+
+    private Entity getRiverBlood() {
+        return tagManager.getEntity("river-blood");
     }
 
 
