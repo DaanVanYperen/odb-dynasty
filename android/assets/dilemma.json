@@ -137,7 +137,7 @@
         },
 
         {
-            "id": "DEBUG",
+            "id": "WIFEU",
             "comment": "Keep wife happy.",
             "actor": "WIFE",
             "text": [ "You never buy me anything!" ],
@@ -156,7 +156,23 @@
         },
 
         {
-            "id": "_DEBUG",
+            "id": "EARTHQUAKE",
+            "comment": "Earthquake destroys all obelisks.",
+            "actor": "PRIEST",
+            "text": [ "The gods shake your kingdom!" ],
+            "groups": [ "negative", "test" ],
+            "predicates": ["OBELISK"],
+            "immediate": ["-OBELISK"],
+            "choices": [
+                {
+                    "label": ["No! My obelisks!"],
+                    "success": ["PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "DEBUG",
             "comment": "Shown while debugging.",
             "actor": "ALIEN",
             "text": [ "Debug options"],
@@ -203,13 +219,9 @@
                     "success": [ "RIVER_DRY", "DEBUG" ]
                 },
                 {
-                    "label": ["Positive event"],
-                    "success": [ "POSITIVE" ]
+                    "label": ["Test event"],
+                    "success": [ "TEST" ]
                 },
-                {
-                    "label": ["Negative event"],
-                    "success": [ "NEGATIVE" ]
-                }
             ]
         }
     ]

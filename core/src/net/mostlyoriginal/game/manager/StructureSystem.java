@@ -26,6 +26,7 @@ public class StructureSystem extends Manager {
 
     public static final int PYRAMID_BURROW_SPEED = 10;
     public static final String TAG_WIFE_PYRAMID = "pyramid-wife";
+    public static final String TAG_OBELISK = "obelisk";
     private MinionSystem minionSystem;
     private TagManager tagManager;
     private GroupManager groupManager;
@@ -46,7 +47,7 @@ public class StructureSystem extends Manager {
                 (int) MathUtils.random(G.CANVAS_WIDTH * 0.65f, G.CANVAS_WIDTH * 0.95f) ,
                 G.CANVAS_HEIGHT / 2,
                 randomObeliskId(),
-                "obelisk", 1.0f, 0f, AssetSystem.OBELISK_WIDTH, AssetSystem.OBELISK_HEIGHT, PYRAMID_BURROW_SPEED * 6, -5);
+                TAG_OBELISK, 1.0f, 0f, AssetSystem.OBELISK_WIDTH, AssetSystem.OBELISK_HEIGHT, PYRAMID_BURROW_SPEED * 6, -5);
         groupManager.add(entity, "obelisks");
 
         minionSystem.allCheer();
@@ -102,7 +103,10 @@ public class StructureSystem extends Manager {
     }
 
     public boolean hasWifePyramid() {
-        boolean b = tagManager.getEntity(TAG_WIFE_PYRAMID) != null;
-        return b;
+        return tagManager.getEntity(TAG_WIFE_PYRAMID) != null;
+    }
+
+    public boolean hasObelisk() {
+        return tagManager.getEntity(TAG_OBELISK) != null;
     }
 }

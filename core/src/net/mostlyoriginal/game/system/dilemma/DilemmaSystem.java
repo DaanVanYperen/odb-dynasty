@@ -280,6 +280,8 @@ public class DilemmaSystem extends EntityProcessingSystem {
                         return riverSystem.getState() == RiverDioramaSystem.RiverState.RIVER_BLOOD;
                     case "NO_WIFE_PYRAMID":
                         return !structureSystem.hasWifePyramid();
+                    case "OBELISK":
+                        return structureSystem.hasObelisk();
                     default:
                         throw new RuntimeException("Missing predicate logic.");
                 }
@@ -414,6 +416,9 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 break;
             case "POSITIVE":
                 startRandomDilemmaFromGroup("positive");
+                break;
+            case "TEST":
+                startRandomDilemmaFromGroup("test");
                 break;
             default:
                 startDilemma(action);

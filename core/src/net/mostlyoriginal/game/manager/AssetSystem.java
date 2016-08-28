@@ -4,6 +4,8 @@ import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.managers.TagManager;
 import com.artemis.utils.EntityBuilder;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Interpolation;
@@ -267,10 +269,10 @@ PROGRESS BAR GREY: x:560, y:495, width:8, height:7
         loadSounds(new String[]{
         });
 
-//        Music music = Gdx.audio.newMusic(Gdx.files.internal("sfx/music-arctrail002b.mp3"));
-//        music.setLooping(true);
-//        music.play();
-//        music.setPan(0,0.4f);
+        Music music = Gdx.audio.newMusic(Gdx.files.internal("sfx/music.mp3"));
+        music.setLooping(true);
+        music.play();
+        music.setPan(0,0.1f);
     }
 
     @Override
