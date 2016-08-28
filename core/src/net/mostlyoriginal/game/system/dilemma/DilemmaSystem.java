@@ -100,7 +100,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
         startDebugDilemma();
     }
 
-    private void startDebugDilemma() {
+    public void startDebugDilemma() {
         startDilemma("DEBUG");
     }
 
@@ -121,6 +121,13 @@ public class DilemmaSystem extends EntityProcessingSystem {
     private Dilemma startDilemma(Dilemma dilemma) {
         if (!dilemmaActive) {
             int row = 0;
+
+            // run all immediate actions.
+            if ( dilemma.immediate != null ) {
+                for (String action : dilemma.immediate) {
+                    triggerAction(action);
+                }
+            }
 
             int slabX = 7 * G.ZOOM;
             int slabY = 7 * G.ZOOM;
@@ -365,6 +372,12 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 break;
             case "RIVER_WATER":
                 riverSystem.water();
+                break;
+            case "NEGATIVE":
+                startRandomDilemmaFromGroup("negative");
+                break;
+            case "POSITIVE":
+                startRandomDilemmaFromGroup("positive");
                 break;
             default:
                 startDilemma(action);

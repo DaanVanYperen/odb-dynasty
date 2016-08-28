@@ -7,6 +7,12 @@
             "role":"Head Architect"
         }
         {
+            "id": "PRIEST",
+            "asset":"ALIEN",
+            "name":"Amenemhat",
+            "role":"High Priest"
+        }
+        {
             "id": "GUIDE",
             "asset":"ALIEN",
             "name":"Anissa Semut",
@@ -46,7 +52,7 @@
         },
         {
             "id": "SUPER_DYNASTY",
-            "comment": "Shown when a great dynasty has been achieved.",
+            "comment": "Shown when a great dynasty (max pyramid) has been achieved.",
             "actor": "GUIDE",
             "text": [ "Reached biggest dynasty possible."],
             "groups": [ "programmatic" ],
@@ -57,6 +63,22 @@
                 }
             ]
         },
+
+        {
+            "id": "PLAGUE_BLOOD",
+            "comment": "Productivity penalty.",
+            "actor": "ALIEN",
+            "text": [ "Curse upon us! The river runs red with blood and dead fish!"],
+            "groups": [ "negative" ],
+            "immediate": ["RIVER_BLOOD"],
+            "choices": [
+                {
+                    "label": ["It stinks, figuratively and literally!"],
+                    "success": ["PROGRESS"]
+                }
+            ]
+        },
+
         {
             "id": "DEBUG",
             "comment": "Shown while debugging.",
@@ -105,9 +127,12 @@
                     "success": [ "RIVER_DRY", "DEBUG" ]
                 },
                 {
-                    "label": ["ALL"],
-                    "success": [         "+LIFESPAN", "+WEALTH", "+FOOD", "+WORKERS", "+COMPLETION", "DEBUG" ],
-                    "failure": [ "+AGE", "-LIFESPAN", "-WEALTH", "-FOOD", "-WORKERS", "-COMPLETION", "DEBUG" ]
+                    "label": ["Positive event"],
+                    "success": [ "POSITIVE" ]
+                },
+                {
+                    "label": ["Negative event"],
+                    "success": [ "NEGATIVE" ]
                 }
             ]
         }

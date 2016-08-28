@@ -10,6 +10,7 @@ public class Dilemma {
     public String comment; // not used.
     public String[] text;
     public Choice[] choices;
+    public String[] immediate;
     public String[] groups;
 
 	public Dilemma() {

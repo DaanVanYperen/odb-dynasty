@@ -61,7 +61,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
         createButton(5, 5, 16*G.ZOOM, 10*G.ZOOM, "btn-test", new ButtonListener() {
             @Override
             public void run() {
-                dilemmaSystem.randomDilemma();
+                dilemmaSystem.startDebugDilemma();
             }
         }, "test");
     }
