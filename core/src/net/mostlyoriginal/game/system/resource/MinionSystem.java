@@ -21,6 +21,7 @@ import net.mostlyoriginal.api.util.DynastyEntityBuilder;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.Cheer;
 import net.mostlyoriginal.game.component.resource.Minion;
+import net.mostlyoriginal.game.component.resource.ZPos;
 import net.mostlyoriginal.game.manager.AssetSystem;
 
 /**
@@ -49,15 +50,6 @@ public class MinionSystem extends IteratingSystem {
     protected void process(int e) {
         mInvisible.remove(e);
         Minion minion = mMinion.get(e);
-
-        // min-y based on z.
-        Pos pos = mPos.get(e);
-        float minY = G.CANVAS_HEIGHT / 2 - minion.z / 2;
-        if ( pos.xy.y < minY ) {
-            pos.xy.y = minY;
-        }
-
-        mRenderable.get(e).layer = MINION_LAYER + (int)minion.z;
     }
 
     /** How productive is the total work force? */
@@ -81,7 +73,7 @@ public class MinionSystem extends IteratingSystem {
                 new Bounds(0, 0, 0, 0),
                 new Anim(id))
                 .with(Pos.class,Scale.class,Invisible.class,
-                        Renderable.class, Physics.class, Gravity.class, Tint.class)
+                        Renderable.class, Physics.class, Gravity.class, Tint.class, ZPos.class)
                 .schedule(OperationFactory.tween(new Tint("ffffff00"), new Tint("ffffffff"), 0.5f))
                 .minion(productivity).build();
         randomizeLocation(e);

@@ -17,6 +17,7 @@ import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.operation.common.Operation;
 import net.mostlyoriginal.game.component.resource.Minion;
+import net.mostlyoriginal.game.component.resource.ZPos;
 
 import java.util.UUID;
 
@@ -30,32 +31,42 @@ public class DynastyEntityBuilder {
     private final World world;
     private final EntityEdit edit;
 
-    /** Begin building new entity.*/
+    /**
+     * Begin building new entity.
+     */
     public DynastyEntityBuilder(World world) {
         this.world = world;
         edit = world.createEntity().edit();
     }
 
-    /** Begin building new entity based on archetype.*/
+    /**
+     * Begin building new entity based on archetype.
+     */
     public DynastyEntityBuilder(World world, Archetype archetype) {
         this.world = world;
         edit = world.createEntity(archetype).edit();
     }
 
-    /** Add component to entity. */
+    /**
+     * Add component to entity.
+     */
     public DynastyEntityBuilder with(Component component) {
         edit.add(component);
         return this;
     }
 
-    /** Add components to entity. */
+    /**
+     * Add components to entity.
+     */
     public DynastyEntityBuilder with(Component component1, Component component2) {
         edit.add(component1);
         edit.add(component2);
         return this;
     }
 
-    /** Add components to entity. */
+    /**
+     * Add components to entity.
+     */
     public DynastyEntityBuilder with(Component component1, Component component2, Component component3) {
         edit.add(component1);
         edit.add(component2);
@@ -63,7 +74,9 @@ public class DynastyEntityBuilder {
         return this;
     }
 
-    /** Add components to entity. */
+    /**
+     * Add components to entity.
+     */
     public DynastyEntityBuilder with(Component component1, Component component2, Component component3, Component component4) {
         edit.add(component1);
         edit.add(component2);
@@ -72,7 +85,9 @@ public class DynastyEntityBuilder {
         return this;
     }
 
-    /** Add components to entity. */
+    /**
+     * Add components to entity.
+     */
     public DynastyEntityBuilder with(Component component1, Component component2, Component component3, Component component4, Component component5) {
         edit.add(component1);
         edit.add(component2);
@@ -82,7 +97,9 @@ public class DynastyEntityBuilder {
         return this;
     }
 
-    /** Add components to entity. */
+    /**
+     * Add components to entity.
+     */
     public DynastyEntityBuilder with(Component... components) {
         for (int i = 0, n = components.length; i < n; i++) {
             edit.add(components[i]);
@@ -90,20 +107,26 @@ public class DynastyEntityBuilder {
         return this;
     }
 
-    /** Add artemis managed components to entity. */
+    /**
+     * Add artemis managed components to entity.
+     */
     public DynastyEntityBuilder with(Class<? extends Component> component) {
         edit.create(component);
         return this;
     }
 
-    /** Add artemis managed components to entity. */
+    /**
+     * Add artemis managed components to entity.
+     */
     public DynastyEntityBuilder with(Class<? extends Component> component1, Class<? extends Component> component2) {
         edit.create(component1);
         edit.create(component2);
         return this;
     }
 
-    /** Add artemis managed components to entity. */
+    /**
+     * Add artemis managed components to entity.
+     */
     public DynastyEntityBuilder with(Class<? extends Component> component1, Class<? extends Component> component2, Class<? extends Component> component3) {
         edit.create(component1);
         edit.create(component2);
@@ -111,7 +134,9 @@ public class DynastyEntityBuilder {
         return this;
     }
 
-    /** Add artemis managed components to entity. */
+    /**
+     * Add artemis managed components to entity.
+     */
     public DynastyEntityBuilder with(Class<? extends Component> component1, Class<? extends Component> component2, Class<? extends Component> component3, Class<? extends Component> component4) {
         edit.create(component1);
         edit.create(component2);
@@ -120,7 +145,9 @@ public class DynastyEntityBuilder {
         return this;
     }
 
-    /** Add artemis managed components to entity. */
+    /**
+     * Add artemis managed components to entity.
+     */
     public DynastyEntityBuilder with(Class<? extends Component> component1, Class<? extends Component> component2, Class<? extends Component> component3, Class<? extends Component> component4, Class<? extends Component> component5) {
         edit.create(component1);
         edit.create(component2);
@@ -130,7 +157,9 @@ public class DynastyEntityBuilder {
         return this;
     }
 
-    /** Add artemis managed components to entity. */
+    /**
+     * Add artemis managed components to entity.
+     */
     public DynastyEntityBuilder with(Class<? extends Component>... components) {
         for (int i = 0, n = components.length; i < n; i++) {
             edit.create(components[i]);
@@ -138,9 +167,10 @@ public class DynastyEntityBuilder {
         return this;
     }
 
-    /** Set UUID of entity */
-    public DynastyEntityBuilder UUID(UUID uuid)
-    {
+    /**
+     * Set UUID of entity
+     */
+    public DynastyEntityBuilder UUID(UUID uuid) {
         resolveManager(UuidEntityManager.class).setUuid(edit.getEntity(), uuid);
         return this;
     }
@@ -155,19 +185,25 @@ public class DynastyEntityBuilder {
         return this;
     }
 
-    /** Register entity with tag. Requires registered TagManager */
+    /**
+     * Register entity with tag. Requires registered TagManager
+     */
     public DynastyEntityBuilder tag(String tag) {
         resolveManager(TagManager.class).register(tag, edit.getEntity());
         return this;
     }
 
-    /** Register entity with group. Requires registered TagManager */
+    /**
+     * Register entity with group. Requires registered TagManager
+     */
     public DynastyEntityBuilder group(String group) {
         resolveManager(GroupManager.class).add(edit.getEntity(), group);
         return this;
     }
 
-    /** Register entity with multiple groups. Requires registered TagManager */
+    /**
+     * Register entity with multiple groups. Requires registered TagManager
+     */
     public DynastyEntityBuilder groups(String... groups) {
         for (int i = 0; groups.length > i; i++) {
             group(groups[i]);
@@ -175,15 +211,19 @@ public class DynastyEntityBuilder {
         return this;
     }
 
-    /** Assemble, add to world */
+    /**
+     * Assemble, add to world
+     */
     public Entity build() {
         return edit.getEntity();
     }
 
-    /** Fetch manager or throw RuntimeException if not registered. */
+    /**
+     * Fetch manager or throw RuntimeException if not registered.
+     */
     protected <T extends BaseSystem> T resolveManager(Class<T> type) {
         final T teamManager = world.getSystem(type);
-        if ( teamManager == null ) {
+        if (teamManager == null) {
             throw new RuntimeException("Register " + ClassReflection.getSimpleName(type) + " with your artemis world.");
         }
         return teamManager;
@@ -191,26 +231,27 @@ public class DynastyEntityBuilder {
 
     // End duplication.
 
-    public DynastyEntityBuilder pos(float x, float y)
-    {
-        edit.create(Pos.class).xy.set(x,y);
+    public DynastyEntityBuilder pos(float x, float y) {
+        edit.create(Pos.class).xy.set(x, y);
         return this;
     }
 
-    public DynastyEntityBuilder renderable(int layer)
-    {
+    public DynastyEntityBuilder z(float z) {
+        edit.create(ZPos.class).z = z;
+        return this;
+    }
+
+    public DynastyEntityBuilder renderable(int layer) {
         edit.create(Renderable.class).layer = layer;
         return this;
     }
 
-    public DynastyEntityBuilder anim(String id)
-    {
+    public DynastyEntityBuilder anim(String id) {
         edit.create(Anim.class).id = id;
         return this;
     }
 
-    public DynastyEntityBuilder scale(float scale)
-    {
+    public DynastyEntityBuilder scale(float scale) {
         edit.create(Scale.class).scale = scale;
         return this;
     }
@@ -225,12 +266,12 @@ public class DynastyEntityBuilder {
         return this;
     }
 
-    public DynastyEntityBuilder schedule( Operation operation ) {
+    public DynastyEntityBuilder schedule(Operation operation) {
         edit.create(Schedule.class).operation.add(operation);
         return this;
     }
 
-    public DynastyEntityBuilder minion( int productivity ) {
+    public DynastyEntityBuilder minion(int productivity) {
         edit.create(Minion.class).productivity = productivity;
         return this;
     }
