@@ -36,6 +36,7 @@ public class MinionSystem extends IteratingSystem {
     private M<Pos> mPos;
     private M<Schedule> mSchedule;
     private M<Cheer> mCheer;
+    private M<Minion> mMinion;
 
     public MinionSystem() {
         super(Aspect.all(Minion.class));
@@ -44,6 +45,21 @@ public class MinionSystem extends IteratingSystem {
     @Override
     protected void process(int e) {
 
+    }
+
+    /** How productive is the total work force? */
+    public int totalProductivity() {
+
+        int result=0;
+
+        IntBag actives = subscription.getEntities();
+        int[] ids = actives.getData();
+        for (int i = 0, s = actives.size(); s > i; i++) {
+            int entity = ids[i];
+            result += mMinion.get(entity).productivity;
+        }
+
+        return result > 1 ? result : 1;
     }
 
     public Entity spawn() {
@@ -56,7 +72,6 @@ public class MinionSystem extends IteratingSystem {
         mScale.get(e).scale = G.ZOOM;
         mRenderable.get(e).layer = MINION_LAYER;
         return e;
-
     }
 
     public void allCheer()
