@@ -7,10 +7,13 @@ import com.artemis.utils.EntityBuilder;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
+import net.mostlyoriginal.api.util.DynastyEntityBuilder;
+import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.ui.Bar;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 
 /**
+ * Debug stockpile UI
  * Created by Daan on 27-8-2016.
  */
 public class StockpileUISystem extends BaseSystem {
@@ -27,16 +30,16 @@ public class StockpileUISystem extends BaseSystem {
     }
 
     private void createStockpileUI() {
-        int index=0;
+        int index=1;
         for (StockpileSystem.Resource resource : StockpileSystem.Resource.values()) {
-            createBar(10, 200 - index * 10,  resource.name(), "bar-fuel", "bar-fuel-open", 0 , 0);
+            createBar(10, G.CANVAS_HEIGHT - (index * 10),  resource.name(), "STOCKPILE-TICK", null, 0 , 0);
             index++;
         }
     }
 
 
     public Entity createBar(int x, int y, String label, String icon, String iconEmpty, int value, int valueEmpty) {
-        Entity entity = new EntityBuilder(world)
+        Entity entity = new DynastyEntityBuilder(world)
                 .with(Pos.class, Renderable.class)
                 .with(new Bar(label, icon, value, iconEmpty, valueEmpty))
                 .tag("resource-" + label)

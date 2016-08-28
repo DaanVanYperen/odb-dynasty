@@ -17,6 +17,7 @@ import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.mouse.MouseCursor;
 import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
+import net.mostlyoriginal.api.util.DynastyEntityBuilder;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.Cheer;
 import net.mostlyoriginal.game.component.resource.Minion;
@@ -46,13 +47,13 @@ public class MinionSystem extends IteratingSystem {
     }
 
     public Entity spawn() {
-        Entity e = new EntityBuilder(world).with(
+        Entity e = new DynastyEntityBuilder(world).with(
                 new Bounds(0, 0, 0, 0),
-                new Anim("minion-1"))
+                new Anim("WORKER"))
                 .with(Pos.class,Scale.class,Minion.class,
                         Renderable.class).build();
         randomizeLocation(e);
-        mScale.get(e).scale = 2;
+        mScale.get(e).scale = G.ZOOM;
         mRenderable.get(e).layer = MINION_LAYER;
         return e;
 

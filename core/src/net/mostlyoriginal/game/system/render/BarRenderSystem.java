@@ -95,11 +95,7 @@ public class BarRenderSystem extends DeferredEntityProcessingSystem {
         final com.badlogic.gdx.graphics.g2d.Animation gdxanim = abstractAssetSystem.get(bar.animationId);
         if ( gdxanim == null) return;
 
-        final com.badlogic.gdx.graphics.g2d.Animation gdxanim2 = abstractAssetSystem.get(bar.animationIdEmpty);
-        if ( gdxanim2 == null) return;
-
         final TextureRegion frame = gdxanim.getKeyFrame(0,false);
-        final TextureRegion frame2 = gdxanim2.getKeyFrame(0,false);
 
         // make sure one bubble is always shown.
         int emptyCount = ( bar.value == 0 && bar.valueEmpty == 0 ) ? 1 : bar.valueEmpty;
@@ -119,6 +115,10 @@ public class BarRenderSystem extends DeferredEntityProcessingSystem {
                     frame.getRegionWidth(),
                     frame.getRegionHeight());
         }
+
+        final com.badlogic.gdx.graphics.g2d.Animation gdxanim2 = abstractAssetSystem.get(bar.animationIdEmpty);
+        if ( gdxanim2 == null) return;
+        final TextureRegion frame2 = gdxanim2.getKeyFrame(0,false);
         for ( int i =0; i< emptyCount; i++)
         {
             batch.draw(frame2,

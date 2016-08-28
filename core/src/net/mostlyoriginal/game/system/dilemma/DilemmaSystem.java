@@ -17,12 +17,13 @@ import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.GdxUtil;
+import net.mostlyoriginal.api.util.DynastyEntityBuilder;
 import net.mostlyoriginal.api.utils.EntityUtil;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.dilemma.DilemmaChoice;
 import net.mostlyoriginal.game.component.ui.*;
+import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 
 import java.util.List;
@@ -34,15 +35,15 @@ import java.util.List;
  */
 public class DilemmaSystem extends EntityProcessingSystem {
 
-    public static final int TEXT_ZOOM = 2;
+    public static final int TEXT_ZOOM = G.ZOOM;
     private DilemmaLibrary dilemmaLibrary;
 
     public static final String DILEMMA_GROUP = "dilemma";
     public static final int ROW_HEIGHT = 16;
 
-    public static final Color COLOR_DILEMMA = Color.valueOf("6AD7ED");
-    public static final String COLOR_RAW_BRIGHT = "E7E045";
-    public static final String COLOR_RAW_DIMMED = "FDF1AA";
+    public static final String COLOR_DILEMMA = "00000080";
+    public static final String COLOR_RAW_BRIGHT = "86161f";
+    public static final String COLOR_RAW_DIMMED = "ae121f";
     private boolean dilemmaActive;
 
     private GroupManager groupManager;
@@ -56,31 +57,32 @@ public class DilemmaSystem extends EntityProcessingSystem {
         super(Aspect.all(Pos.class, DilemmaChoice.class));
     }
 
-    public Entity createLabel(int x, int y, Color color, String text) {
-        Entity e = new EntityBuilder(world)
-                .with(Pos.class, Renderable.class, Tint.class, Scale.class)
-                .with(new Label(text, TEXT_ZOOM)).group(DILEMMA_GROUP).build();
-        mPos.get(e).xy.set(x,y);
-        mColor.get(e).set(color);
-
-        mRenderable.get(e).layer = 100;
-        mScale.get(e).scale = TEXT_ZOOM;
+    public Entity createLabel(int x, int y, String color, String text) {
+        Entity e = new DynastyEntityBuilder(world)
+                .with(new Label(text, TEXT_ZOOM))
+                .group(DILEMMA_GROUP)
+                .pos(x, y)
+                .renderable(920)
+                .scale(TEXT_ZOOM)
+                .tint(color)
+                .build();
         return e;
     }
 
     private Entity createOption(int x, int y, String text, ButtonListener listener) {
         //createLabel(x, y, COLOR_DILEMMA, text);
-        Entity entity = new EntityBuilder(world)
-                .with(Pos.class, Renderable.class, Tint.class, Scale.class).with(
-                new Bounds(0, -8, text.length() * 8, 0),
-                new Clickable(),
-                new Button(COLOR_RAW_DIMMED, COLOR_RAW_BRIGHT, "FFFFFF", listener),
-                new Label(text, TEXT_ZOOM)
-        )
-                .group(DILEMMA_GROUP).build();
-        mRenderable.get(entity).layer = 100;
-        mPos.get(entity).xy.set(x,y);
-        mScale.get(entity).scale = TEXT_ZOOM;
+        Entity entity = new DynastyEntityBuilder(world)
+                .with(Tint.class).with(
+                        new Bounds(0, -8, text.length() * 8, 0),
+                        new Clickable(),
+                        new Button(COLOR_RAW_DIMMED, COLOR_RAW_BRIGHT, "FFFFFF", listener),
+                        new Label(text, TEXT_ZOOM)
+                )
+                .group(DILEMMA_GROUP)
+                .renderable(920)
+                .pos(x, y)
+                .scale(TEXT_ZOOM)
+                .build();
         return entity;
     }
 
@@ -111,12 +113,22 @@ public class DilemmaSystem extends EntityProcessingSystem {
 
     private Dilemma startDilemma(Dilemma dilemma) {
         if (!dilemmaActive) {
-            int row = Math.max(4, dilemma.choices.length + dilemma.text.length);
+            int row = 0;
+
+            int slabX = 7 * G.ZOOM;
+            int slabY = 7 * G.ZOOM;
+
+            createBackground(slabX, slabY);
+
+            int textMarginX = 15 * G.ZOOM;
+            int textMarginY = 15 * G.ZOOM;
+
+            int optionMarginY = 5 * G.ZOOM;
 
             dilemmaActive = true;
             for (String text : dilemma.text) {
-                createLabel(50, 50 + ROW_HEIGHT * row, COLOR_DILEMMA, text);
-                row--;
+                createLabel(slabX+ textMarginX, slabY - textMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - ROW_HEIGHT * row, COLOR_DILEMMA, text);
+                row++;
             }
 
             for (Dilemma.Choice choice : dilemma.choices) {
@@ -124,12 +136,31 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 // random chance of succes, if no failure options defined, always failure.
                 final String[] choices = (choice.failure == null) || (MathUtils.random(0, 100) < 100 - choice.risk) ? choice.success : choice.failure;
 
-                createOption(50, 50 + ROW_HEIGHT * row, "[" + choice.label[MathUtils.random(0, choice.label.length - 1)] + "]", new DilemmaListener(choices));
-                row--;
+                createOption(slabX+ textMarginX, slabY - textMarginY - optionMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - ROW_HEIGHT * row, "] " + choice.label[MathUtils.random(0, choice.label.length - 1)], new DilemmaListener(choices));
+                row++;
             }
         }
 
         return dilemma;
+    }
+
+    private void createBackground(int x, int y) {
+        Entity slab =
+                new DynastyEntityBuilder(world)
+                        .pos(x, y)
+                        .anim("SLAB")
+                        .renderable(910)
+                        .scale(G.ZOOM)
+                        .group(DILEMMA_GROUP)
+                        .build();
+        Entity scroll =
+                new DynastyEntityBuilder(world)
+                        .pos(x, y)
+                        .anim("SCROLL")
+                        .renderable(900)
+                        .scale(G.ZOOM)
+                        .group(DILEMMA_GROUP)
+                        .build();
     }
 
     /**
@@ -206,13 +237,17 @@ public class DilemmaSystem extends EntityProcessingSystem {
         }
     }
 
-    /** pharao died */
+    /**
+     * pharao died
+     */
     public void death() {
         stopDilemma();
         startDilemma("YOU_DEAD");
     }
 
-    /** best dynasty possible! */
+    /**
+     * best dynasty possible!
+     */
     public void superDynasty() {
         stopDilemma();
         startDilemma("SUPER_DYNASTY");
@@ -229,18 +264,40 @@ public class DilemmaSystem extends EntityProcessingSystem {
             case "RESTART":
                 restartGame();
                 break;
-            case "+AGE": stockpileSystem.alter(StockpileSystem.Resource.AGE, 1); break;
-            case "+LIFESPAN": stockpileSystem.alter(StockpileSystem.Resource.LIFESPAN, 1); break;
-            case "+WEALTH": stockpileSystem.alter(StockpileSystem.Resource.WEALTH, 1); break;
-            case "+FOOD": stockpileSystem.alter(StockpileSystem.Resource.FOOD, 1); break;
-            case "+WORKERS": stockpileSystem.alter(StockpileSystem.Resource.WORKERS, 1); break;
-            case "+COMPLETION": stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, 1); break;
+            case "+AGE":
+                stockpileSystem.alter(StockpileSystem.Resource.AGE, 1);
+                break;
+            case "+LIFESPAN":
+                stockpileSystem.alter(StockpileSystem.Resource.LIFESPAN, 1);
+                break;
+            case "+WEALTH":
+                stockpileSystem.alter(StockpileSystem.Resource.WEALTH, 1);
+                break;
+            case "+FOOD":
+                stockpileSystem.alter(StockpileSystem.Resource.FOOD, 1);
+                break;
+            case "+WORKERS":
+                stockpileSystem.alter(StockpileSystem.Resource.WORKERS, 1);
+                break;
+            case "+COMPLETION":
+                stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, 1);
+                break;
 
-            case "-LIFESPAN": stockpileSystem.alter(StockpileSystem.Resource.LIFESPAN, -1); break;
-            case "-WEALTH": stockpileSystem.alter(StockpileSystem.Resource.WEALTH, -1); break;
-            case "-FOOD": stockpileSystem.alter(StockpileSystem.Resource.FOOD, -1); break;
-            case "-WORKERS": stockpileSystem.alter(StockpileSystem.Resource.WORKERS, -1); break;
-            case "-COMPLETION": stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, -1); break;
+            case "-LIFESPAN":
+                stockpileSystem.alter(StockpileSystem.Resource.LIFESPAN, -1);
+                break;
+            case "-WEALTH":
+                stockpileSystem.alter(StockpileSystem.Resource.WEALTH, -1);
+                break;
+            case "-FOOD":
+                stockpileSystem.alter(StockpileSystem.Resource.FOOD, -1);
+                break;
+            case "-WORKERS":
+                stockpileSystem.alter(StockpileSystem.Resource.WORKERS, -1);
+                break;
+            case "-COMPLETION":
+                stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, -1);
+                break;
             default:
                 startDilemma(action);
                 break;

@@ -17,6 +17,7 @@ import net.mostlyoriginal.api.component.mouse.MouseCursor;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.manager.AbstractEntityFactorySystem;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
+import net.mostlyoriginal.api.util.DynastyEntityBuilder;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.Burrow;
 import net.mostlyoriginal.game.component.resource.Stockpile;
@@ -66,8 +67,8 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     }
 
     private void createSun() {
-        Entity e = new EntityBuilder(world)
-                .with(new Anim("sun"))
+        Entity e = new DynastyEntityBuilder(world)
+                .with(new Anim("SUN"))
                 .with(Pos.class, Renderable.class, Scale.class)
                 .tag("sun")
                 .build();
@@ -76,16 +77,16 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     }
 
     private void createBackground() {
-        Entity e = new EntityBuilder(world)
-                .with(new Anim("backgroundTop"))
+        Entity e = new DynastyEntityBuilder(world)
+                .with(new Anim("SKY"))
                 .with(Pos.class, Renderable.class, Scale.class)
                 .build();
         mRenderable.get(e).layer=-100;
         mScale.get(e).scale = G.ZOOM;
         mPos.get(e).xy.y=133*G.ZOOM;
 
-        e = new EntityBuilder(world)
-                .with(new Anim("backgroundBottom"))
+        e = new DynastyEntityBuilder(world)
+                .with(new Anim("DESERT"))
                 .with(Pos.class, Renderable.class, Scale.class)
                 .build();
         mRenderable.get(e).layer=100;
@@ -93,7 +94,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     }
 
     private void createPyramid() {
-        createStructure(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2, "pyramid", "pyramid");
+        createStructure(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2, "PYRAMID", "pyramid");
     }
 
     private void createStructure(int x, int y, String animId, String tag) {
@@ -122,7 +123,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     }
 
     private void createDynastyMetadata() {
-        new EntityBuilder(world).with(
+        new DynastyEntityBuilder(world).with(
                 new Stockpile()).tag("dynasty").build();
     }
 
@@ -134,7 +135,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
 
     public void createCamera(int cx, int cy) {
         // now create a drone that will swerve towards the player which contains the camera. this will create a smooth moving camera.
-        Entity camera = new EntityBuilder(world).with(Pos.class).with(createCameraBounds(), new Camera()).build();
+        Entity camera = new DynastyEntityBuilder(world).with(Pos.class).with(createCameraBounds(), new Camera()).build();
         mPos.get(camera).xy.set(cx, cy);
     }
 
@@ -149,7 +150,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     }
 
     public Entity createButton(int x, int y, int width, int height, String animPrefix, ButtonListener listener, String hint) {
-        Entity e = new EntityBuilder(world)
+        Entity e = new DynastyEntityBuilder(world)
                 .with(new Bounds(0, 0, width, height),
                         new Anim(),
                         new Button(animPrefix, listener, hint),
@@ -163,15 +164,12 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     }
 
     private Entity createMousecursor() {
-        Entity entity = new EntityBuilder(world).with(
+        Entity entity = new DynastyEntityBuilder(world).with(
                 new MouseCursor(),
-                new Bounds(0, 0, 0, 0),
-                new Anim("dancingman"))
-                .with(Pos.class,
-                        Renderable.class)
+                new Bounds(0, 0, 0, 0))
+                .with(Pos.class)
                 .tag("cursor").build();
 
-        mRenderable.get(entity).layer = MOUSE_CURSOR_LAYER;
         return entity;
 
     }

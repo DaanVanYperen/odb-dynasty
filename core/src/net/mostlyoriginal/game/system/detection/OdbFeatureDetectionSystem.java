@@ -6,6 +6,7 @@ import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.EntityBuilder;
 import com.artemis.utils.reflect.ClassReflection;
 import com.badlogic.gdx.Gdx;
+import net.mostlyoriginal.api.util.DynastyEntityBuilder;
 import net.mostlyoriginal.game.component.detection.OdbFeatureComponent;
 import net.mostlyoriginal.game.component.detection.PoolDetectionComponent;
 
@@ -24,7 +25,7 @@ public class OdbFeatureDetectionSystem extends BaseSystem {
 		super.initialize();
 
 		OdbFeatureComponent features = new OdbFeatureComponent();
-		new EntityBuilder(world).with(features).tag(FEATURES_TAG).build();
+		new DynastyEntityBuilder(world).with(features).tag(FEATURES_TAG).build();
 
 		// detect packing based on reflection.
 		features.isPacked = false;

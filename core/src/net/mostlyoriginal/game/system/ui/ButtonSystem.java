@@ -14,6 +14,7 @@ import net.mostlyoriginal.api.component.graphics.Invisible;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
+import net.mostlyoriginal.api.util.DynastyEntityBuilder;
 import net.mostlyoriginal.api.util.GdxUtil;
 import net.mostlyoriginal.game.component.ui.Button;
 import net.mostlyoriginal.game.component.ui.Clickable;
@@ -49,7 +50,7 @@ public class ButtonSystem extends EntityProcessingSystem {
         super.initialize();
 
         hintlabel = new Label("hintlabel");
-        Entity hint = new EntityBuilder(world)
+        Entity hint = new DynastyEntityBuilder(world)
                 .with(Pos.class, Renderable.class, Tint.class)
                 .with(hintlabel).build();
         mColor.get(hint).setHex("004290");

@@ -12,6 +12,7 @@ import net.mostlyoriginal.api.component.graphics.ColorAnimation;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
+import net.mostlyoriginal.api.util.DynastyEntityBuilder;
 import net.mostlyoriginal.api.util.GdxUtil;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.ui.Label;
@@ -25,10 +26,11 @@ public class AssetSystem extends AbstractAssetSystem {
 
     public static final int DANCING_MAN_WIDTH = 24;
     public static final int DANCING_MAN_HEIGHT = 36;
-    public static final int PYRAMID_WIDTH = 125;
-    public static final int PYRAMID_HEIGHT = 62;
-    public static final int SUN_WIDTH = 32;
-    public static final int SUN_HEIGHT = 32;
+    public static final int PYRAMID_WIDTH = 126;
+    public static final int PYRAMID_HEIGHT = 63;
+    public static final int SUN_WIDTH = 48;
+    public static final int SUN_HEIGHT = 48;
+    public static final int SLAB_HEIGHT = 94;
 
 
     private TagManager tagManager;
@@ -37,13 +39,46 @@ public class AssetSystem extends AbstractAssetSystem {
     public AssetSystem() {
         super("dynasty.png");
 
-        add("backgroundTop", 0, 0, 160, 133, 1);
-        add("backgroundBottom", 0, 133, 160, 133, 1);
-        add("pyramid", 400, 32, PYRAMID_WIDTH, PYRAMID_HEIGHT, 1);
+        add("SKY", 0, 0, 160, 133, 1);
+        add("DESERT", 0, 133, 160, 133, 1);
+        add("PYRAMID", 401, 41, PYRAMID_WIDTH, PYRAMID_HEIGHT, 1);
 
-        add("sun", 400, 160+40-32,SUN_WIDTH,SUN_HEIGHT, 1);
+        add("SUN", 392, 152,SUN_WIDTH,SUN_HEIGHT, 1);
 
-        add("minion-1", 400 + 16, 160+42, 2, 4, 1);
+        add("WORKER", 416, 202, 2, 5, 1);
+
+        add("ALIEN", 400, 344,31,39, 1);
+        add("SLAB", 400, 391,147,SLAB_HEIGHT, 1);
+        add("SCROLL", 548, 391, 89,29, 1);
+
+        add("STOCKPILE-TICK", 456, 236, 12, 10, 1);
+
+        /*
+        WAVES: x:160, y:129, width:160, height:4
+        FLOOD: x:160, y:133, width:160, height:133
+        PYRAMID STAGE 1: x:528, y:68, width:126,  height:42
+        PYRAMID STAGE 2: x:656, y:62, width:126,  height:42
+        DUST: x:440, y:160, width:3,  height:3
+        ELEPHANT: x:399, y:200, width:16,  height:9
+        SOLDIER: x:420, y:202, width:2,  height:5
+        PHARAOH: x:427, y:200, width:4,  height:7
+        CAMEL: x:434, y:201, width:12,  height:8
+        WIFE'S PYRAMID: x:400, y:216, width:55,  height:28
+        BLOCKS: x:456, y:236 , width:12,  height:10
+        BLOCKS & SCAFFOLDING: x:469, y:225 , width:33,  height:22
+        SCAFFOLDING: x:503, y:219, width:16,  height:28
+        WATER: x:400, y:272, width:160,  height:17
+        WATER ANIM 1: x:400, y:289, width:160,  height:17
+        WATER ANIM 2: x:400, y:306, width:160,  height:17
+        WATER ANIM 3: x:400, y:323, width:160,  height:17
+        BLOODWATER: x:561, y:272, width:160,  height:17
+        BLOODWATER ANIM 1: x:561, y:289, width:160,  height:17
+        BLOODWATER ANIM 2: x:561, y:306, width:160,  height:17
+        BLOODWATER ANIM 3: x:561, y:323, width:160,  height:17
+        ALIEN: x:400, y:344, width:31,  height:39
+        SLAB: x:400, y:391, width:147,  height:94
+        SCROLL: x:548, y:391, width:89,  height:29
+        */
 
         add("btn-test-up", 400, 160+40, 16, 10, 1);
         add("btn-test-hover", 400, 160+40, 16, 10, 1);
@@ -201,7 +236,7 @@ public class AssetSystem extends AbstractAssetSystem {
         super.initialize();
         final Label label = new Label(G.version);
         label.align = Label.Align.RIGHT;
-        Entity entity = new EntityBuilder(world)
+        Entity entity = new DynastyEntityBuilder(world)
                 .with(Pos.class, Renderable.class)
                 .with(label, new ColorAnimation(GdxUtil.convert(Color.WHITE), GdxUtil.convert(Color.valueOf("333333")), GdxUtil.convert(Interpolation.exp5), 1f / 2f, 2f)).build();
         mPos.get(entity).xy.set(G.CANVAS_WIDTH - 2, G.CANVAS_HEIGHT - 2);
