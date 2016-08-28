@@ -211,8 +211,8 @@ public class DilemmaSystem extends EntityProcessingSystem {
                         .schedule(OperationFactory.tween(new Pos(x,y - insertDistanceY), new Pos(x,y), 1f, Interpolation.pow4Out ))
                         .build();
 
-        int actorSlabOverlap = 9;
-        int actorOffsetX = 14 * G.ZOOM;
+        int actorSlabOverlap = 6;
+        int actorOffsetX = 16 * G.ZOOM;
         int actorOffsetY = (AssetSystem.SLAB_HEIGHT - actorSlabOverlap) * G.ZOOM;
 
         if (actorId != null) {
@@ -226,7 +226,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                             .schedule(OperationFactory.tween(new Pos(x + actorOffsetX, y + actorOffsetY - insertDistanceY), new Pos(x + actorOffsetX, y + actorOffsetY), 1f, Interpolation.pow4Out ))
                             .build();
 
-            int actorVsScrollMargin = 2;
+            int actorVsScrollMargin = 0;
             int scrollSlabOverlap = 11;
             int scrollOffsetX = (AssetSystem.DEFAULT_ACTOR_WIDTH + actorVsScrollMargin) * G.ZOOM + actorOffsetX;
             int scrollOffsetY = (AssetSystem.SLAB_HEIGHT - scrollSlabOverlap) * G.ZOOM;

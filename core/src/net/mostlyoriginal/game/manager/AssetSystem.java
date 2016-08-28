@@ -60,7 +60,6 @@ public class AssetSystem extends AbstractAssetSystem {
 
         add("WORKER", 416, 202, 2, 5, 1);
 
-        add("ALIEN", 400, 344, 31, 39, 1);
         add("SLAB", 400, 391, SLAB_WIDTH, SLAB_HEIGHT, 1);
         add("SCROLL", 548, 391, 89, SCROLL_HEIGHT, 1);
 
@@ -98,6 +97,17 @@ public class AssetSystem extends AbstractAssetSystem {
         add("SCAFFOLDING OBJECTS 8", 520, 224, 8, 8, 1);
         add("SCAFFOLDING OBJECTS 9", 528, 224, 8, 8, 1);
         add("SCAFFOLDING OBJECTS 10", 536, 224, 8, 8, 1);
+
+
+        add("PYRAMID Granite",712, 0, 160, 133,1);
+
+        add("ALIEN", 400, 344, 22, 39, 4);
+
+        add("PRIEST", 488, 344, 28, 38, 4);
+
+        add("WIFE", 600, 344, 27, 37, 4);
+
+        add("GUIDE", 708, 344, 30, 38, 4);
 
 
 

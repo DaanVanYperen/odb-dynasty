@@ -8,19 +8,19 @@
         },
         {
             "id": "PRIEST",
-            "asset":"ALIEN",
+            "asset":"PRIEST",
             "name":"Amenemhat",
             "role":"High Priest"
         },
         {
             "id": "WIFE",
-            "asset":"ALIEN",
+            "asset":"WIFE",
             "name":"Nefertutu",
             "role":"Spouse and queen"
         },
         {
             "id": "GUIDE",
-            "asset":"ALIEN",
+            "asset":"GUIDE",
             "name":"Anissa Semut",
             "role":"Tour guide"
         }
@@ -178,7 +178,7 @@
             "comment": "Length test.",
             "actor": "ALIEN",
             "text": [ "Word has travelled of your great project. They offer to build you nothing, because this is just a test message to test linebreaks." ],
-            "groups": [ "negative", "test" ],
+            "groups": [ "test" ],
             "choices": [
                 {
                     "label": ["Uh ok but if that is the case why can I respond with such a giant story that confuses everyone amazing lalalalala. "],
@@ -219,15 +219,41 @@
                     "success": [ "DEBUG_BUILD" ]
                 },
                 {
-                    "label": ["Test event"],
-                    "success": [ "TEST" ]
+                    "label": ["Events .."],
+                    "success": [ "DEBUG_EVENTS" ]
                 },
+            ]
+        },
+        {
+            "id": "DEBUG_EVENTS",
+            "comment": "Event tests shown while debugging.",
+            "actor": "PRIEST",
+            "text": [ "Debug options > events"],
+            "groups": [ "programmatic" ],
+            "choices": [
+                {
+                    "label": ["Positive"],
+                    "success": [ "POSITIVE" ]
+                },
+                {
+                    "label": ["Negative"],
+                    "success": [ "NEGATIVE" ]
+                },
+                {
+                    "label": ["Test"],
+                    "success": [ "DEBUG_EVENTS" ]
+                },
+                {
+                    "label": ["Back"],
+                    "success": [ "DEBUG" ]
+                },
+
             ]
         },
         {
             "id": "DEBUG_BUILD",
             "comment": "Build menu for debugging.",
-            "actor": "ALIEN",
+            "actor": "WIFE",
             "text": [ "Debug options > Build"],
             "groups": [ "programmatic" ],
             "choices": [
@@ -258,7 +284,7 @@
                 {
                     "label": ["Back"],
                     "success": [ "DEBUG" ]
-                },
+                }
             ]
         }
     ]
