@@ -53,7 +53,8 @@ public class DioramaSystem extends BaseSystem {
             completion = completionNew;
             minionSystem.allCheer();
 
-            int scaffoldHeight = (int) ((1f - burrow.targetPercentage) * 10f);
+            int scaffoldHeight = (int) ((1f - burrow.targetPercentage) * 10);
+            System.out.println(scaffoldHeight);
             scaffoldDioramaSystem.stack(2,8, MathUtils.clamp(scaffoldHeight,0,scaffoldHeight-5));
             scaffoldDioramaSystem.stack(3,7, MathUtils.clamp(scaffoldHeight,0,scaffoldHeight-3));
             scaffoldDioramaSystem.stack(4,6, MathUtils.clamp(scaffoldHeight,0,scaffoldHeight-1));

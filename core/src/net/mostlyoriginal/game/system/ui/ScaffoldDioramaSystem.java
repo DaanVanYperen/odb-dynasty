@@ -113,6 +113,7 @@ public class ScaffoldDioramaSystem extends BaseSystem {
         String id = ids[MathUtils.random(0, ids.length - 1)];
         new DynastyEntityBuilder(world)
                 .pos(x, y)
+                .with(Scaffold.class)
                 .renderable(500)
                 .anim(id)
                 .scale(G.ZOOM).build();
@@ -136,12 +137,17 @@ public class ScaffoldDioramaSystem extends BaseSystem {
     private void tick() {
         for (int column = 0; column < MAX_COLUMNS; column++) {
 
-            if ( targetHeight[column] > actualHeight[column] && MathUtils.random(0,100) < 25 ) {
+            if ( targetHeight[column] != actualHeight[column] && MathUtils.random(0,100) < 25 ) {
                 int x = column * BIG_SCAFFOLD_WIDTH * G.ZOOM;
-                expireScaffolds(x, x+ BIG_SCAFFOLD_WIDTH-1);
-                actualHeight[column] =
-                        MathUtils.clamp(targetHeight[column], actualHeight[column]+1, actualHeight[column]+2);
-                spawn(x, 133 * G.ZOOM - 4 * G.ZOOM, actualHeight[column]);
+
+                expireScaffolds(x, x+((BIG_SCAFFOLD_WIDTH-1)*G.ZOOM));
+
+                actualHeight[column] +=
+                        MathUtils.clamp(targetHeight[column] - actualHeight[column], -3, 1);
+
+                if ( actualHeight[column] > 0 ) {
+                    spawn(x, 133 * G.ZOOM - 4 * G.ZOOM, actualHeight[column]);
+                }
             }
         }
     }
@@ -159,11 +165,20 @@ public class ScaffoldDioramaSystem extends BaseSystem {
         }
     }
 
+    public void kill()
+    {
+        for(int column=0;column<MAX_COLUMNS;column++) {
+            targetHeight[column]=0;
+        }
+
+    }
+
     public void stack(int col, int lastCol, float stacks) {
         for(int column=col;column<=lastCol;column++)
         {
             targetHeight[column] =
-                    MathUtils.random(0, 100) < 50 ? (int) MathUtils.random(stacks*0.25f,stacks) : (int) stacks;
+                    MathUtils.random(0, 100) < 10 ? (int) MathUtils.random(stacks*0.25f,stacks) : (int) stacks;
+            if ( targetHeight[column] < 0 ) targetHeight[column] = 0;
         }
     }
 }

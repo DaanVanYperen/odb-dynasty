@@ -24,6 +24,7 @@ import net.mostlyoriginal.game.component.dilemma.DilemmaChoice;
 import net.mostlyoriginal.game.component.ui.*;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.manager.StructureSystem;
+import net.mostlyoriginal.game.system.endgame.EndgameSystem;
 import net.mostlyoriginal.game.system.logic.ProgressAlgorithmSystem;
 import net.mostlyoriginal.game.system.render.LabelRenderSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
@@ -62,6 +63,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
     private RiverDioramaSystem riverSystem;
     private ProgressAlgorithmSystem progressAlgorithmSystem;
     private LabelRenderSystem labelRenderSystem;
+    private EndgameSystem endgameSystem;
 
     public DilemmaSystem() {
         super(Aspect.all(Pos.class, DilemmaChoice.class));
@@ -451,6 +453,9 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 break;
             case "TEST":
                 startRandomDilemmaFromGroup("test");
+                break;
+            case "TIMETRAVEL":
+                endgameSystem.setFutureScene();
                 break;
             default:
                 startDilemma(action);

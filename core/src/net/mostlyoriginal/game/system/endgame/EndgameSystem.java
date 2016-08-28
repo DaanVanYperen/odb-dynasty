@@ -7,6 +7,7 @@ import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.EndgameReached;
 import net.mostlyoriginal.game.component.resource.Stockpile;
 import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
+import net.mostlyoriginal.game.system.ui.ScaffoldDioramaSystem;
 
 /**
  * Created by Daan on 27-8-2016.
@@ -15,6 +16,7 @@ public class EndgameSystem extends IteratingSystem {
 
     protected M<Stockpile> mStockpile;
     protected DilemmaSystem dilemmaSystem;
+    ScaffoldDioramaSystem scaffoldDioramaSystem;
     protected M<EndgameReached> mEndgameReached;
 
     public EndgameSystem() {
@@ -43,5 +45,9 @@ public class EndgameSystem extends IteratingSystem {
             dilemmaSystem.death();
             mEndgameReached.create(e);
         }
+    }
+
+    public void setFutureScene() {
+        scaffoldDioramaSystem.kill();
     }
 }

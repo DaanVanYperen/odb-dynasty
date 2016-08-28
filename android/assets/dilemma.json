@@ -49,6 +49,7 @@
             "actor": "GUIDE",
             "text": [ "Dead"],
             "groups": [ "programmatic" ],
+            "immediate": ["TIMETRAVEL"],
             "choices": [
                 {
                     "label": ["Play again"],
@@ -62,6 +63,7 @@
             "actor": "GUIDE",
             "text": [ "Reached biggest dynasty possible."],
             "groups": [ "programmatic" ],
+            "immediate": ["TIMETRAVEL"],
             "choices": [
                 {
                     "label": ["Play again"],
