@@ -22,6 +22,7 @@ import net.mostlyoriginal.game.component.ui.*;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.manager.StructureSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
+import net.mostlyoriginal.game.system.ui.RiverDioramaSystem;
 
 import java.util.List;
 
@@ -51,6 +52,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
     private M<Pos> mPos;
     private M<Scale> mScale;
     private M<Renderable> mRenderable;
+    private RiverDioramaSystem riverSystem;
 
     public DilemmaSystem() {
         super(Aspect.all(Pos.class, DilemmaChoice.class));
@@ -346,7 +348,15 @@ public class DilemmaSystem extends EntityProcessingSystem {
             case "-OBELISK":
                 structureSystem.destroyObelisks();
                 break;
-
+            case "RIVER_BLOOD":
+                riverSystem.blood();
+                break;
+            case "RIVER_DRY":
+                riverSystem.clear();
+                break;
+            case "RIVER_WATER":
+                riverSystem.water();
+                break;
             default:
                 startDilemma(action);
                 break;

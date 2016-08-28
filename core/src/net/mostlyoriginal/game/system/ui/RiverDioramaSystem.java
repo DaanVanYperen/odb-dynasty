@@ -56,7 +56,7 @@ public class RiverDioramaSystem extends BaseSystem {
     public void water()
     {
         mInvisible.remove(getRiver());
-        mAnim.get(getRiver()).id="RIVER-WATER";
+        mAnim.get(getRiver()).id="RIVER";
     }
 
     public void blood()

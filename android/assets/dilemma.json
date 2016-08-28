@@ -75,8 +75,20 @@
                     "success": [ "+OBELISK", "DEBUG" ]
                 },
                 {
-                    "label": ["Obelisk gone :("],
+                    "label": ["Obelisks gone :("],
                     "success": [ "-OBELISK", "DEBUG" ]
+                },
+                {
+                    "label": ["River!"],
+                    "success": [ "RIVER_WATER", "DEBUG" ]
+                },
+                {
+                    "label": ["River Blood!"],
+                    "success": [ "RIVER_BLOOD", "DEBUG" ]
+                },
+                {
+                    "label": ["Dry river!"],
+                    "success": [ "RIVER_DRY", "DEBUG" ]
                 },
                 {
                     "label": ["ALL"],
