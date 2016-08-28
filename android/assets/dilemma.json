@@ -67,6 +67,10 @@
                     "success": [ "+WORKERS", "DEBUG" ]
                 },
                 {
+                    "label": ["Wife pyramid"],
+                    "success": [ "WIFE_PYRAMID" ]
+                },
+                {
                     "label": ["ALL"],
                     "success": [         "+LIFESPAN", "+WEALTH", "+FOOD", "+WORKERS", "+COMPLETION", "DEBUG" ],
                     "failure": [ "+AGE", "-LIFESPAN", "-WEALTH", "-FOOD", "-WORKERS", "-COMPLETION", "DEBUG" ]

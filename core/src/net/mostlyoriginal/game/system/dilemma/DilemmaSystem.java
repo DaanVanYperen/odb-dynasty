@@ -20,6 +20,7 @@ import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.dilemma.DilemmaChoice;
 import net.mostlyoriginal.game.component.ui.*;
 import net.mostlyoriginal.game.manager.AssetSystem;
+import net.mostlyoriginal.game.manager.StructureSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 
 import java.util.List;
@@ -44,6 +45,8 @@ public class DilemmaSystem extends EntityProcessingSystem {
 
     private GroupManager groupManager;
     private StockpileSystem stockpileSystem;
+    private StructureSystem structureSystem;
+
     private M<Tint> mColor;
     private M<Pos> mPos;
     private M<Scale> mScale;
@@ -315,7 +318,6 @@ public class DilemmaSystem extends EntityProcessingSystem {
             case "+WORSHIP":
                 stockpileSystem.alter(StockpileSystem.Resource.WORSHIP, 1);
                 break;
-
             case "-LIFESPAN":
                 stockpileSystem.alter(StockpileSystem.Resource.LIFESPAN, -1);
                 break;
@@ -334,6 +336,11 @@ public class DilemmaSystem extends EntityProcessingSystem {
             case "-WORSHIP":
                 stockpileSystem.alter(StockpileSystem.Resource.WORSHIP, -1);
                 break;
+
+            case "WIFE_PYRAMID":
+                structureSystem.createWifePyramid();
+                break;
+
             default:
                 startDilemma(action);
                 break;

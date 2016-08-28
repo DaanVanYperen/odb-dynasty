@@ -28,6 +28,8 @@ public class AssetSystem extends AbstractAssetSystem {
     public static final int DANCING_MAN_HEIGHT = 36;
     public static final int PYRAMID_WIDTH = 126;
     public static final int PYRAMID_HEIGHT = 63;
+    public static final int PYRAMID_WIFE_WIDTH = 55;
+    public static final int PYRAMID_WIFE_HEIGHT = 28;
     public static final int SUN_WIDTH = 48;
     public static final int SUN_HEIGHT = 48;
     public static final int SLAB_HEIGHT = 94;
@@ -45,6 +47,7 @@ public class AssetSystem extends AbstractAssetSystem {
         add("SKY", 0, 0, 160, 133, 1);
         add("DESERT", 0, 133, 160, 133, 1);
         add("PYRAMID", 401, 41, PYRAMID_WIDTH, PYRAMID_HEIGHT, 1);
+        add("PYRAMID-WIFE", 400, 216, PYRAMID_WIFE_WIDTH, PYRAMID_WIFE_HEIGHT, 1);
 
         add("SUN", 392, 152,SUN_WIDTH,SUN_HEIGHT, 1);
 

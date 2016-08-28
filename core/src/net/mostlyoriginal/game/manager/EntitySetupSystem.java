@@ -42,6 +42,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     private AbstractAssetSystem abstractAssetSystem;
     private DilemmaSystem dilemmaSystem;
     private StockpileSystem stockpileSystem;
+    private StructureSystem structureSystem;
 
     private M<Burrow> mBurrow;
     private M<Pos> mPos;
@@ -56,7 +57,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
         initStartingStockpile();
         createMousecursor();
         createCamera(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2);
-        createPyramid();
+        structureSystem.createPyramid();
         createButton(5, 5, 16*G.ZOOM, 10*G.ZOOM, "btn-test", new ButtonListener() {
             @Override
             public void run() {
@@ -82,28 +83,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
         mScale.get(e).scale = G.ZOOM;
     }
 
-    private void createPyramid() {
-        createStructure(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2, "PYRAMID", "pyramid");
-    }
 
-    private void createStructure(int x, int y, String animId, String tag) {
-        Entity entity = Anims.createCenteredAt(world,
-                AssetSystem.PYRAMID_WIDTH,
-                AssetSystem.PYRAMID_HEIGHT,
-                animId,
-                G.ZOOM);
-        mPos.get(entity).xy.y = y;
-
-        if (tag != null) {
-            tagManager.register(tag, entity);
-        }
-
-        Burrow burrow = mBurrow.create(entity);
-        burrow.percentage = 1.0f;
-        burrow.targetPercentage = 1.0f;
-        burrow.speed = 10;
-        burrow.surfaceY = y;
-    }
 
     private void initStartingStockpile() {
         stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, 1);

@@ -18,10 +18,7 @@ import net.mostlyoriginal.api.system.physics.PhysicsSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.api.system.script.EntitySpawnerSystem;
-import net.mostlyoriginal.game.manager.AssetSystem;
-import net.mostlyoriginal.game.manager.EntitySetupSystem;
-import net.mostlyoriginal.game.manager.FontManager;
-import net.mostlyoriginal.game.manager.SmokeSystem;
+import net.mostlyoriginal.game.manager.*;
 import net.mostlyoriginal.game.system.agent.BurrowSystem;
 import net.mostlyoriginal.game.system.agent.CheerSystem;
 import net.mostlyoriginal.game.system.endgame.EndgameSystem;
@@ -54,6 +51,7 @@ public class GameScreen extends WorldScreen {
                         new GroupManager(),
 						new TagManager(),
 						new FontManager(),
+						new StructureSystem(),
 						new SmokeSystem(),
 
 						new CameraSystem(1),
