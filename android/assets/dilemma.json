@@ -5,13 +5,13 @@
             "asset":"ALIEN",
             "name":"Bleeblebrox",
             "role":"Head Architect"
-        }
+        },
         {
             "id": "PRIEST",
             "asset":"ALIEN",
             "name":"Amenemhat",
             "role":"High Priest"
-        }
+        },
         {
             "id": "GUIDE",
             "asset":"ALIEN",
@@ -92,6 +92,24 @@
                 {
                     "label": ["Fill my bath!"],
                     "success": ["PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "BLESSING_WORKERS_OR_OBELISK",
+            "comment": "Word has travelled, people join up!",
+            "actor": "ALIEN",
+            "text": [ "Word has travelled of your great project. They offer to build you an obelisk!"],
+            "groups": [ "positive" ],
+            "choices": [
+                {
+                    "label": ["Put them to work on the main pyramid!"],
+                    "success": ["+WORKERS","+WORKERS","+WORKERS", "PROGRESS"]
+                },
+                {
+                    "label": ["Better be a pretty obelisk!"],
+                    "success": ["+OBELISK", "PROGRESS"]
                 }
             ]
         },
