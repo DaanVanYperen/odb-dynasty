@@ -74,13 +74,14 @@ public class GameScreen extends WorldScreen {
 						new ButtonSystem(),
 
 						new BurrowSystem(),
-						new TrembleSystem(),
-						new CheerSystem(),
 
 						new CollisionSystem(),
 						new PhysicsSystem(),
 						new GravitySystem(),
 						new ZPosSystem(),
+
+						new TrembleSystem(),
+						new CheerSystem(),
 
 						new ProgressAlgorithmSystem(),
 
