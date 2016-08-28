@@ -23,6 +23,7 @@ public class DioramaSystem extends BaseSystem {
     private static final float SUN_DISTANCE = 64;
     protected MinionSystem minionSystem;
     protected StockpileSystem stockpileSystem;
+    protected ScaffoldDioramaSystem scaffoldDioramaSystem;
     protected int minions = 0;
     protected int completion = -1;
 
@@ -51,6 +52,12 @@ public class DioramaSystem extends BaseSystem {
             burrow.targetPercentage = 1f - (completionNew / (float)G.MAX_COMPLETION);
             completion = completionNew;
             minionSystem.allCheer();
+
+            int scaffoldHeight = (int) ((1f - burrow.targetPercentage) * 10f);
+            scaffoldDioramaSystem.stack(2,8, MathUtils.clamp(scaffoldHeight,0,scaffoldHeight-5));
+            scaffoldDioramaSystem.stack(3,7, MathUtils.clamp(scaffoldHeight,0,scaffoldHeight-3));
+            scaffoldDioramaSystem.stack(4,6, MathUtils.clamp(scaffoldHeight,0,scaffoldHeight-1));
+            scaffoldDioramaSystem.stack(5,5, MathUtils.clamp(scaffoldHeight,1,scaffoldHeight));
         }
     }
 

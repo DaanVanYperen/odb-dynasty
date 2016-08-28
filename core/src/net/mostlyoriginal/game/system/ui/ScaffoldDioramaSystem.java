@@ -37,7 +37,7 @@ public class ScaffoldDioramaSystem extends BaseSystem {
 
     public static final int BIG_SCAFFOLD_HEIGHT = 16;
     private static final int BIG_SCAFFOLD_WIDTH = 16;
-    public static final int MAX_COLUMNS = 10;
+    public static final int MAX_COLUMNS = 12;
 
     protected M<Pos> mPos;
 
@@ -84,10 +84,6 @@ public class ScaffoldDioramaSystem extends BaseSystem {
     @Override
     protected void initialize() {
         scaffoldSubscription = world.getAspectSubscriptionManager().get(Aspect.all(Scaffold.class));
-        for(int column=0;column<MAX_COLUMNS;column++)
-        {
-            targetHeight[column] = MathUtils.random(0,4);
-        }
     }
 
     protected void spawn(int x, int y, int height) {
@@ -163,4 +159,11 @@ public class ScaffoldDioramaSystem extends BaseSystem {
         }
     }
 
+    public void stack(int col, int lastCol, float stacks) {
+        for(int column=col;column<=lastCol;column++)
+        {
+            targetHeight[column] =
+                    MathUtils.random(0, 100) < 50 ? (int) MathUtils.random(stacks*0.25f,stacks) : (int) stacks;
+        }
+    }
 }
