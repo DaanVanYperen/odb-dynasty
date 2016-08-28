@@ -42,6 +42,8 @@ public class AssetSystem extends AbstractAssetSystem {
     public static final int SCROLL_HEIGHT = 29;
     public static final int RIVER_HEIGHT = 17;
     public static final int SLAB_WIDTH = 147;
+    public static final int LOGO_WIDTH = 139;
+    public static final int LOGO_HEIGHT = 47;
 
 
     private TagManager tagManager;
@@ -112,6 +114,8 @@ public class AssetSystem extends AbstractAssetSystem {
         add("WIFE", 600, 344, 27, 37, 4);
 
         add("GUIDE", 708, 344, 30, 38, 4);
+
+        add("LOGO", 170, 36, LOGO_WIDTH, LOGO_HEIGHT, 1);
 
 
 

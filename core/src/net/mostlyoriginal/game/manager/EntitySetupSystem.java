@@ -16,6 +16,7 @@ import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.mouse.MouseCursor;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.manager.AbstractEntityFactorySystem;
+import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.util.DynastyEntityBuilder;
 import net.mostlyoriginal.game.G;
@@ -53,6 +54,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     protected void initialize() {
         super.initialize();
         createBackground();
+        createLogo();
         createDynastyMetadata();
         initStartingStockpile();
         createMousecursor();
@@ -81,6 +83,27 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
                 .build();
         mRenderable.get(e).layer = 100;
         mScale.get(e).scale = G.ZOOM;
+    }
+
+    private void createLogo() {
+        float y = G.CANVAS_HEIGHT * 0.75f - (AssetSystem.LOGO_HEIGHT / 2) * G.ZOOM;
+        float x = G.CANVAS_WIDTH * 0.5f - (AssetSystem.LOGO_WIDTH / 2) * G.ZOOM;
+        Entity e = new DynastyEntityBuilder(world)
+                .with(new Anim("LOGO"))
+                .schedule(
+                        OperationFactory.parallel(
+                                OperationFactory.tween(new Pos(x, y - 5 * G.ZOOM), new Pos(x, y + 5 * G.ZOOM), 6f),
+                                OperationFactory.sequence(
+                                        OperationFactory.tween(new Tint("ffffff00"), new Tint("ffffffff"), 0.5f),
+                                        OperationFactory.delay(4),
+                                        OperationFactory.tween(new Tint("ffffffff"), new Tint("ffffff00"), 0.5f)
+                                )))
+                .with(Pos.class, Renderable.class, Scale.class)
+                .build();
+        mRenderable.get(e).layer = 2000;
+        mScale.get(e).scale = G.ZOOM;
+        mPos.get(e).xy.y = y;
+        mPos.get(e).xy.x = x;
     }
 
 
