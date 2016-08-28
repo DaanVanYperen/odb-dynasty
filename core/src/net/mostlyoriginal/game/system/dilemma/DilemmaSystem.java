@@ -153,14 +153,42 @@ public class DilemmaSystem extends EntityProcessingSystem {
                         .scale(G.ZOOM)
                         .group(DILEMMA_GROUP)
                         .build();
-        Entity scroll =
+
+        int actorSlabOverlap = 9;
+        int actorOffsetX = 14 * G.ZOOM;
+        int actorOffsetY = (AssetSystem.SLAB_HEIGHT - actorSlabOverlap) * G.ZOOM;
+
+        Entity actor =
                 new DynastyEntityBuilder(world)
-                        .pos(x, y)
-                        .anim("SCROLL")
-                        .renderable(900)
+                        .pos(x + actorOffsetX, y + actorOffsetY)
+                        .anim("ALIEN")
+                        .renderable(908)
                         .scale(G.ZOOM)
                         .group(DILEMMA_GROUP)
                         .build();
+
+        int actorVsScrollMargin = 2;
+        int scrollSlabOverlap = 11;
+        int scrollOffsetX = (AssetSystem.DEFAULT_ACTOR_WIDTH + actorVsScrollMargin) * G.ZOOM + actorOffsetX;
+        int scrollOffsetY = (AssetSystem.SLAB_HEIGHT - scrollSlabOverlap) * G.ZOOM;
+
+        Entity scroll =
+                new DynastyEntityBuilder(world)
+                        .pos(x + scrollOffsetX, y + scrollOffsetY)
+                        .anim("SCROLL")
+                        .renderable(912)
+                        .scale(G.ZOOM)
+                        .group(DILEMMA_GROUP)
+                        .build();
+
+        int labelHeight = 8 * G.ZOOM;
+        int labelMarginX = 12 * G.ZOOM;
+        int labelMarginY = 8 * G.ZOOM;
+        int labelOffsetY = scrollOffsetY + AssetSystem.SCROLL_HEIGHT * G.ZOOM;
+
+
+        createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY  - labelMarginY, "3e2819", "Bleeblebrox");
+        createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY - labelHeight*1 -labelMarginY, "333333", "Head Architect");
     }
 
     /**

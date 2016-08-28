@@ -63,10 +63,8 @@ public class MinionSystem extends IteratingSystem {
     {
         IntBag actives = subscription.getEntities();
         int[] ids = actives.getData();
-        System.out.println("Cheer started.");
         for (int i = 0, s = actives.size(); s > i; i++) {
             int entity = ids[i];
-            System.out.println("Cheer started.");
             mCheer.create(entity);
             mSchedule.create(entity).operation.add(
                     OperationFactory.sequence(
