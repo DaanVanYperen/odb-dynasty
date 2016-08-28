@@ -86,6 +86,7 @@ public class GameScreen extends WorldScreen {
 						new DioramaSystem(),
 						new SunDioramaSystem(),
 						new RiverDioramaSystem(),
+                        new ScaffoldDioramaSystem(),
 
 						new EndgameSystem(),
 

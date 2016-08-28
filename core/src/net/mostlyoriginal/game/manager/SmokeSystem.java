@@ -66,4 +66,25 @@ public class SmokeSystem extends Manager {
 
         }
     }
+
+    public void cloud(int x, int y, int x2, int y2, int particles, int layer) {
+
+        for(int i = 0; i<particles; i++) {
+            int e = world.create(dustParticle);
+            mPos.get(e).set(MathUtils.random(x,x2),MathUtils.random(y,y2));
+            mAnim.get(e).id="dust_particle";
+            Physics physics = mPhysics.get(e);
+            physics.vx=MathUtils.random(-5f,5f);
+            physics.vy=5 + MathUtils.random(5f,5f);
+            physics.friction=0.01f;
+            mScale.get(e).scale=MathUtils.random(0.5f,3f);
+            mRenderable.get(e).layer = layer;
+
+            mSchedule.get(e).operation.add(
+                    OperationFactory.sequence(
+                            OperationFactory.tween(start, stop, 3f),
+                            OperationFactory.deleteFromWorld()));
+
+        }
+    }
 }

@@ -78,6 +78,27 @@ public class AssetSystem extends AbstractAssetSystem {
         add("PROGRESS BAR", 552, 495, 8, 7,1);
         add("PROGRESS BAR PLANNED", 560, 495, 8, 7,1);
 
+        add("SCAFFOLDING BIG 1", 464, 216, 16,  16,1);
+        add("SCAFFOLDING BIG 2", 464, 232, 16,  16,1);
+        add("SCAFFOLDING BIG 3", 480, 232, 16,  16,1);
+        add("SCAFFOLDING SMALL TOP 1", 480, 216, 8,  8,1);
+        add("SCAFFOLDING SMALL TOP 2", 480, 224, 8,  8,1);
+        add("SCAFFOLDING SMALL TOP 3", 488, 216, 8,  8,1);
+        add("SCAFFOLDING SMALL TILE 1", 488, 224, 8,  8,1);
+        add("SCAFFOLDING BACKGROUND SMALL 1", 496, 224, 8,  8,1);
+        add("SCAFFOLDING FLAG", 496, 216, 8,  8,1);
+        add("SCAFFOLDING OBJECTS 1", 504, 216, 8,  8,1);
+        add("SCAFFOLDING OBJECTS 2", 512, 216, 8,  8,1);
+        add("SCAFFOLDING OBJECTS 3", 520, 216, 8,  8,1);
+        add("SCAFFOLDING OBJECTS 4", 528, 216, 8,  8,1);
+        add("SCAFFOLDING OBJECTS 5", 536 , 216, 8,  8,1);
+        add("SCAFFOLDING OBJECTS 6", 504, 224, 8,  8,1);
+        add("SCAFFOLDING OBJECTS 7", 512, 224, 8,  8,1);
+        add("SCAFFOLDING OBJECTS 8", 520, 224, 8,  8,1);
+        add("SCAFFOLDING OBJECTS 9", 528, 224, 8,  8,1);
+        add("SCAFFOLDING OBJECTS 10", 536, 224, 8,  8,1);
+
+
 
         /*
         WAVES: 160, 129, 160, 4
@@ -90,25 +111,6 @@ public class AssetSystem extends AbstractAssetSystem {
         CAMEL: 434, 201, 12,  8
 
 
-SCAFFOLDING BIG 1: x:464, y:216, width:16,  height:16
-SCAFFOLDING BIG 1: x:464, y:232, width:16,  height:16
-SCAFFOLDING BIG 1: x:480, y:232, width:16,  height:16
-SCAFFOLDING SMALL TOP 1: x:480, y:216, width:8,  height:8
-SCAFFOLDING SMALL TOP 1: x:480, y:224, width:8,  height:8
-SCAFFOLDING SMALL TOP 1: x:488, y:216, width:8,  height:8
-SCAFFOLDING SMALL TILE 1: x:488, y:224, width:8,  height:8
-SCAFFOLDING BACKGROUND SMALL 1: x:496, y:224, width:8,  height:8
-SCAFFOLDING FLAG: x:496, y:216, width:8,  height:8
-SCAFFOLDING OBJECTS 1: x:504, y:216, width:8,  height:8
-SCAFFOLDING OBJECTS 2: x:512, y:216, width:8,  height:8
-SCAFFOLDING OBJECTS 3: x:520, y:216, width:8,  height:8
-SCAFFOLDING OBJECTS 4: x:528, y:216, width:8,  height:8
-SCAFFOLDING OBJECTS 5: x:536 , y:216, width:8,  height:8
-SCAFFOLDING OBJECTS 6: x:504, y:224, width:8,  height:8
-SCAFFOLDING OBJECTS 7: x:512, y:224, width:8,  height:8
-SCAFFOLDING OBJECTS 8: x:520, y:224, width:8,  height:8
-SCAFFOLDING OBJECTS 9: x:528, y:224, width:8,  height:8
-SCAFFOLDING OBJECTS 10: x:536, y:224, width:8,  height:8
 
 GROUND BLOCKS: x:464, y:253, width:12,  height:10
 GROUND BLOCKS: x:476, y:250, width:13,  height:13
