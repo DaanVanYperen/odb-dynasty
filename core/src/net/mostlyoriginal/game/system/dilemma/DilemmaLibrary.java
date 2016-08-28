@@ -8,6 +8,7 @@ import java.util.Map;
 /** Repository for all dilemma. */
 public class DilemmaLibrary {
     public Dilemma[] dilemmas;
+    public DilemmaActor[] actors;
 
 	public DilemmaLibrary() {
     }
@@ -19,6 +20,15 @@ public class DilemmaLibrary {
     {
         for (Dilemma dilemma : dilemmas) {
             if ( dilemma.id != null && dilemma.id.equals(id)) return dilemma;
+        }
+        return null;
+    }
+
+    /** Return dilemma actor, or <code>null</code> if empty. */
+    public DilemmaActor getActorById( String id )
+    {
+        for (DilemmaActor actor : actors) {
+            if ( actor.id != null && actor.id.equals(id)) return actor;
         }
         return null;
     }

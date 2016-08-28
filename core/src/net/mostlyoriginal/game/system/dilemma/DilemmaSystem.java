@@ -1,14 +1,10 @@
 package net.mostlyoriginal.game.system.dilemma;
 
 import com.artemis.Aspect;
-import com.artemis.ComponentMapper;
 import com.artemis.Entity;
-import com.artemis.annotations.Wire;
 import com.artemis.managers.GroupManager;
 import com.artemis.systems.EntityProcessingSystem;
-import com.artemis.utils.EntityBuilder;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.component.basic.Bounds;
@@ -118,7 +114,11 @@ public class DilemmaSystem extends EntityProcessingSystem {
             int slabX = 7 * G.ZOOM;
             int slabY = 7 * G.ZOOM;
 
-            createBackground(slabX, slabY);
+            DilemmaActor dilemmaActor = dilemmaLibrary.getActorById(dilemma.actor);
+            createBackground(slabX, slabY,
+                    dilemmaActor != null ? dilemmaActor.asset : null,
+                    dilemmaActor != null ? dilemmaActor.name : null,
+                    dilemmaActor != null ? dilemmaActor.role : null);
 
             int textMarginX = 15 * G.ZOOM;
             int textMarginY = 15 * G.ZOOM;
@@ -144,7 +144,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
         return dilemma;
     }
 
-    private void createBackground(int x, int y) {
+    private void createBackground(int x, int y, String actorId, String actorName, String actorRole) {
         Entity slab =
                 new DynastyEntityBuilder(world)
                         .pos(x, y)
@@ -158,37 +158,39 @@ public class DilemmaSystem extends EntityProcessingSystem {
         int actorOffsetX = 14 * G.ZOOM;
         int actorOffsetY = (AssetSystem.SLAB_HEIGHT - actorSlabOverlap) * G.ZOOM;
 
-        Entity actor =
-                new DynastyEntityBuilder(world)
-                        .pos(x + actorOffsetX, y + actorOffsetY)
-                        .anim("ALIEN")
-                        .renderable(908)
-                        .scale(G.ZOOM)
-                        .group(DILEMMA_GROUP)
-                        .build();
+        if ( actorId != null ) {
+            Entity actor =
+                    new DynastyEntityBuilder(world)
+                            .pos(x + actorOffsetX, y + actorOffsetY)
+                            .anim(actorId)
+                            .renderable(908)
+                            .scale(G.ZOOM)
+                            .group(DILEMMA_GROUP)
+                            .build();
 
-        int actorVsScrollMargin = 2;
-        int scrollSlabOverlap = 11;
-        int scrollOffsetX = (AssetSystem.DEFAULT_ACTOR_WIDTH + actorVsScrollMargin) * G.ZOOM + actorOffsetX;
-        int scrollOffsetY = (AssetSystem.SLAB_HEIGHT - scrollSlabOverlap) * G.ZOOM;
+            int actorVsScrollMargin = 2;
+            int scrollSlabOverlap = 11;
+            int scrollOffsetX = (AssetSystem.DEFAULT_ACTOR_WIDTH + actorVsScrollMargin) * G.ZOOM + actorOffsetX;
+            int scrollOffsetY = (AssetSystem.SLAB_HEIGHT - scrollSlabOverlap) * G.ZOOM;
 
-        Entity scroll =
-                new DynastyEntityBuilder(world)
-                        .pos(x + scrollOffsetX, y + scrollOffsetY)
-                        .anim("SCROLL")
-                        .renderable(912)
-                        .scale(G.ZOOM)
-                        .group(DILEMMA_GROUP)
-                        .build();
+            Entity scroll =
+                    new DynastyEntityBuilder(world)
+                            .pos(x + scrollOffsetX, y + scrollOffsetY)
+                            .anim("SCROLL")
+                            .renderable(912)
+                            .scale(G.ZOOM)
+                            .group(DILEMMA_GROUP)
+                            .build();
 
-        int labelHeight = 8 * G.ZOOM;
-        int labelMarginX = 12 * G.ZOOM;
-        int labelMarginY = 8 * G.ZOOM;
-        int labelOffsetY = scrollOffsetY + AssetSystem.SCROLL_HEIGHT * G.ZOOM;
+            int labelHeight = 8 * G.ZOOM;
+            int labelMarginX = 12 * G.ZOOM;
+            int labelMarginY = 8 * G.ZOOM;
+            int labelOffsetY = scrollOffsetY + AssetSystem.SCROLL_HEIGHT * G.ZOOM;
 
 
-        createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY  - labelMarginY, "3e2819", "Bleeblebrox");
-        createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY - labelHeight*1 -labelMarginY, "333333", "Head Architect");
+            createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY - labelMarginY, "3e2819", actorName);
+            createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY - labelHeight * 1 - labelMarginY, "333333", actorRole);
+        }
     }
 
     /**

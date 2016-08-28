@@ -1,7 +1,16 @@
 {
+    "actors": [
+        {
+            "id": "ALIEN",
+            "asset":"ALIEN",
+            "name":"Bleeblebrox",
+            "role":"Head Architect"
+        }
+    ],
     "dilemmas": [
         {
             "id": "TEMPLATE NEGATIVE",
+            "actor": "ALIEN",
             "text": [ "State the problem"],
             "groups": [ "template" ],
             "choices": [
@@ -17,6 +26,7 @@
         },
         {
             "id": "YOU_DEAD",
+            "actor": "ALIEN",
             "text": [ "Dead"],
             "groups": [ "programmatic" ],
             "choices": [
@@ -28,6 +38,7 @@
         },
         {
             "id": "SUPER_DYNASTY",
+            "actor": "ALIEN",
             "text": [ "Reached biggest dynasty posslbe."],
             "groups": [ "programmatic" ],
             "choices": [
@@ -39,6 +50,7 @@
         },
         {
             "id": "DEBUG",
+            "actor": "ALIEN",
             "text": [ "Lorum Ipsum Plopsum Kabouterum"],
             "groups": [ "positive","negative" ],
             "choices": [

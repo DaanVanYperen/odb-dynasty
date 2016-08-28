@@ -6,6 +6,7 @@ package net.mostlyoriginal.game.system.dilemma;
 public class Dilemma {
 
     public String id;
+    public String actor;
     public String[] text;
     public Choice[] choices;
     public String[] groups;
