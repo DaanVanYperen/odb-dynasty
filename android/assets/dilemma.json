@@ -82,7 +82,7 @@
 
         {
             "id": "BLESSING_RIVER",
-            "comment": "Productivity penalty.",
+            "comment": "Productivity boost.",
             "actor": "PRIEST",
             "text": [ "Blessed be! A flood fills the river with water!"],
             "groups": [ "positive" ],
@@ -91,6 +91,22 @@
             "choices": [
                 {
                     "label": ["Fill my bath!"],
+                    "success": ["PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "BLESSING_PURIFY_RIVER",
+            "comment": "Blood river turns to water, productivity boost.",
+            "actor": "PRIEST",
+            "text": [ "The curse has lifted. Water flows again!"],
+            "groups": [ "positive" ],
+            "predicates": ["RIVER_BLOOD"],
+            "immediate": ["RIVER_WATER"],
+            "choices": [
+                {
+                    "label": ["The gods bless us!"],
                     "success": ["PROGRESS"]
                 }
             ]
