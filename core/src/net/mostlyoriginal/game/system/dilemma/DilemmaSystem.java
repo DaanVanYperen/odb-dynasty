@@ -5,13 +5,16 @@ import com.artemis.Entity;
 import com.artemis.managers.GroupManager;
 import com.artemis.systems.EntityProcessingSystem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
+import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.util.DynastyEntityBuilder;
 import net.mostlyoriginal.api.utils.EntityUtil;
@@ -68,13 +71,19 @@ public class DilemmaSystem extends EntityProcessingSystem {
         Label label = new Label(text, TEXT_ZOOM);
         label.shadowColor = new Tint(shadowTextColor);
         label.maxWidth = maxWidth;
-        Entity e = new DynastyEntityBuilder(world)
+        DynastyEntityBuilder builder = new DynastyEntityBuilder(world)
                 .with(label)
                 .group(DILEMMA_GROUP)
                 .pos(x, y)
                 .renderable(920)
                 .scale(TEXT_ZOOM)
-                .tint(color)
+                .tint(color);
+
+        int insertDistanceY =AssetSystem.SLAB_HEIGHT*G.ZOOM;
+        builder.schedule(OperationFactory.tween(new Pos(x,y -insertDistanceY ),
+                new Pos(x, y), 1f, Interpolation.pow4Out ));
+
+        builder
                 .build();
         return labelRenderSystem.estimateHeight(label);
     }
@@ -85,7 +94,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
         label.shadowColor = new Tint(DILEMMA_SHADOW_TEXT_COLOR);
         label.maxWidth = maxWidth;
         float height = labelRenderSystem.estimateHeight(label);
-        Entity entity = new DynastyEntityBuilder(world)
+        DynastyEntityBuilder builder = new DynastyEntityBuilder(world)
                 .with(Tint.class).with(
                         new Bounds(0, (int) -height, text.length() * 8, 0),
                         new Clickable(),
@@ -95,8 +104,12 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 .group(DILEMMA_GROUP)
                 .renderable(920)
                 .pos(x, y)
-                .scale(TEXT_ZOOM)
-                .build();
+                .scale(TEXT_ZOOM);
+
+        int insertDistanceY =AssetSystem.SLAB_HEIGHT*G.ZOOM;
+        builder.schedule(OperationFactory.tween(new Pos(x,y-insertDistanceY),
+                new Pos(x, y), 1f, Interpolation.pow4Out ));
+        builder.build();
         return height;
     }
 
@@ -183,6 +196,9 @@ public class DilemmaSystem extends EntityProcessingSystem {
     }
 
     private void createBackground(int x, int y, String actorId, String actorName, String actorRole) {
+
+        int insertDistanceY =AssetSystem.SLAB_HEIGHT*G.ZOOM;
+
         Entity slab =
                 new DynastyEntityBuilder(world)
                         .pos(x, y)
@@ -190,6 +206,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                         .renderable(910)
                         .scale(G.ZOOM)
                         .group(DILEMMA_GROUP)
+                        .schedule(OperationFactory.tween(new Pos(x,y - insertDistanceY), new Pos(x,y), 1f, Interpolation.pow4Out ))
                         .build();
 
         int actorSlabOverlap = 9;
@@ -204,6 +221,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                             .renderable(908)
                             .scale(G.ZOOM)
                             .group(DILEMMA_GROUP)
+                            .schedule(OperationFactory.tween(new Pos(x + actorOffsetX, y + actorOffsetY - insertDistanceY), new Pos(x + actorOffsetX, y + actorOffsetY), 1f, Interpolation.pow4Out ))
                             .build();
 
             int actorVsScrollMargin = 2;
@@ -218,6 +236,8 @@ public class DilemmaSystem extends EntityProcessingSystem {
                             .renderable(912)
                             .scale(G.ZOOM)
                             .group(DILEMMA_GROUP)
+                            .schedule(OperationFactory.tween(new Pos(x + scrollOffsetX, y + scrollOffsetY - insertDistanceY),
+                                    new Pos(x + scrollOffsetX, y + scrollOffsetY), 1f, Interpolation.pow4Out ))
                             .build();
 
             int labelHeight = 8 * G.ZOOM;
