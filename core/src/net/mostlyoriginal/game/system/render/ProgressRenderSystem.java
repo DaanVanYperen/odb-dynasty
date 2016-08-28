@@ -57,7 +57,7 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
     protected void begin() {
         batch.setProjectionMatrix(cameraSystem.camera.combined);
         batch.begin();
-        batch.setColor(1f, 1f, 1f, 0.5f);
+        batch.setColor(1f, 1f, 1f, 0.7f);
     }
 
     @Override
@@ -75,8 +75,6 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
 
         age += world.delta;
 
-        G.ZOOM = 1;
-
         final Progress progress = mProgress.get(entity);
         final Pos pos = pm.get(entity);
 
@@ -86,7 +84,7 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
         if (progress == null) return;
 
         int barBackgroundX = 7 * G.ZOOM;
-        int barBackgroundY = G.CANVAS_HEIGHT - 7 * G.ZOOM - barBackground.getRegionHeight() * G.ZOOM;
+        int barBackgroundY = 4 * G.ZOOM;
 
         batch.draw(barBackground,
                 barBackgroundX,
@@ -122,8 +120,6 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
                     barPlanned.getRegionHeight() * G.ZOOM);
             batch.setColor(1f,1f,1f,1f);
         }
-
-        G.ZOOM = 3;
     }
 
 }

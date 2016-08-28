@@ -56,13 +56,15 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
     private float getProductivityFactor(int pyramidLevel) {
         switch (pyramidLevel) {
             case 0: return 50;
-            case 1: return 25;
-            case 2: return 10;
-            case 3: return 5f;
-            case 4: return 1f;
-            case 5: return 0.3f;
-            case 6: return 0.2f;
-            default: return 0.1f;
+            case 1: return 55;
+            case 2: return 40;
+            case 3: return 30;
+            case 4: return 20;
+            case 5: return 10f;
+            case 6: return 5f;
+            case 7: return 3f;
+            case 8: return 2f;
+            default: return 1f;
         }
     }
 
