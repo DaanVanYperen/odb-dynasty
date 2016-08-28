@@ -182,7 +182,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
             int maxLabelWidth = AssetSystem.SLAB_WIDTH * G.ZOOM - 20 * G.ZOOM;
 
             for (String text : dilemma.text) {
-                row+=2*G.ZOOM+createLabel(slabX + textMarginX, slabY - textMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - row, COLOR_DILEMMA, text, DILEMMA_SHADOW_TEXT_COLOR, maxLabelWidth);
+                row+=2*G.ZOOM+createLabel(slabX + textMarginX, slabY - textMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - row, COLOR_DILEMMA, replaceTokens(text), DILEMMA_SHADOW_TEXT_COLOR, maxLabelWidth);
             }
 
             for (Dilemma.Choice choice : dilemma.choices) {
@@ -196,6 +196,10 @@ public class DilemmaSystem extends EntityProcessingSystem {
         }
 
         return dilemma;
+    }
+
+    private String replaceTokens(String text) {
+        return text.replace("{score}", ""+endgameSystem.getScore()).replace("{rank}", ""+endgameSystem.getSuccess().name());
     }
 
     private void createBackground(int x, int y, String actorId, String actorName, String actorRole) {

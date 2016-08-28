@@ -47,7 +47,7 @@
             "id": "BAD_DYNASTY",
             "comment": "Shown when a bad dynasty (almost no pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "Kinda sad dynasty."],
+            "text": [ "Kinda sad dynasty. {score} score!"],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
@@ -61,7 +61,7 @@
             "id": "TINY_DYNASTY",
             "comment": "Shown when a tiny dynasty (some pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "Tiny dynasty."],
+            "text": [ "Tiny dynasty. {score} score!"],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
@@ -75,7 +75,21 @@
             "id": "MODERATE_DYNASTY",
             "comment": "Shown when a moderate dynasty (some pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "Tiny dynasty."],
+            "text": [ "Moderate dynasty. {score} score!"],
+            "groups": [ "programmatic" ],
+            "immediate": ["TIMETRAVEL"],
+            "choices": [
+                {
+                    "label": ["Play again"],
+                    "success": ["RESTART"],
+                }
+            ]
+        },
+        {
+            "id": "GOOD_DYNASTY",
+            "comment": "Shown when a good dynasty (some pyramid) has been achieved.",
+            "actor": "GUIDE",
+            "text": [ "Good dynasty. {score} score!"],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
@@ -89,7 +103,7 @@
             "id": "GREAT_DYNASTY",
             "comment": "Shown when a great dynasty (wealthy pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "Tiny dynasty."],
+            "text": [ "Great dynasty. {score} score!"],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
@@ -103,7 +117,7 @@
             "id": "AMAZING_DYNASTY",
             "comment": "Shown when an amazing dynasty (very wealthy pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "Tiny dynasty."],
+            "text": [ "Amazing dynasty. {score} score!"],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
@@ -117,7 +131,7 @@
             "id": "SUPER_DYNASTY",
             "comment": "Shown when a great dynasty (max pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "Reached biggest dynasty possible."],
+            "text": [ "Reached biggest dynasty possible. {score} score!"],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
@@ -251,7 +265,7 @@
             "id": "DEBUG",
             "comment": "Shown while debugging.",
             "actor": "ALIEN",
-            "text": [ "Debug options"],
+            "text": [ "Debug options.","{score} score","{rank} rank."],
             "groups": [ "programmatic" ],
             "choices": [
                 {

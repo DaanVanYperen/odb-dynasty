@@ -109,4 +109,8 @@ public class StructureSystem extends Manager {
     public boolean hasObelisk() {
         return tagManager.getEntity(TAG_OBELISK) != null;
     }
+
+    public float getObeliskCount() {
+        return groupManager.getEntities("obelisks").size();
+    }
 }
