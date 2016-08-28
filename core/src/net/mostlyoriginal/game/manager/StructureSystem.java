@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.manager;
 import com.artemis.Entity;
 import com.artemis.Manager;
 import com.artemis.managers.TagManager;
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Renderable;
@@ -27,20 +28,29 @@ public class StructureSystem extends Manager {
     private M<Scale> mScale;
 
     public void createWifePyramid() {
-        createStructure((int) (G.CANVAS_WIDTH * 0.75f), G.CANVAS_HEIGHT / 2, "PYRAMID-WIFE", "pyramid-wife", 1.0f, 0f, AssetSystem.PYRAMID_WIFE_WIDTH, AssetSystem.PYRAMID_WIFE_HEIGHT, PYRAMID_BURROW_SPEED*3);
+        createStructure((int) (G.CANVAS_WIDTH * 0.75f), G.CANVAS_HEIGHT / 2, "PYRAMID-WIFE", "pyramid-wife", 1.0f, 0f, AssetSystem.PYRAMID_WIFE_WIDTH, AssetSystem.PYRAMID_WIFE_HEIGHT, PYRAMID_BURROW_SPEED*3, -10);
+        minionSystem.allCheer();
+    }
+
+    public void createObelisk() {
+        createStructure((int) MathUtils.random(G.CANVAS_WIDTH * 0.1f,G.CANVAS_WIDTH * 0.9f),
+                G.CANVAS_HEIGHT / 2,
+                "OBELISK",
+                "obelisk", 1.0f, 0f, AssetSystem.OBELISK_WIDTH, AssetSystem.OBELISK_HEIGHT, PYRAMID_BURROW_SPEED*6, 5);
         minionSystem.allCheer();
     }
 
     public void createPyramid() {
-        createStructure(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2, "PYRAMID", "pyramid", 1.0f, 1.0f, AssetSystem.PYRAMID_WIDTH, AssetSystem.PYRAMID_HEIGHT, PYRAMID_BURROW_SPEED);
+        createStructure(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2, "PYRAMID", "pyramid", 1.0f, 1.0f, AssetSystem.PYRAMID_WIDTH, AssetSystem.PYRAMID_HEIGHT, PYRAMID_BURROW_SPEED, 0);
     }
 
-    private void createStructure(int x, int y, String animId, String tag, float burrowPercentage, float burrowTargetPercentage, int width, int height, int speed) {
+    private void createStructure(int x, int y, String animId, String tag, float burrowPercentage, float burrowTargetPercentage, int width, int height, int speed, int layer) {
         Entity entity = Anims.createCenteredAt(world,
                 width,
                 height,
                 animId,
                 G.ZOOM);
+        mRenderable.get(entity).layer = layer;
         mPos.get(entity).xy.set(x - (width * G.ZOOM * 0.5f), y);
 
         if (tag != null) {
@@ -52,5 +62,9 @@ public class StructureSystem extends Manager {
         burrow.targetPercentage = burrowTargetPercentage;
         burrow.speed = speed;
         burrow.surfaceY = y;
+    }
+
+    public void destroyObelisks() {
+
     }
 }

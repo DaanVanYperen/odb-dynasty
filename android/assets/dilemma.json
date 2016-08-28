@@ -19,8 +19,8 @@
                 },
                 {
                     "label": ["Option B"],
-                    "success": [         "+LIFESPAN", "+WEALTH", "+FOOD", "+WORKERS", "+COMPLETION", "+WORSHIP" ],
-                    "failure": [ "+AGE", "-LIFESPAN", "-WEALTH", "-FOOD", "-WORKERS", "-COMPLETION", "-WORSHIP" ]
+                    "success": [         "+LIFESPAN", "+WEALTH", "+FOOD", "+WORKERS", "+COMPLETION", "+WORSHIP", "WIFE_PYRAMID", "+OBELISK" ],
+                    "failure": [ "+AGE", "-LIFESPAN", "-WEALTH", "-FOOD", "-WORKERS", "-COMPLETION", "-WORSHIP", "-OBELISK" ]
                 }
             ]
         },
@@ -68,7 +68,15 @@
                 },
                 {
                     "label": ["Wife pyramid"],
-                    "success": [ "WIFE_PYRAMID" ]
+                    "success": [ "+WIFE_PYRAMID", "DEBUG" ]
+                },
+                {
+                    "label": ["Obelisk!"],
+                    "success": [ "+OBELISK", "DEBUG" ]
+                },
+                {
+                    "label": ["Obelisk gone :("],
+                    "success": [ "-OBELISK", "DEBUG" ]
                 },
                 {
                     "label": ["ALL"],

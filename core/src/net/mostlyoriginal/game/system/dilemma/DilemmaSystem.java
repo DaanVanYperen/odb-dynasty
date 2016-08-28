@@ -337,8 +337,14 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 stockpileSystem.alter(StockpileSystem.Resource.WORSHIP, -1);
                 break;
 
-            case "WIFE_PYRAMID":
+            case "+WIFE_PYRAMID":
                 structureSystem.createWifePyramid();
+                break;
+            case "+OBELISK":
+                structureSystem.createObelisk();
+                break;
+            case "-OBELISK":
+                structureSystem.destroyObelisks();
                 break;
 
             default:

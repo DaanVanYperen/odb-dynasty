@@ -30,6 +30,7 @@ public class SmokeSystem extends Manager {
 
     private Tint start = new Tint(1f,1f,1f,0.8f);
     private Tint stop = new Tint(1f,1f,1f,0f);
+    private M<Renderable> mRenderable;
 
     @Override
     protected void initialize() {
@@ -56,6 +57,7 @@ public class SmokeSystem extends Manager {
             physics.vy=5 + MathUtils.random(0,10f);
             physics.friction=0.01f;
             mScale.get(e).scale=MathUtils.random(0.5f,3f);
+            mRenderable.get(e).layer = 10;
 
             mSchedule.get(e).operation.add(
                     OperationFactory.sequence(
