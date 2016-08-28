@@ -260,6 +260,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
             for (String predicate : dilemma.predicates) {
                 switch (predicate)
                 {
+                    case "RIVER_DRY" : return riverSystem.getState() == RiverDioramaSystem.RiverState.RIVER_NONE;
                     case "RIVER_WATER" : return riverSystem.getState() == RiverDioramaSystem.RiverState.RIVER_WATER;
                     case "RIVER_BLOOD" : return riverSystem.getState() == RiverDioramaSystem.RiverState.RIVER_BLOOD;
                 }

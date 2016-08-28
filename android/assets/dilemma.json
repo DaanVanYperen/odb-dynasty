@@ -67,7 +67,7 @@
         {
             "id": "PLAGUE_BLOOD",
             "comment": "Productivity penalty.",
-            "actor": "ALIEN",
+            "actor": "PRIEST",
             "text": [ "Curse upon us! The river runs red with blood and dead fish!"],
             "groups": [ "negative" ],
             "predicates": ["RIVER_WATER"],
@@ -75,6 +75,22 @@
             "choices": [
                 {
                     "label": ["It stinks, figuratively and literally!"],
+                    "success": ["PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "BLESSING_RIVER",
+            "comment": "Productivity penalty.",
+            "actor": "PRIEST",
+            "text": [ "Blessed be! A flood fills the river with water!"],
+            "groups": [ "positive" ],
+            "predicates": ["RIVER_DRY"],
+            "immediate": ["RIVER_WATER"],
+            "choices": [
+                {
+                    "label": ["Fill my bath!"],
                     "success": ["PROGRESS"]
                 }
             ]
