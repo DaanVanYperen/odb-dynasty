@@ -13,6 +13,12 @@
             "role":"High Priest"
         },
         {
+            "id": "WIFE",
+            "asset":"ALIEN",
+            "name":"Nefertutu",
+            "role":"Spouse and queen"
+        },
+        {
             "id": "GUIDE",
             "asset":"ALIEN",
             "name":"Anissa Semut",
@@ -132,6 +138,25 @@
 
         {
             "id": "DEBUG",
+            "comment": "Keep wife happy.",
+            "actor": "WIFE",
+            "text": [ "You never buy me anything!" ],
+            "groups": [ "negative", "positive" ],
+            "predicates": ["NO_WIFE_PYRAMID"],
+            "choices": [
+                {
+                    "label": ["Fine! (sacrifice workers for gift)"],
+                    "success": ["+WIFE_PYRAMID", "-WORKERS", "PROGRESS"]
+                },
+                {
+                    "label": ["Correct. (Ignore your wife. age. a lot.)"],
+                    "success": ["+AGE", "+AGE", "+AGE", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "_DEBUG",
             "comment": "Shown while debugging.",
             "actor": "ALIEN",
             "text": [ "Debug options"],

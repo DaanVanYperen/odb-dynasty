@@ -25,6 +25,7 @@ import static net.mostlyoriginal.api.operation.OperationFactory.sequence;
 public class StructureSystem extends Manager {
 
     public static final int PYRAMID_BURROW_SPEED = 10;
+    public static final String TAG_WIFE_PYRAMID = "pyramid-wife";
     private MinionSystem minionSystem;
     private TagManager tagManager;
     private GroupManager groupManager;
@@ -36,7 +37,7 @@ public class StructureSystem extends Manager {
     private M<Schedule> mSchedule;
 
     public void createWifePyramid() {
-        createStructure((int) (G.CANVAS_WIDTH * 0.75f), G.CANVAS_HEIGHT / 2, "PYRAMID-WIFE", "pyramid-wife", 1.0f, 0f, AssetSystem.PYRAMID_WIFE_WIDTH, AssetSystem.PYRAMID_WIFE_HEIGHT, PYRAMID_BURROW_SPEED*3, -10);
+        createStructure((int) (G.CANVAS_WIDTH * 0.75f), G.CANVAS_HEIGHT / 2, "PYRAMID-WIFE", TAG_WIFE_PYRAMID, 1.0f, 0f, AssetSystem.PYRAMID_WIFE_WIDTH, AssetSystem.PYRAMID_WIFE_HEIGHT, PYRAMID_BURROW_SPEED*3, -10);
         minionSystem.allCheer();
     }
 
@@ -98,5 +99,10 @@ public class StructureSystem extends Manager {
             burrow.speed *= 5;
             mSchedule.create(entity).operation.add(sequence(OperationFactory.delay(3), OperationFactory.deleteFromWorld()));
         }
+    }
+
+    public boolean hasWifePyramid() {
+        boolean b = tagManager.getEntity(TAG_WIFE_PYRAMID) != null;
+        return b;
     }
 }

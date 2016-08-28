@@ -88,7 +88,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     private void initStartingStockpile() {
         stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, 1);
         stockpileSystem.alter(StockpileSystem.Resource.WORKERS, 5);
-        stockpileSystem.alter(StockpileSystem.Resource.LIFESPAN, 60);
+        stockpileSystem.alter(StockpileSystem.Resource.LIFESPAN, 40);
     }
 
     private void createDynastyMetadata() {

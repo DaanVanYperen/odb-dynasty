@@ -101,8 +101,16 @@ public class DilemmaSystem extends EntityProcessingSystem {
     }
 
     public void startDebugDilemma() {
-        startDilemma("DEBUG");
+        startDilemmaConditionally("DEBUG");
     }
+
+    private void startDilemmaConditionally(String dilemmaId) {
+        Dilemma dilemma = dilemmaLibrary.getById(dilemmaId);
+        if (dilemma != null && predicatesMet(dilemma)) {
+            startDilemma(dilemma);
+        }
+    }
+
 
     private void loadDilemmas() {
         final Json json = new Json();
@@ -123,7 +131,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
             int row = 0;
 
             // run all immediate actions.
-            if ( dilemma.immediate != null ) {
+            if (dilemma.immediate != null) {
                 for (String action : dilemma.immediate) {
                     triggerAction(action);
                 }
@@ -145,7 +153,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
 
             dilemmaActive = true;
             for (String text : dilemma.text) {
-                createLabel(slabX+ textMarginX, slabY - textMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - ROW_HEIGHT * row, COLOR_DILEMMA, text);
+                createLabel(slabX + textMarginX, slabY - textMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - ROW_HEIGHT * row, COLOR_DILEMMA, text);
                 row++;
             }
 
@@ -154,7 +162,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 // random chance of succes, if no failure options defined, always failure.
                 final String[] choices = (choice.failure == null) || (MathUtils.random(0, 100) < 100 - choice.risk) ? choice.success : choice.failure;
 
-                createOption(slabX+ textMarginX, slabY - textMarginY - optionMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - ROW_HEIGHT * row, "] " + choice.label[MathUtils.random(0, choice.label.length - 1)], new DilemmaListener(choices));
+                createOption(slabX + textMarginX, slabY - textMarginY - optionMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - ROW_HEIGHT * row, "] " + choice.label[MathUtils.random(0, choice.label.length - 1)], new DilemmaListener(choices));
                 row++;
             }
         }
@@ -176,7 +184,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
         int actorOffsetX = 14 * G.ZOOM;
         int actorOffsetY = (AssetSystem.SLAB_HEIGHT - actorSlabOverlap) * G.ZOOM;
 
-        if ( actorId != null ) {
+        if (actorId != null) {
             Entity actor =
                     new DynastyEntityBuilder(world)
                             .pos(x + actorOffsetX, y + actorOffsetY)
@@ -243,26 +251,37 @@ public class DilemmaSystem extends EntityProcessingSystem {
         List<Dilemma> dilemmas = dilemmaLibrary.getGroup(group);
 
         Dilemma dilemma = null;
-        while (dilemma == null) {
+        int count = 0;
+        while (dilemma == null && count++ < 1000) {
             dilemma = dilemmas.get(MathUtils.random(0, dilemmas.size() - 1));
 
-            if (dilemma != null && predicatesMet(dilemma)) {
+            if (!predicatesMet(dilemma))
+                dilemma = null;
+
+            if (dilemma != null) {
                 dilemma = startDilemma(dilemma);
                 // if startdilemma fails, it returns NULL and we will search again.
             }
         }
     }
 
-    /** @return {@code true} if all predicates met (or no predicates. {@code false} if failed. */
+    /**
+     * @return {@code true} if all predicates met (or no predicates. {@code false} if failed.
+     */
     private boolean predicatesMet(Dilemma dilemma) {
-        if ( dilemma.predicates != null )
-        {
+        if (dilemma.predicates != null) {
             for (String predicate : dilemma.predicates) {
-                switch (predicate)
-                {
-                    case "RIVER_DRY" : return riverSystem.getState() == RiverDioramaSystem.RiverState.RIVER_NONE;
-                    case "RIVER_WATER" : return riverSystem.getState() == RiverDioramaSystem.RiverState.RIVER_WATER;
-                    case "RIVER_BLOOD" : return riverSystem.getState() == RiverDioramaSystem.RiverState.RIVER_BLOOD;
+                switch (predicate) {
+                    case "RIVER_DRY":
+                        return riverSystem.getState() == RiverDioramaSystem.RiverState.RIVER_NONE;
+                    case "RIVER_WATER":
+                        return riverSystem.getState() == RiverDioramaSystem.RiverState.RIVER_WATER;
+                    case "RIVER_BLOOD":
+                        return riverSystem.getState() == RiverDioramaSystem.RiverState.RIVER_BLOOD;
+                    case "NO_WIFE_PYRAMID":
+                        return !structureSystem.hasWifePyramid();
+                    default:
+                        throw new RuntimeException("Missing predicate logic.");
                 }
             }
         }
@@ -299,6 +318,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 triggerAction(action);
             }
         }
+
     }
 
     /**
