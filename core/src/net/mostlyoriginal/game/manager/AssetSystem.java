@@ -9,6 +9,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.ColorAnimation;
 import net.mostlyoriginal.api.component.graphics.Renderable;
@@ -33,7 +34,7 @@ public class AssetSystem extends AbstractAssetSystem {
     public static final int PYRAMID_WIFE_WIDTH = 55;
     public static final int PYRAMID_WIFE_HEIGHT = 28;
     public static final int OBELISK_WIDTH = 9;
-    public static final int OBELISK_HEIGHT = 32+11;
+    public static final int OBELISK_HEIGHT = 32 + 11;
     public static final int SUN_WIDTH = 48;
     public static final int SUN_HEIGHT = 48;
     public static final int SLAB_HEIGHT = 94;
@@ -68,35 +69,35 @@ public class AssetSystem extends AbstractAssetSystem {
         add("RIVER", 400, 272, 160, RIVER_HEIGHT, 1, 4);
         add("RIVER-BLOOD", 561, 272, 160, RIVER_HEIGHT, 1, 4);
 
-        add("OBELISK BASE 1", 352, 212-11, OBELISK_WIDTH, OBELISK_HEIGHT,1);
-        add("OBELISK BASE 2", 361, 212-11, OBELISK_WIDTH, OBELISK_HEIGHT,1);
-        add("OBELISK BASE 3", 370, 212-11, OBELISK_WIDTH, OBELISK_HEIGHT,1);
-        add("OBELISK BASE 4", 379, 212-11, OBELISK_WIDTH, OBELISK_HEIGHT,1);
-        add("OBELISK BASE 5", 388, 212-11, OBELISK_WIDTH, OBELISK_HEIGHT,1);
+        add("OBELISK BASE 1", 352, 212 - 11, OBELISK_WIDTH, OBELISK_HEIGHT, 1);
+        add("OBELISK BASE 2", 361, 212 - 11, OBELISK_WIDTH, OBELISK_HEIGHT, 1);
+        add("OBELISK BASE 3", 370, 212 - 11, OBELISK_WIDTH, OBELISK_HEIGHT, 1);
+        add("OBELISK BASE 4", 379, 212 - 11, OBELISK_WIDTH, OBELISK_HEIGHT, 1);
+        add("OBELISK BASE 5", 388, 212 - 11, OBELISK_WIDTH, OBELISK_HEIGHT, 1);
 
-        add("PROGRESS BAR BACKGROUND", 400, 490, 147, 16,1);
-        add("PROGRESS BAR", 552, 495, 8, 7,1);
-        add("PROGRESS BAR PLANNED", 560, 495, 8, 7,1);
+        add("PROGRESS BAR BACKGROUND", 400, 490, 147, 16, 1);
+        add("PROGRESS BAR", 552, 495, 8, 7, 1);
+        add("PROGRESS BAR PLANNED", 560, 495, 8, 7, 1);
 
-        add("SCAFFOLDING BIG 1", 464, 216, 16,  16,1);
-        add("SCAFFOLDING BIG 2", 464, 232, 16,  16,1);
-        add("SCAFFOLDING BIG 3", 480, 232, 16,  16,1);
-        add("SCAFFOLDING SMALL TOP 1", 480, 216, 8,  8,1);
-        add("SCAFFOLDING SMALL TOP 2", 480, 224, 8,  8,1);
-        add("SCAFFOLDING SMALL TOP 3", 488, 216, 8,  8,1);
-        add("SCAFFOLDING SMALL TILE 1", 488, 224, 8,  8,1);
-        add("SCAFFOLDING BACKGROUND SMALL 1", 496, 224, 8,  8,1);
-        add("SCAFFOLDING FLAG", 496, 216, 8,  8,1);
-        add("SCAFFOLDING OBJECTS 1", 504, 216, 8,  8,1);
-        add("SCAFFOLDING OBJECTS 2", 512, 216, 8,  8,1);
-        add("SCAFFOLDING OBJECTS 3", 520, 216, 8,  8,1);
-        add("SCAFFOLDING OBJECTS 4", 528, 216, 8,  8,1);
-        add("SCAFFOLDING OBJECTS 5", 536 , 216, 8,  8,1);
-        add("SCAFFOLDING OBJECTS 6", 504, 224, 8,  8,1);
-        add("SCAFFOLDING OBJECTS 7", 512, 224, 8,  8,1);
-        add("SCAFFOLDING OBJECTS 8", 520, 224, 8,  8,1);
-        add("SCAFFOLDING OBJECTS 9", 528, 224, 8,  8,1);
-        add("SCAFFOLDING OBJECTS 10", 536, 224, 8,  8,1);
+        add("SCAFFOLDING BIG 1", 464, 216, 16, 16, 1);
+        add("SCAFFOLDING BIG 2", 464, 232, 16, 16, 1);
+        add("SCAFFOLDING BIG 3", 480, 232, 16, 16, 1);
+        add("SCAFFOLDING SMALL TOP 1", 480, 216, 8, 8, 1);
+        add("SCAFFOLDING SMALL TOP 2", 480, 224, 8, 8, 1);
+        add("SCAFFOLDING SMALL TOP 3", 488, 216, 8, 8, 1);
+        add("SCAFFOLDING SMALL TILE 1", 488, 224, 8, 8, 1);
+        add("SCAFFOLDING BACKGROUND SMALL 1", 496, 224, 8, 8, 1);
+        add("SCAFFOLDING FLAG", 496, 216, 8, 8, 1);
+        add("SCAFFOLDING OBJECTS 1", 504, 216, 8, 8, 1);
+        add("SCAFFOLDING OBJECTS 2", 512, 216, 8, 8, 1);
+        add("SCAFFOLDING OBJECTS 3", 520, 216, 8, 8, 1);
+        add("SCAFFOLDING OBJECTS 4", 528, 216, 8, 8, 1);
+        add("SCAFFOLDING OBJECTS 5", 536, 216, 8, 8, 1);
+        add("SCAFFOLDING OBJECTS 6", 504, 224, 8, 8, 1);
+        add("SCAFFOLDING OBJECTS 7", 512, 224, 8, 8, 1);
+        add("SCAFFOLDING OBJECTS 8", 520, 224, 8, 8, 1);
+        add("SCAFFOLDING OBJECTS 9", 528, 224, 8, 8, 1);
+        add("SCAFFOLDING OBJECTS 10", 536, 224, 8, 8, 1);
 
 
 
@@ -270,12 +271,38 @@ PROGRESS BAR GREY: x:560, y:495, width:8, height:7
         add("engine-2", 64, 16 + 16, 16, 8, 1);
 
         loadSounds(new String[]{
+                "catapult",
+                "catapult_impact",
+                "chisel_strike1",
+                "chisel_strike2",
+                "chisel_strike3",
+                "chisel_strike4",
+                "hammer_strike1",
+                "hammer_strike2",
+                "hammer_strike3",
+                "pyramid_rise", //
+                "workers_cheering" //
         });
 
         Music music = Gdx.audio.newMusic(Gdx.files.internal("sfx/music.mp3"));
         music.setLooping(true);
         music.play();
-        music.setPan(0,0.1f);
+        music.setPan(0, 0.1f);
+    }
+
+    public void playRandomHammer() {
+        String[] sfx = {"hammer_strike1",
+                "hammer_strike2",
+                "hammer_strike3"};
+        playSfx(sfx[MathUtils.random(0, sfx.length - 1)]);
+    }
+
+    public void playRandomChisel() {
+        String[] sfx = {"chisel_strike1",
+                "chisel_strike2",
+                "chisel_strike3",
+                "chisel_strike4"};
+        playSfx(sfx[MathUtils.random(0, sfx.length - 1)]);
     }
 
     @Override
@@ -288,4 +315,5 @@ PROGRESS BAR GREY: x:560, y:495, width:8, height:7
                 .with(label, new ColorAnimation(GdxUtil.convert(Color.WHITE), GdxUtil.convert(Color.valueOf("333333")), GdxUtil.convert(Interpolation.exp5), 1f / 2f, 2f)).build();
         mPos.get(entity).xy.set(G.CANVAS_WIDTH - 2, G.CANVAS_HEIGHT - 2);
     }
+
 }

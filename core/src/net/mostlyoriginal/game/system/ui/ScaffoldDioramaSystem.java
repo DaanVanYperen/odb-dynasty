@@ -135,6 +135,7 @@ public class ScaffoldDioramaSystem extends BaseSystem {
     }
 
     private void tick() {
+        boolean build=false;
         for (int column = 0; column < MAX_COLUMNS; column++) {
 
             if ( targetHeight[column] != actualHeight[column] && MathUtils.random(0,100) < 25 ) {
@@ -147,8 +148,13 @@ public class ScaffoldDioramaSystem extends BaseSystem {
 
                 if ( actualHeight[column] > 0 ) {
                     spawn(x, 133 * G.ZOOM - 4 * G.ZOOM, actualHeight[column]);
+                    build=true;
                 }
             }
+        }
+
+        if ( build ) {
+            assetSystem.playRandomHammer();
         }
     }
 

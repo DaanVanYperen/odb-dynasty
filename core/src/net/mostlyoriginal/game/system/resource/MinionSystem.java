@@ -21,6 +21,7 @@ import net.mostlyoriginal.api.util.DynastyEntityBuilder;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.Cheer;
 import net.mostlyoriginal.game.component.resource.Minion;
+import net.mostlyoriginal.game.manager.AssetSystem;
 
 import static com.badlogic.gdx.utils.JsonValue.ValueType.array;
 
@@ -31,6 +32,7 @@ public class MinionSystem extends IteratingSystem {
 
     public static final int MINION_LAYER = 500;
 
+    protected AssetSystem assetSystem;
     private M<Renderable> mRenderable;
     private M<Scale> mScale;
     private M<Pos> mPos;
@@ -76,6 +78,7 @@ public class MinionSystem extends IteratingSystem {
 
     public void allCheer()
     {
+        assetSystem.playSfx("workers_cheering");
         IntBag actives = subscription.getEntities();
         int[] ids = actives.getData();
         for (int i = 0, s = actives.size(); s > i; i++) {
