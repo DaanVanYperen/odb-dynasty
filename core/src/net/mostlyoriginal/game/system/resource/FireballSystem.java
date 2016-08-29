@@ -167,6 +167,7 @@ public class FireballSystem extends IteratingSystem {
         smokeSystem.smoke(pos.xy.x, pos.xy.y, 3, 50, (int) zPos.z, zPos.layerOffset - 1,
                 fireball.hasSparks ? FIRE_PARTICLE_IDS : SMOKE_PARTICLE_IDS, 1f, 3f, -180f, 180f, true, -50f, 50f, 100f, 200f, 6f);
         if ( fireball.explodes) {
+            assetSystem.playSfx("catapult_impact");
             world.delete(e);
             minionSystem.explodeMinions(pos.xy.x, pos.xy.y, 10 * G.ZOOM);
         } else {
@@ -180,6 +181,7 @@ public class FireballSystem extends IteratingSystem {
 
     public void spawn(int x, int y, String id, String color, boolean smoke, boolean spark, boolean explodes) {
 
+        assetSystem.playSfx("catapult");
         new DynastyEntityBuilder(world).pos(x, y)
                 .with(Angle.class)
                 .gravity(0, -1f)
