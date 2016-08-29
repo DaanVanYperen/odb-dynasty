@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.MathUtils;
 public class Minion extends Component {
 
     public int productivity=1;
+    public String deathSfx = "worker_scream";
 
     public Minion() {
     }

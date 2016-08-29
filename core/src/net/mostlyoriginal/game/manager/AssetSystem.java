@@ -341,8 +341,15 @@ PROGRESS BAR GREY: x:560, y:495, width:8, height:7
                 "hammer_strike2",
                 "hammer_strike3",
                 "pyramid_rise", //
-                "workers_cheering" //
+                "workers_cheering", //
+                "bar_increase",
+                "hammer_blop",
+                "camel_scream",
+                "elephant_scream",
+                "worker_scream"
         });
+
+
 
         if ( music == null ) {
             music = Gdx.audio.newMusic(Gdx.files.internal("sfx/music.mp3"));

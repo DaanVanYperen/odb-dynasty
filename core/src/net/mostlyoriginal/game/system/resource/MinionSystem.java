@@ -71,6 +71,10 @@ public class MinionSystem extends IteratingSystem {
         int result = 0;
         float delay = 0;
 
+        if ( hammer ) {
+            assetSystem.playSfx("hammer_blop");
+        }
+
         IntBag actives = subscription.getEntities();
         int[] ids = actives.getData();
         for (int i = 0, s = actives.size(); s > i; i++) {
@@ -119,7 +123,7 @@ public class MinionSystem extends IteratingSystem {
         physics.vr = 400;
     }
 
-    public Entity spawn(String id, int productivity) {
+    public Entity spawn(String id, int productivity, String deathSfx) {
         System.out.println("Spawn " + id);
         Entity e = new DynastyEntityBuilder(world).with(
                 new Bounds(0, 0, 0, 0),
@@ -135,6 +139,8 @@ public class MinionSystem extends IteratingSystem {
         mColor.get(e).setHex(TINT_INVISIBLE);
         mScale.get(e).scale = G.ZOOM;
         mRenderable.get(e).layer = MINION_LAYER;
+        mMinion.get(e).deathSfx = deathSfx;
+
         return e;
     }
 
@@ -159,6 +165,7 @@ public class MinionSystem extends IteratingSystem {
         physics.vr = MathUtils.random(-360, 360);
         physics.friction = 1f;
 
+        assetSystem.playSfx(mMinion.get(entity).deathSfx);
         mSchedule.create(entity).operation.add(
                 OperationFactory.sequence(
                         OperationFactory.delay(MathUtils.random(1f, 2f)),
@@ -192,9 +199,9 @@ public class MinionSystem extends IteratingSystem {
                 "TOURIST FEMALE 2",
                 "TOURIST FEMALE 3",
                 "TOURIST FEMALE 4"
-        }, 0);
+        }, 0, "worker_scream");
 
-        spawnMultiple(1, "GUIDE PUPPET", 0);
+        spawnMultiple(1, "GUIDE PUPPET", 0, "worker_scream");
     }
 
     private void clear() {
@@ -211,12 +218,12 @@ public class MinionSystem extends IteratingSystem {
                 MathUtils.random(8 * G.ZOOM, G.CANVAS_WIDTH - 8 * G.ZOOM), 0);
     }
 
-    public void spawnMultiple(int count, String id, int productivity) {
-        for (int i = 0; i < count; i++) spawn(id, productivity);
+    public void spawnMultiple(int count, String id, int productivity, String deathSfx) {
+        for (int i = 0; i < count; i++) spawn(id, productivity, deathSfx);
     }
 
-    public void spawnMultiple(int count, String[] id, int productivity) {
-        for (int i = 0; i < count; i++) spawn(id[MathUtils.random(0, id.length - 1)], productivity);
+    public void spawnMultiple(int count, String[] id, int productivity, String deathSfx) {
+        for (int i = 0; i < count; i++) spawn(id[MathUtils.random(0, id.length - 1)], productivity, deathSfx);
     }
 
     public void killCheapestUnit() {

@@ -89,7 +89,7 @@ public class DioramaSystem extends BaseSystem {
     private void spawnWorkers() {
         final int minionDelta = stockpileSystem.get(StockpileSystem.Resource.WORKERS) - workers;
         if (minionDelta > 0) {
-            minionSystem.spawnMultiple(1, "WORKER", 1);
+            minionSystem.spawnMultiple(1, "WORKER", 1, "worker_scream");
             workers += 1;
         }
     }
@@ -97,7 +97,7 @@ public class DioramaSystem extends BaseSystem {
     private void spawnSoldiers() {
         final int minionDelta = stockpileSystem.get(StockpileSystem.Resource.SOLDIERS) - soldiers;
         if (minionDelta > 0) {
-            minionSystem.spawnMultiple(MathUtils.clamp(1,0,2), "SOLDIER", 0);
+            minionSystem.spawnMultiple(MathUtils.clamp(1,0,2), "SOLDIER", 0, "worker_scream");
             soldiers += 1;
         }
     }
@@ -105,7 +105,8 @@ public class DioramaSystem extends BaseSystem {
     private void spawnCamels() {
         final int minionDelta = stockpileSystem.get(StockpileSystem.Resource.CAMELS) - camels;
         if (minionDelta > 0) {
-            minionSystem.spawnMultiple(MathUtils.clamp(1,0,2), "CAMEL", 5);
+            assetSystem.playSfx("camel_scream");
+            minionSystem.spawnMultiple(MathUtils.clamp(1,0,2), "CAMEL", 5, "camel_scream");
             camels += 1;
         }
     }
@@ -113,7 +114,8 @@ public class DioramaSystem extends BaseSystem {
     private void spawnElephants() {
         final int minionDelta = stockpileSystem.get(StockpileSystem.Resource.ELEPHANTS) - elephants;
         if (minionDelta > 0) {
-            minionSystem.spawnMultiple(MathUtils.clamp(1,0,2), "ELEPHANT", 10);
+            assetSystem.playSfx("elephant_scream");
+            minionSystem.spawnMultiple(MathUtils.clamp(1,0,2), "ELEPHANT", 10, "elephant_scream");
             elephants += 1;
         }
     }
