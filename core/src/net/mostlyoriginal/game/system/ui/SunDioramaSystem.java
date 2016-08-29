@@ -55,7 +55,7 @@ public class SunDioramaSystem extends BaseSystem {
             sunPercentage += sunDelta * world.getDelta() * 5f;
         }
 
-        float sunDegrees = sunPercentage * (180f + 40f) - 90f - 20f;
+        float sunDegrees = sunPercentage * (180f + 20f) - 90f - 10f;
 
         Entity sun = tagManager.getEntity("sun");
         mPos.get(sun).xy.x = G.CANVAS_WIDTH / 2 - (AssetSystem.SUN_WIDTH * G.ZOOM) / 2f + MathUtils.sinDeg(sunDegrees) * SUN_DISTANCE * G.ZOOM;

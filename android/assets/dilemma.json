@@ -55,16 +55,46 @@
           "comment": "Kingdom attack",
           "actor": "PRIEST",
           "text": [ "An army at our doorstep!" ],
-          "groups": [ "negative", "positive" ],
+          "groups": [ "negative" ],
           "immediate": ["ROCK"],
-          "choices": [
-            {
-              "label": ["Halt all work, build a tribute instead! (Loss of time)"],
-              "success": ["+OBELISK", "+AGE", "+AGE", "+AGE", "PROGRESS"],
-            },
+            "choices": [
+                {
+                    "label": ["Sue for peace somehow, I don't have time for war!"],
+                    "success": ["FIGHT_OR_FLIGHT2", "+AGE", "+AGE", "+AGE", "PROGRESS"],
+                    "failure": ["FIGHT_OR_FLIGHT3", "+AGE", "+AGE", "+AGE", "PROGRESS"],
+                    "risk": 60
+                },
             {
               "label": ["We can wait out the siege."],
-              "success": ["ROCK", "ROCK", "ROCK", "ROCK", "ROCK", "+AGE", "+AGE", "+AGE", "+AGE" ]
+              "success": ["ROCK", "ROCK", "ROCK", "ROCK", "+AGE", "+AGE", "+AGE", "+AGE" ]
+            }
+          ]
+        },
+
+        {
+          "id": "FIGHT_OR_FLIGHT2",
+          "comment": "Kingdom attack",
+          "actor": "PRIEST",
+          "text": [ "Wonderful news! We have brokered peace, and some of their soldiers have joined our workforce!" ],
+          "groups": [ ],
+          "choices": [
+            {
+              "label": ["Good! They had better put in an effort! (+3 workers)"],
+              "success": ["+WORKERS", "+WORKERS", "+WORKERS", "PROGRESS"]
+            }
+          ]
+        },
+
+        {
+          "id": "FIGHT_OR_FLIGHT3",
+          "comment": "Kingdom attack",
+          "actor": "PRIEST",
+          "text": [ "The barbarians have slaughtered our envoy and his guards." ],
+          "groups": [ ],
+          "choices": [
+            {
+              "label": ["I do hope they were our slowest workers. (-3 workers)"],
+              "success": ["-WORKERS", "-WORKERS", "-WORKERS", "PROGRESS"]
             }
           ]
         },
@@ -172,7 +202,7 @@
             "id": "PLAGUE_BLOOD",
             "comment": "Productivity penalty.",
             "actor": "PRIEST",
-            "text": [ "Curse upon us! The river runs red with blood and dead fish!"],
+            "text": [ "A curse upon us! The river runs red with blood and dead fish!"],
             "groups": [ "negative" ],
             "predicates": ["RIVER_WATER"],
             "immediate": ["RIVER_BLOOD"],
@@ -209,7 +239,7 @@
             "groups": [ "positive","test" ],
             "choices": [
                 {
-                    "label": ["Put them to work on the main pyramid! (+workers)"],
+                    "label": ["Put them to work on the main pyramid! (+5 workers)"],
                     "success": ["+WORKERS","+WORKERS","+WORKERS", "+WORKERS" ,"+WORKERS", "PROGRESS"]
                 },
                 {
@@ -244,12 +274,213 @@
             "predicates": ["NO_WIFE_PYRAMID"],
             "choices": [
                 {
-                    "label": ["Fine! (sacrifice workers for gift)"],
+                    "label": ["Fine! (sacrifice workers as a gift)"],
                     "success": ["+WIFE_PYRAMID", "-WORKERS", "PROGRESS"]
                 },
                 {
-                    "label": ["Correct. (Ignore your wife. age. a lot.)"],
-                    "success": ["+AGE", "+AGE", "+AGE", "PROGRESS"]
+                    "label": ["Correct. (Ignore your wife. Age... a lot.)"],
+                    "success": ["+AGE", "+AGE", "+AGE", "+AGE", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "CIRCUS",
+            "comment": "Circus has come to town.",
+            "actor": "PRIEST",
+            "text": [ "The circus has come to town and some of our workers would like to go." ],
+            "groups": [ "positive" ],
+            "choices": [
+                {
+                    "label": ["What's this, the sabbath? No! Make them work!"],
+                    "success": ["PROGRESS"]
+                },
+                {
+                    "label": ["Oh fine, let them lay down their tools and bring me back something fancy. (+1 elephant)"],
+                    "success": ["+ELEPHANT", "+AGE", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "CHILDLABOUR",
+            "comment": "Let the kids do some work.",
+            "actor": "WIFE",
+            "text": [ "My love, our beautiful child - your heir - is born." ],
+            "groups": [ "positive" ],
+            "choices": [
+                {
+                    "label": ["Excellent, put him to work as soon as possible! (+1 worker)"],
+                    "success": ["+WORKERS", "PROGRESS"]
+                },
+                {
+                    "label": ["Quick, sacrifice him to the gods so I might live longer! (+lifespan)"],
+                    "success": ["+LIFESPAN", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "BABY_PURIFY_RIVER",
+            "comment": "Sacrifice baby to lift the curse.",
+            "actor": "PRIEST",
+            "text": [ "If I may speak candidly and free from consequence... I know one way we can get rid of this cursed blood river."],
+            "groups": [ "positive" ],
+            "predicates": ["RIVER_BLOOD"],
+            "choices": [
+                {
+                    "label": ["Oh all right, sacrifice my first-born. (-1 worker)"],
+                    "success": ["RIVER_WATER", "PROGRESS"]
+                },
+                {
+                    "label": ["I will not sacrifice my children! We'll wait it out."],
+                    "success": ["+AGE", "+AGE", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "ARITHMETIC",
+            "comment": "Learn arithmatic for more buildspeed.",
+            "actor": "ALIEN",
+            "text": [ "I noticed your workers do not understand arithmetic. Should I introduce this principle to your people?"],
+            "groups": [ "positive" ],
+            "choices": [
+                {
+                    "label": ["If it makes them work faster, yes! (+buildspeed)"],
+                    "success": ["+BUILDSPEED", "PROGRESS"]
+                },
+                {
+                    "label": ["Find some camels and teach it to them instead. (+2 camels)"],
+                    "success": ["+CAMELS", "+CAMELS", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "IRIGATION",
+            "comment": "Irrigate your crops.",
+            "actor": "ALIEN",
+            "text": [ "I could irrigate your dusty crops with water from this river so your workers will have more food."],
+            "groups": [ "positive" ],
+            "predicates": ["RIVER_WATER"],
+            "choices": [
+                {
+                    "label": ["Well-fed citizens work harder. Do it! (+buildspeed)"],
+                    "success": ["+BUILDSPEED", "PROGRESS"]
+                },
+                {
+                    "label": ["Ooh, irigate my private gardens instead! (+lifespan)"],
+                    "success": ["+LIFESPAN", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "THE_WHEEL",
+            "comment": "Teach them about wheels.",
+            "actor": "ALIEN",
+            "text": [ "Your workers are carrying everything by hand. They'd be much more productive if you let me explain the wheel to them."],
+            "groups": [ "positive" ],
+            "choices": [
+                {
+                    "label": ["Didn't we mention chariots when you'd first arrived? Oh well, go for it. (+buildspeed)"],
+                    "success": ["+BUILDSPEED", "PROGRESS"]
+                },
+                {
+                    "label": ["Hi, you've reached Pharaoh. I am hunting elephants right now. Please leave a message after the flute. (+1 elephant)"],
+                    "success": ["+ELEPHANT", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "ALIENTECH",
+            "comment": "Turning blood river into workers.",
+            "actor": "ALIEN",
+            "text": [ "If I pour all the blood from the river into my machine, I could calibrate it to produce some workers." ],
+            "groups": [ "positive" ],
+            "predicates": ["RIVER_BLOOD"],
+            "choices": [
+                {
+                    "label": ["Gross... but so is a river of blood. (+3 workers)"],
+                    "success": ["RIVER_DRY", "+WORKERS", "+WORKERS", "+WORKERS", "PROGRESS"]
+                },
+                {
+                    "label": ["Let's just wait to get back in the gods' favour instead. (age somewhat)"],
+                    "success": ["+AGE", "+AGE", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "ASTRONOMY",
+            "comment": "Learn about the stars.",
+            "actor": "ALIEN",
+            "text": [ "Hey, I could teach you about astronomy and show you where I'm from." ],
+            "groups": [ "positive" ],
+            "choices": [
+                {
+                    "label": ["This would be a great inspiration for my workers! (+buildspeed)"],
+                    "success": ["+BUILDSPEED", "PROGRESS"]
+                },
+                {
+                    "label": ["Whoah, sounds like blasphemy to me. Let's build some obelisks to avoid wrath from the gods. (+2 obelisks)"],
+                    "success": ["+OBELISK", "+OBELISK", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "GRANITE_PYRAMID",
+            "comment": "Change to a granite pyramid.",
+            "actor": "ALIEN",
+            "text": [ "This sandstone is plentiful but kind of soft. We could import some granite, though it would take some time to arrive."],
+            "groups": [ "positive" ],
+            "choices": [
+                {
+                    "label": ["Waiting ain't hard! (age somewhat)"],
+                    "success": ["PYRAMID_GRANITE", "+AGE", "+AGE", "+AGE", "PROGRESS"]
+                },
+                {
+                    "label": ["Don't bother me, my wife is giving birth to some potential workers! (+2 workers)"],
+                    "success": ["+WORKERS", "+WORKERS", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "MARBLE_PYRAMID",
+            "comment": "Change to a marble pyramid.",
+            "actor": "PRIEST",
+            "text": [ "An empire across the sea to the north has a surplus of marble they'll trade for some citizens for their gladiator pits."],
+            "groups": [ "positive" ],
+            "choices": [
+                {
+                    "label": ["Marble's quite fancy. Cover my pyramid in it! (-5 workers)"],
+                    "success": ["PYRAMID_MARBLE", "-WORKERS", "-WORKERS", "-WORKERS", "-WORKERS", "-WORKERS", "PROGRESS"]
+                },
+                {
+                    "label": ["I'll think about it until the offer expires. (age a bit)"],
+                    "success": ["+AGE", "+AGE", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "PLAID_PYRAMID",
+            "comment": "Change to a plaid pyramid.",
+            "actor": "WIFE",
+            "text": [ "A distant nation of brave-hearted people is offering to supply us with beautiful plaid bricks. Plaid is all the rage right now!"],
+            "groups": [ "positive", "negative" ],
+            "choices": [
+                {
+                    "label": ["If it's fancy, I want it. I'm low on cash, send them some of my subjects as payment. (-15 workers)"],
+                    "success": ["PYRAMID_PLAID", "-WORKERS", "-WORKERS", "-WORKERS", "-WORKERS", "-WORKERS", "-WORKERS", "-WORKERS", "-WORKERS", "-WORKERS", "-WORKERS","-WORKERS", "-WORKERS", "-WORKERS", "-WORKERS", "-WORKERS", "PROGRESS"]
+                },
+                {
+                    "label": ["What do YOU know about fashion?! (age... a lot.)"],
+                    "success": ["+AGE", "+AGE", "+AGE", "+AGE", "PROGRESS"]
                 }
             ]
         },
@@ -268,7 +499,7 @@
               },
               {
                 "label": ["Phah, the gods are nothing."],
-                "success": ["FIREBALL", "FIREBALL", "FIREBALL", "FIREBALL", "FIREBALL", "PROGRESS"]
+                "success": ["FIREBALL", "FIREBALL", "PROGRESS"]
               }
             ]
         },
@@ -311,7 +542,7 @@
         "groups": [ "programmatic" ],
         "choices": [
           {
-            "label": ["No, you are my new head architect!"],
+            "label": [" Indeed, you are my new head architect!"],
             "success": ["INTRODUCTION4"]
           }
         ]
@@ -321,10 +552,10 @@
         "id": "INTRODUCTION4",
         "comment": "making a deal with an alien.",
         "actor": "EARLY_ALIEN",
-        "text": [ "Wait what? Humans have architects that build heads?" ],
+        "text": [ "Wait, what? Humans have architects that build heads?" ],
         "choices": [
           {
-            "label": ["You need workers and materials to repair your chariot. I can see your technology is far beyond ours. Lets help each other!"],
+            "label": ["You need workers and materials to repair your chariot. I can see your technology is far beyond ours. Let's help each other!"],
             "success": ["INTRODUCTION5"]
           }
         ]
@@ -334,7 +565,7 @@
         "id": "INTRODUCTION5",
         "comment": "Deal struck!",
         "actor": "ALIEN",
-        "text": [ "Ok, i can make this work! What would you have me do first? Since my probe is broken, I gift you an abductee! Or convert it into some matter. Both work for me!" ],
+        "text": [ "Ok, I can make this work! What would you have me do first? Since my probe is broken, I gift you an abductee! Or convert it into some matter with my machine. Both work for me!" ],
         "choices": [
           {
             "label": ["We need more workers! (+1 elephant)"],
@@ -471,10 +702,6 @@
           {
             "label": ["Test"],
             "success": [ "TEST" ]
-          },
-          {
-            "label": ["Reset"],
-            "success": [ "RESTART" ]
           },
           {
             "label": ["Fireball"],

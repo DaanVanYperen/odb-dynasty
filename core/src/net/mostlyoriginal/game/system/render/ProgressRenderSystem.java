@@ -125,6 +125,7 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
         return true;
     }
 
+
     @Override
     protected void process(int entity) {
 

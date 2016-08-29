@@ -89,7 +89,7 @@ public class EndgameSystem extends IteratingSystem {
         GREAT,
         AMAZING,
         SUPER
-    };
+    }
 
     private void checkForDeath(int e) {
         Stockpile stockpile = mStockpile.get(e);

@@ -22,6 +22,7 @@ import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.util.DynastyEntityBuilder;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.Cheer;
+import net.mostlyoriginal.game.component.agent.Hammer;
 import net.mostlyoriginal.game.component.resource.Minion;
 import net.mostlyoriginal.game.component.resource.ZPos;
 import net.mostlyoriginal.game.manager.AssetSystem;
@@ -94,6 +95,7 @@ public class MinionSystem extends IteratingSystem {
         Pos pos = mPos.get(e);
 
         Entity entity = new DynastyEntityBuilder(world)
+                .with(Hammer.class)
                 .pos(pos.xy.x, pos.xy.y + 8 * G.ZOOM)
                 .renderable(9000)
                 .anim("GO-HAMMER")

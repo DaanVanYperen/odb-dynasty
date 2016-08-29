@@ -1,9 +1,11 @@
 package net.mostlyoriginal.game.system.logic;
 
 import com.artemis.Aspect;
+import com.artemis.EntitySubscription;
 import com.artemis.systems.IteratingSystem;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
+import net.mostlyoriginal.game.component.agent.Hammer;
 import net.mostlyoriginal.game.component.resource.Stockpile;
 import net.mostlyoriginal.game.system.resource.MinionSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
@@ -25,9 +27,16 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
     public int projectedIncrease = 0;
     private boolean increaseAlert = false;
     public boolean tallying = false;
+    private EntitySubscription hammerSubscription;
 
     public boolean isReadyToProgress() {
         return readyToProgress;
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+        hammerSubscription = world.getAspectSubscriptionManager().get(Aspect.all(Hammer.class));
     }
 
     float tallyingAge = 0;
@@ -100,7 +109,16 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
                 increaseAlert = getRiverFactor() < 1f; // anything wrong?
             }
             tallyingAge += world.delta;
+
+            if ( !isHammersLeft() )
+            {
+                tallying=false;
+            }
         }
+    }
+
+    private boolean isHammersLeft() {
+        return !hammerSubscription.getEntities().isEmpty();
     }
 
     public float getProgressPercentile() {

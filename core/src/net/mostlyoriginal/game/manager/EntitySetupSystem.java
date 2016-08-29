@@ -123,7 +123,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
         stockpileSystem.alter(StockpileSystem.Resource.WORKERS, 5);
         stockpileSystem.alter(StockpileSystem.Resource.CAMELS, 1);
 
-        stockpileSystem.alter(StockpileSystem.Resource.LIFESPAN, 40);
+        stockpileSystem.alter(StockpileSystem.Resource.LIFESPAN, 30);
     }
 
     private void createDynastyMetadata() {
