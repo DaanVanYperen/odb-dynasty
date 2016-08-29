@@ -60,12 +60,14 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
         createMousecursor();
         createCamera(G.CANVAS_WIDTH / 2, G.CANVAS_HEIGHT / 2);
         structureSystem.createPyramid();
+
+        /**
         createButton(5, 5, 16 * G.ZOOM, 10 * G.ZOOM, "btn-test", new ButtonListener() {
             @Override
             public void run() {
                 dilemmaSystem.startDebugDilemma();
             }
-        }, "test");
+        }, "test"); **/
     }
 
     private void createBackground() {

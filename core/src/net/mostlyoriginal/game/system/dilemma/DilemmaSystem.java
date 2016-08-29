@@ -5,6 +5,7 @@ import com.artemis.Entity;
 import com.artemis.managers.GroupManager;
 import com.artemis.systems.EntityProcessingSystem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Json;
@@ -279,6 +280,11 @@ public class DilemmaSystem extends EntityProcessingSystem {
         super.begin();
 
         if ( !dilemmaActive && !progressAlgorithmSystem.isReadyToProgress() ) {
+
+            if ( Gdx.input.isKeyPressed(Input.Keys.F6))
+            {
+                startDebugDilemma();
+            }
             noDisciplineCooldown -= world.delta;
             if (noDisciplineCooldown <= 0) {
                 noDisciplineCooldown = DISCIPLINE_FOLLOWUP_WAIT_TIME;
