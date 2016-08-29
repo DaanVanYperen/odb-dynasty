@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.game.component.agent.Hammer;
 import net.mostlyoriginal.game.component.resource.Stockpile;
+import net.mostlyoriginal.game.system.endgame.EndgameSystem;
 import net.mostlyoriginal.game.system.resource.MinionSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 import net.mostlyoriginal.game.system.ui.RiverDioramaSystem;
@@ -28,6 +29,8 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
     private boolean increaseAlert = false;
     public boolean tallying = false;
     private EntitySubscription hammerSubscription;
+    public Integer score;
+    private EndgameSystem endgameSystem;
 
     public boolean isReadyToProgress() {
         return readyToProgress;
@@ -107,6 +110,7 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
             if ( tallyingAge == 0  ) {
                 projectedIncrease = getProjectedIncrease(true);
                 increaseAlert = getRiverFactor() < 1f; // anything wrong?
+                score = endgameSystem.getScore();
             }
             tallyingAge += world.delta;
 

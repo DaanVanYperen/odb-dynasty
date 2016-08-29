@@ -38,6 +38,7 @@ public class StructureSystem extends Manager {
     private M<Scale> mScale;
     private M<Schedule> mSchedule;
     private M<Anim> mAnim;
+    public Decor decor = Decor.SANDSTONE;
 
     public void createWifePyramid() {
         createStructure((int) (G.CANVAS_WIDTH * 0.75f), G.CANVAS_HEIGHT / 2, "PYRAMID-WIFE", TAG_WIFE_PYRAMID, 1.0f, 0f, AssetSystem.PYRAMID_WIFE_WIDTH, AssetSystem.PYRAMID_WIFE_HEIGHT, PYRAMID_BURROW_SPEED*3, -10);
@@ -118,7 +119,14 @@ public class StructureSystem extends Manager {
 
     public void pyramidDecor(Decor decor) {
         mAnim.get(tagManager.getEntity("pyramid")).id = "PYRAMID-" + decor.name();
+        this.decor=decor;
     }
 
-    public enum Decor {MARBLE, GRANITE, PLAID, SANDSTONE}
+    public enum Decor {MARBLE(3), GRANITE(2), PLAID(4), SANDSTONE(1);
+        public int scoreMultiplier;
+
+        Decor(int scoreMultiplier) {
+            this.scoreMultiplier = scoreMultiplier;
+        }
+    }
 }

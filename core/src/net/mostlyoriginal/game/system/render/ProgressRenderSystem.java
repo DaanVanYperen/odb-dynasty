@@ -4,19 +4,15 @@ import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.annotations.Wire;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Invisible;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
-import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.delegate.DeferredEntityProcessingSystem;
@@ -28,8 +24,6 @@ import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.manager.FontManager;
 import net.mostlyoriginal.game.system.logic.ProgressAlgorithmSystem;
 
-import static net.mostlyoriginal.game.system.dilemma.DilemmaSystem.COLOR_RAW_BRIGHT;
-import static net.mostlyoriginal.game.system.dilemma.DilemmaSystem.COLOR_RAW_DIMMED;
 import static net.mostlyoriginal.game.system.dilemma.DilemmaSystem.TEXT_ZOOM;
 
 /**
@@ -57,9 +51,11 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
     private M<Invisible> mInvisible;
     private AssetSystem assetSystem;
     private Entity buildLabel;
+    private Entity scoreLabel;
+    private M<Label> mLabel;
 
 
-    public void createLabel(int x, int y, String color, String text, String shadowTextColor, int maxWidth) {
+    public Entity createLabel(int x, int y, String color, String text, String shadowTextColor, int maxWidth) {
         Label label = new Label(text, TEXT_ZOOM);
         label.shadowColor = new Tint(shadowTextColor);
         label.maxWidth = maxWidth;
@@ -71,7 +67,7 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
                 .scale(TEXT_ZOOM)
                 .tint(color);
 
-        buildLabel = builder
+        return builder
                 .build();
     }
 
@@ -80,7 +76,8 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
         super.initialize();
         glyphLayout = new GlyphLayout();
 
-        createLabel(12 * G.ZOOM, 4 * G.ZOOM + 18 * G.ZOOM, "FFFFFFFF", "Build progress", "000000FF", 4000);
+        buildLabel =  createLabel(12 * G.ZOOM, 4 * G.ZOOM + 18 * G.ZOOM, "FFFFFFFF", "Build progress", "000000FF", 4000);
+        scoreLabel = createLabel(80 * G.ZOOM, 4 * G.ZOOM + 18 * G.ZOOM, "FFFFFFFF", "Score:", "000000FF", 4000);
         progressButton = new DynastyEntityBuilder(world)
                 .with(Tint.class).with(
                 new Bounds(0, 0, 26*G.ZOOM, 16*G.ZOOM),
@@ -140,9 +137,16 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
         {
             mInvisible.remove(progressButton);
             mInvisible.remove(buildLabel);
+            if ( mInvisible.has(scoreLabel))
+            {
+                mLabel.get(scoreLabel).text = "score: " + progressAlgorithmSystem.score;
+            }
+            mInvisible.remove(scoreLabel);
         } else {
             mInvisible.create(progressButton);
             mInvisible.create(buildLabel);
+
+            mInvisible.create(scoreLabel);
         }
 
     }

@@ -59,8 +59,8 @@ public class EndgameSystem extends IteratingSystem {
         float completion = (stockpileSystem.get(StockpileSystem.Resource.COMPLETION) +
                 (structureSystem.getObeliskCount()*0.5f));
         return
-                (int) ((completion * completion * COMPLETION_SCORE_FACTOR) +
-                                minionSystem.totalProductivity(false));
+                (int) (((completion * completion * COMPLETION_SCORE_FACTOR) +
+                                minionSystem.totalProductivity(false)) * structureSystem.decor.scoreMultiplier);
     }
 
     public Success getSuccess() {
