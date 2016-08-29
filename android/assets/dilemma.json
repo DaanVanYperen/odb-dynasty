@@ -1,11 +1,17 @@
 {
     "actors": [
-        {
-            "id": "ALIEN",
-            "asset":"ALIEN",
-            "name":"Bleeblebrox",
-            "role":"Head Architect"
-        },
+      {
+        "id": "EARLY_ALIEN",
+        "asset":"ALIEN",
+        "name":"God of the sky?",
+        "role":"Chariot pilot"
+      },
+      {
+        "id": "ALIEN",
+        "asset":"ALIEN",
+        "name":"Bleeblebrox",
+        "role":"Head Architect"
+      },
         {
             "id": "PRIEST",
             "asset":"PRIEST",
@@ -232,7 +238,7 @@
             "comment": "Fire falls from the sky.",
             "actor": "PRIEST",
             "text": [ "Fire rains from the sky. The gods are clearly angry! We must appease them!" ],
-            "groups": [ "negative", "test" ],
+            "groups": [ "negative" ],
             "immediate": ["FIREBALL"],
             "choices": [
               {
@@ -246,12 +252,87 @@
             ]
         },
 
+
+      {
+        "id": "INTRODUCTION",
+        "comment": "Spaceship.",
+        "actor": "PRIEST",
+        "text": [ "A chariot of the gods? There seems to be a being inside!" ],
+        "groups": [ "programmatic", "test" ],
+        "immediate": ["SPACESHIP"],
+        "choices": [
+          {
+            "label": ["Bring it to me!"],
+            "success": ["INTRODUCTION2"]
+          }
+        ]
+      },
+
+      {
+        "id": "INTRODUCTION2",
+        "comment": "Alien introduction.",
+        "actor": "EARLY_ALIEN",
+        "text": [ "Young pharaoh, apologies for crashing into your domain. My 'chariot' as you call it has broken down." ],
+        "groups": [ "programmatic" ],
+        "choices": [
+          {
+            "label": ["Have you come to bring the end times?"],
+            "success": ["INTRODUCTION3"]
+          }
+        ]
+      },
+
+      {
+        "id": "INTRODUCTION3",
+        "comment": "Is this a god? No, alien!",
+        "actor": "EARLY_ALIEN",
+        "text": [ "I'm neither human nor god." ],
+        "groups": [ "programmatic" ],
+        "choices": [
+          {
+            "label": ["No, you are my new head architect!"],
+            "success": ["INTRODUCTION4"]
+          }
+        ]
+      },
+
+      {
+        "id": "INTRODUCTION4",
+        "comment": "making a deal with an alien.",
+        "actor": "EARLY_ALIEN",
+        "text": [ "Wait what? Humans have architects that build heads?" ],
+        "choices": [
+          {
+            "label": ["You need workers and materials to repair your chariot. I can see your technology is far beyond ours. Lets help each other!"],
+            "success": ["INTRODUCTION5"]
+          }
+        ]
+      },
+
+      {
+        "id": "INTRODUCTION5",
+        "comment": "Deal struck!",
+        "actor": "ALIEN",
+        "text": [ "Ok, i can make this work! What would you have me do first? Since my probe is broken, I gift you an abductee! Or convert it into some matter. Both work for me!" ],
+        "choices": [
+          {
+            "label": ["We need more workers! (+1 elephant)"],
+            "success": ["+ELEPHANT"]
+          },
+          {
+            "label": ["Structures add value and may attract followers! (+1 obelisk)"],
+            "success": ["+OBELISK"]
+          }
+        ]
+      },
+
+
       {
         "id": "TEST",
         "comment": "Length test.",
         "actor": "ALIEN",
         "text": [ "Word has travelled of your great project. They offer to build you nothing, because this is just a test message to test linebreaks." ],
-        "groups": [ "test" ],
+        "groups": [ ],
         "choices": [
           {
             "label": ["Uh ok but if that is the case why can I respond with such a giant story that confuses everyone amazing lalalalala. "],
@@ -263,26 +344,6 @@
           }
         ]
       },
-
-
-
-      {
-            "id": "TEST",
-            "comment": "Length test.",
-            "actor": "ALIEN",
-            "text": [ "Word has travelled of your great project. They offer to build you nothing, because this is just a test message to test linebreaks." ],
-            "groups": [ "test" ],
-            "choices": [
-                {
-                    "label": ["Uh ok but if that is the case why can I respond with such a giant story that confuses everyone amazing lalalalala. "],
-                    "success": ["PROGRESS"]
-                },
-                {
-                    "label": ["Bottles Bottles Chickens And Bottles Bottling Banana All Other What Ramble Ramble X."],
-                    "success": ["PROGRESS"]
-                }
-            ]
-        },
 
         {
             "id": "DEBUG",
@@ -355,7 +416,7 @@
                 },
                 {
                     "label": ["Elephant"],
-                    "success": [ "+ELEPHANTS", "DEBUG_SPAWN" ]
+                    "success": [ "+ELEPHANT", "DEBUG_SPAWN" ]
                 },
                 {
                     "label": ["Camel"],

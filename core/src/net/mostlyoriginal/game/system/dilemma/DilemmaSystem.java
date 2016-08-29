@@ -413,7 +413,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
             case "+WORKERS":
                 stockpileSystem.alter(StockpileSystem.Resource.WORKERS, 1);
                 break;
-            case "+ELEPHANTS":
+            case "+ELEPHANT":
                 stockpileSystem.alter(StockpileSystem.Resource.ELEPHANTS, 1);
                 break;
             case "+CAMELS":
