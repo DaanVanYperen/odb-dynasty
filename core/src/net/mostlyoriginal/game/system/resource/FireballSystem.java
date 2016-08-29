@@ -50,6 +50,7 @@ public class FireballSystem extends IteratingSystem {
     private M<ZPos> mZPos;
     private String[] SMOKE_PARTICLE_IDS = {"dust_particle"};
     private String[] FIRE_PARTICLE_IDS = {"FIRE PARTICLE 1","FIRE PARTICLE 2","FIRE PARTICLE 3","FIRE PARTICLE 4"};
+    private MinionSystem minionSystem;
 
     public FireballSystem() {
         super(Aspect.all(Fireball.class));
@@ -128,6 +129,7 @@ public class FireballSystem extends IteratingSystem {
         ZPos zPos = mZPos.get(e);
         smokeSystem.smoke(pos.xy.x, pos.xy.y, 3, 50, (int) zPos.z, zPos.layerOffset - 1, FIRE_PARTICLE_IDS, 1f, 3f, -180f, 180f, true, -50f, 50f, 100f, 200f, 6f);
         world.delete(e);
+        minionSystem.explodeMinions(pos.xy.x, pos.xy.y, 10 * G.ZOOM);
     }
 
     public void spawn(int x, int y) {

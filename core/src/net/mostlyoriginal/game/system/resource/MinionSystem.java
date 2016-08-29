@@ -6,6 +6,7 @@ import com.artemis.systems.IteratingSystem;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.Schedule;
+import net.mostlyoriginal.api.component.basic.Angle;
 import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
@@ -45,6 +46,7 @@ public class MinionSystem extends IteratingSystem {
     private M<Physics> mPhysics;
     private EndgameSystem endgameSystem;
     private M<Tint> mColor;
+    private M<Angle> mAngle;
 
     public MinionSystem() {
         super(Aspect.all(Minion.class));
@@ -89,6 +91,29 @@ public class MinionSystem extends IteratingSystem {
         return e;
     }
 
+    public void explodeMinions(float x, float y, int distance) {
+        IntBag actives = subscription.getEntities();
+        int[] ids = actives.getData();
+        for (int i = 0, s = actives.size(); s > i; i++) {
+            int entity = ids[i];
+            Pos pos = mPos.get(entity);
+            if ( pos.xy.dst2( x, y ) < distance*distance ) {
+
+                mAngle.create(entity);
+                Physics physics = mPhysics.create(entity);
+                physics.vy = 500;
+                physics.vx = MathUtils.random(-360, 360);
+                physics.vr = MathUtils.random(-360, 360);
+                physics.friction = 1f;
+
+                mSchedule.create(entity).operation.add(
+                        OperationFactory.sequence(
+                                OperationFactory.delay(MathUtils.random(1f, 2f)),
+                                OperationFactory.deleteFromWorld()
+                        ));
+            }
+        }
+    }
 
     public void allCheer()
     {
@@ -144,4 +169,5 @@ public class MinionSystem extends IteratingSystem {
     public void spawnMultiple(int count, String[] id, int productivity) {
         for(int i=0;i<count;i++) spawn(id[MathUtils.random(0, id.length-1)], productivity);
     }
+
 }
