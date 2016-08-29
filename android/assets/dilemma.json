@@ -57,16 +57,17 @@
           "text": [ "An army at our doorstep!" ],
           "groups": [ "negative" ],
           "immediate": ["ROCK"],
-            "choices": [
-                {
-                    "label": ["Sue for peace somehow, I don't have time for war!"],
-                    "success": ["FIGHT_OR_FLIGHT2", "+AGE", "+AGE", "+AGE", "PROGRESS"],
-                    "failure": ["FIGHT_OR_FLIGHT3", "+AGE", "+AGE", "+AGE", "PROGRESS"],
-                    "risk": 60
-                },
+          "choices": [
+            {
+              "label": ["Sue for peace somehow, I don't have time for war!"],
+              "success": ["FIGHT_OR_FLIGHT2" ],
+              "failure": ["FIGHT_OR_FLIGHT3" ], 
+              "risk": 60
+            },
+
             {
               "label": ["We can wait out the siege."],
-              "success": ["ROCK", "ROCK", "ROCK", "ROCK", "+AGE", "+AGE", "+AGE", "+AGE" ]
+              "success": ["ROCK", "ROCK", "ROCK", "ROCK", "+AGE", "+AGE", "+AGE", "+AGE", "PROGRESS" ]
             }
           ]
         },
@@ -677,6 +678,10 @@
                 {
                     "label": ["Soldier"],
                     "success": [ "+SOLDIERS", "DEBUG_SPAWN" ]
+                },
+                {
+                    "label": ["Kill"],
+                    "success": [ "-WORKERS", "DEBUG_SPAWN" ]
                 },
               {
                 "label": ["Back"],

@@ -146,20 +146,24 @@ public class MinionSystem extends IteratingSystem {
             Pos pos = mPos.get(entity);
             if (pos.xy.dst2(x, y) < distance * distance) {
 
-                mAngle.create(entity);
-                Physics physics = mPhysics.create(entity);
-                physics.vy = 500;
-                physics.vx = MathUtils.random(-360, 360);
-                physics.vr = MathUtils.random(-360, 360);
-                physics.friction = 1f;
-
-                mSchedule.create(entity).operation.add(
-                        OperationFactory.sequence(
-                                OperationFactory.delay(MathUtils.random(1f, 2f)),
-                                OperationFactory.deleteFromWorld()
-                        ));
+                explode(entity);
             }
         }
+    }
+
+    private void explode(int entity) {
+        mAngle.create(entity);
+        Physics physics = mPhysics.create(entity);
+        physics.vy = 500;
+        physics.vx = MathUtils.random(-360, 360);
+        physics.vr = MathUtils.random(-360, 360);
+        physics.friction = 1f;
+
+        mSchedule.create(entity).operation.add(
+                OperationFactory.sequence(
+                        OperationFactory.delay(MathUtils.random(1f, 2f)),
+                        OperationFactory.deleteFromWorld()
+                ));
     }
 
     public void allCheer() {
@@ -215,4 +219,26 @@ public class MinionSystem extends IteratingSystem {
         for (int i = 0; i < count; i++) spawn(id[MathUtils.random(0, id.length - 1)], productivity);
     }
 
+    public void killCheapestUnit() {
+
+        int productivity = 999;
+        int cheapestId=-1;
+
+        IntBag actives = subscription.getEntities();
+        int[] ids = actives.getData();
+        for (int i = 0, s = actives.size(); s > i; i++) {
+            int entity = ids[i];
+            Minion minion = mMinion.get(entity);
+            if ( minion.productivity < productivity && !mSchedule.has(entity) )
+            {
+                productivity = minion.productivity;
+                cheapestId = entity;
+            }
+        }
+
+        if ( cheapestId != -1 )
+        {
+            explode(cheapestId);
+        }
+    }
 }

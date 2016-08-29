@@ -28,6 +28,7 @@ import net.mostlyoriginal.game.system.endgame.EndgameSystem;
 import net.mostlyoriginal.game.system.logic.ProgressAlgorithmSystem;
 import net.mostlyoriginal.game.system.render.LabelRenderSystem;
 import net.mostlyoriginal.game.system.resource.FireballSystem;
+import net.mostlyoriginal.game.system.resource.MinionSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 import net.mostlyoriginal.game.system.ui.RiverDioramaSystem;
 
@@ -71,6 +72,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
     private LabelRenderSystem labelRenderSystem;
     private EndgameSystem endgameSystem;
     private FireballSystem fireballSystem;
+    private MinionSystem minionSystem;
 
     public DilemmaSystem() {
         super(Aspect.all(Pos.class, DilemmaChoice.class));
@@ -458,16 +460,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 stockpileSystem.alter(StockpileSystem.Resource.BUILDSPEED, -1);
                 break;
             case "-WORKERS":
-                stockpileSystem.alter(StockpileSystem.Resource.WORKERS, -1);
-                break;
-            case "-ELEPHANTS":
-                stockpileSystem.alter(StockpileSystem.Resource.ELEPHANTS, -1);
-                break;
-            case "-CAMELS":
-                stockpileSystem.alter(StockpileSystem.Resource.CAMELS, -1);
-                break;
-            case "-SOLDIERS":
-                stockpileSystem.alter(StockpileSystem.Resource.SOLDIERS, -1);
+                minionSystem.killCheapestUnit();
                 break;
             case "-COMPLETION":
                 stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, -1);
