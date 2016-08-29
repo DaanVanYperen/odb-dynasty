@@ -9,6 +9,7 @@ import net.mostlyoriginal.game.component.resource.Stockpile;
 import net.mostlyoriginal.game.manager.EntitySetupSystem;
 import net.mostlyoriginal.game.manager.StructureSystem;
 import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
+import net.mostlyoriginal.game.system.resource.FireballSystem;
 import net.mostlyoriginal.game.system.resource.MinionSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 import net.mostlyoriginal.game.system.ui.ScaffoldDioramaSystem;
@@ -26,6 +27,7 @@ public class EndgameSystem extends IteratingSystem {
     protected M<EndgameReached> mEndgameReached;
     private StructureSystem structureSystem;
     private EntitySetupSystem entitySetupSystem;
+    private FireballSystem fireballSystem;
 
     public EndgameSystem() {
         super(Aspect.all(Stockpile.class).exclude(EndgameReached.class));
@@ -100,6 +102,7 @@ public class EndgameSystem extends IteratingSystem {
     public void setFutureScene() {
         entitySetupSystem.createSkyscrapers();
         scaffoldDioramaSystem.kill();
+        fireballSystem.kill();
         minionSystem.future();
     }
 }

@@ -2,6 +2,7 @@ package net.mostlyoriginal.game.system.resource;
 
 import com.artemis.Aspect;
 import com.artemis.systems.IteratingSystem;
+import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.component.Schedule;
@@ -14,9 +15,11 @@ import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.operation.OperationFactory;
+import net.mostlyoriginal.api.operation.common.Operation;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.util.DynastyEntityBuilder;
 import net.mostlyoriginal.game.G;
+import net.mostlyoriginal.game.component.agent.Ancient;
 import net.mostlyoriginal.game.component.agent.Cheer;
 import net.mostlyoriginal.game.component.agent.Tremble;
 import net.mostlyoriginal.game.component.resource.Fireball;
@@ -107,7 +110,7 @@ public class FireballSystem extends IteratingSystem {
     }
 
     private void spawnRock() {
-        spawn(MathUtils.random(0, G.CANVAS_WIDTH), (int) (G.CANVAS_HEIGHT ), "ROCK", "ffffffff", true, false, true);
+        spawn(MathUtils.random(0, G.CANVAS_WIDTH), (int) (G.CANVAS_HEIGHT), "ROCK", "ffffffff", true, false, true);
     }
 
     private void spawnFireball() {
@@ -166,7 +169,7 @@ public class FireballSystem extends IteratingSystem {
         Fireball fireball = mFireball.get(e);
         smokeSystem.smoke(pos.xy.x, pos.xy.y, 3, 50, (int) zPos.z, zPos.layerOffset - 1,
                 fireball.hasSparks ? FIRE_PARTICLE_IDS : SMOKE_PARTICLE_IDS, 1f, 3f, -180f, 180f, true, -50f, 50f, 100f, 200f, 6f);
-        if ( fireball.explodes) {
+        if (fireball.explodes) {
             assetSystem.playSfx("catapult_impact");
             world.delete(e);
             minionSystem.explodeMinions(pos.xy.x, pos.xy.y, 10 * G.ZOOM);
@@ -174,7 +177,7 @@ public class FireballSystem extends IteratingSystem {
             mAngle.get(e).rotation = 0;
             mPhysics.get(e).friction = 100f;
             mTremble.create(e).intensity = 1;
-            mSchedule.create(e).operation.add(OperationFactory.sequence(OperationFactory.delay(1f),OperationFactory.remove(Tremble.class)));
+            mSchedule.create(e).operation.add(OperationFactory.sequence(OperationFactory.delay(1f), OperationFactory.remove(Tremble.class)));
             mFireball.remove(e);
         }
     }
@@ -184,6 +187,7 @@ public class FireballSystem extends IteratingSystem {
         assetSystem.playSfx("catapult");
         new DynastyEntityBuilder(world).pos(x, y)
                 .with(Angle.class)
+                .ancient()
                 .gravity(0, -1f)
                 .velocity(MathUtils.random(-400, 400), MathUtils.random(-100, -50), 0.2f)
                 .tint(color)
@@ -193,5 +197,20 @@ public class FireballSystem extends IteratingSystem {
                 .z(MathUtils.random(0, 48))
                 .fireball(smoke, spark, explodes)
                 .build();
+    }
+
+    private Tint invis = new Tint(1f, 1f, 1f, 0f);
+
+    public void kill() {
+        IntBag actives = world.getAspectSubscriptionManager().get(Aspect.all(Ancient.class)).getEntities();
+        int[] ids = actives.getData();
+        for (int i = 0, s = actives.size(); s > i; i++) {
+            int entity = ids[i];
+            mSchedule.create(entity).operation.add(
+                    OperationFactory.sequence(
+                            OperationFactory.tween(new Tint(mColor.get(entity).color), invis, 0.5f),
+                            OperationFactory.deleteFromWorld()
+                    ));
+        }
     }
 }
