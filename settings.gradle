@@ -1,2 +1,2 @@
-include 'desktop', 'core'
-//'android', 'ios', 'html', 'matrix',
+include 'desktop', 'core',  'html'
+//'android', 'ios', 'matrix',

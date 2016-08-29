@@ -22,11 +22,15 @@
     <extend-configuration-property name="artemis.reflect.include" value="net.mostlyoriginal.game.component"/>
     <extend-configuration-property name="artemis.reflect.include" value="net.mostlyoriginal.game.system"/>
     <extend-configuration-property name="artemis.reflect.include" value="net.mostlyoriginal.game.screen"/>
+    <extend-configuration-property name="artemis.reflect.include" value="net.mostlyoriginal.game.manager"/>
+    <extend-configuration-property name="artemis.reflect.include" value="net.mostlyoriginal.game.util"/>
     <extend-configuration-property name="artemis.reflect.include" value="net.mostlyoriginal.api"/>
 
     <extend-configuration-property name="gdx.reflect.include" value="net.mostlyoriginal.game.component"/>
     <extend-configuration-property name="gdx.reflect.include" value="net.mostlyoriginal.game.system"/>
     <extend-configuration-property name="gdx.reflect.include" value="net.mostlyoriginal.game.screen"/>
+    <extend-configuration-property name="gdx.reflect.include" value="net.mostlyoriginal.game.manager"/>
+    <extend-configuration-property name="gdx.reflect.include" value="net.mostlyoriginal.game.util"/>
     <extend-configuration-property name="gdx.reflect.include" value="net.mostlyoriginal.api"/>
 
     <inherits name='GdxArtemisGame'/>

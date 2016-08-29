@@ -284,7 +284,9 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 noDisciplineCooldown = DISCIPLINE_FOLLOWUP_WAIT_TIME;
                 if ( !questQueue.isEmpty() )
                 {
-                    startDilemma(questQueue.pop());
+                    String next = questQueue.getFirst();
+                    questQueue.removeFirst();
+                    startDilemma(next);
                 } else {
                     randomDilemma();
                 }
