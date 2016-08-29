@@ -2,6 +2,7 @@ package net.mostlyoriginal.game.system.logic;
 
 import com.artemis.Aspect;
 import com.artemis.systems.IteratingSystem;
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.game.component.resource.Stockpile;
 import net.mostlyoriginal.game.system.resource.MinionSystem;
@@ -54,18 +55,7 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
     }
 
     private float getProductivityFactor(int pyramidLevel) {
-        switch (pyramidLevel) {
-            case 0: return 50;
-            case 1: return 55;
-            case 2: return 40;
-            case 3: return 30;
-            case 4: return 20;
-            case 5: return 10f;
-            case 6: return 5f;
-            case 7: return 3f;
-            case 8: return 2f;
-            default: return 1f;
-        }
+        return MathUtils.clamp(20 - pyramidLevel*2,2,20);
     }
 
     @Override

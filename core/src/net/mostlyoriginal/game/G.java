@@ -9,7 +9,7 @@ public class G {
 
     public static final int CANVAS_WIDTH = 160 * ZOOM;
     public static final int CANVAS_HEIGHT = 266 * ZOOM;
-    public static String version = "1.0";
+    public static String version = "0.1.1";
 
     public static final int MAX_COMPLETION = 20;
 }
