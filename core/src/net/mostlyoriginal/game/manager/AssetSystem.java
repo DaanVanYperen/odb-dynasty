@@ -45,6 +45,8 @@ public class AssetSystem extends AbstractAssetSystem {
     public static final int LOGO_WIDTH = 139;
     public static final int LOGO_HEIGHT = 47;
     public static final int PROGRESS_BAR_BACKGROUND_WIDTH = 121;
+    public static final int HAMMER_WIDTH = 3;
+    public static final int HAMMER_HEIGHT = 5;
     public static int FIREBALL_WIDTH = 14;
     public static int FIREBALL_HEIGHT = 22;
     private static Music music;
@@ -150,7 +152,7 @@ public class AssetSystem extends AbstractAssetSystem {
         add("FIRE PARTICLE 4", 544, 260, 3, 3,1);
 
 
-        add("HAMMER", 569, 258, 3, 5,1);
+        add("GO-HAMMER", 569, 258, HAMMER_WIDTH, HAMMER_HEIGHT,1);
 
         add("btn-turn-up", 521, 490, 26, 16,1);
         add("btn-turn-hover", 576, 490, 26, 16,1);

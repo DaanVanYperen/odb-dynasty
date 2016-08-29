@@ -4,6 +4,7 @@ import com.artemis.Aspect;
 import com.artemis.Entity;
 import com.artemis.systems.IteratingSystem;
 import com.artemis.utils.IntBag;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.Schedule;
 import net.mostlyoriginal.api.component.basic.Angle;
@@ -25,6 +26,8 @@ import net.mostlyoriginal.game.component.resource.Minion;
 import net.mostlyoriginal.game.component.resource.ZPos;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.system.endgame.EndgameSystem;
+
+import static net.mostlyoriginal.api.operation.OperationFactory.*;
 
 /**
  * Created by Daan on 27-8-2016.
@@ -57,19 +60,61 @@ public class MinionSystem extends IteratingSystem {
         Minion minion = mMinion.get(e);
     }
 
-    /** How productive is the total work force? */
-    public int totalProductivity() {
+    /**
+     * How productive is the total work force?
+     *
+     * @param hammer
+     */
+    public int totalProductivity(boolean hammer) {
 
-        int result=0;
+        int result = 0;
+        float delay = 0;
 
         IntBag actives = subscription.getEntities();
         int[] ids = actives.getData();
         for (int i = 0, s = actives.size(); s > i; i++) {
             int entity = ids[i];
-            result += mMinion.get(entity).productivity;
+            Minion minion = mMinion.get(entity);
+            result += minion.productivity;
+
+            if (hammer) {
+                for(int j=0;j<minion.productivity;j++) {
+                    spawnHammer(entity, delay);
+                    delay += 0.1;
+                }
+            }
         }
 
         return result > 1 ? result : 1;
+    }
+
+    private Tint invis = new Tint(1f, 1f, 1f, 0f);
+    private void spawnHammer(int e, float delayTime) {
+
+        Pos pos = mPos.get(e);
+
+        Entity entity = new DynastyEntityBuilder(world)
+                .pos(pos.xy.x, pos.xy.y + 8 * G.ZOOM)
+                .renderable(9000)
+                .anim("GO-HAMMER")
+                .scale(G.ZOOM)
+                .tint("FFFFFF00")
+                .schedule(
+                        sequence(
+                                delay(delayTime),
+                                tween( new Tint("FFFFFF00"), new Tint("FFFFFFFF"), 0.1f),
+                                tween(
+                                        new Pos(pos.xy.x, pos.xy.y + 8 * G.ZOOM),
+                                        new Pos(G.CANVAS_WIDTH / 2, 10 * G.ZOOM), 2f, Interpolation.pow2In),
+                                deleteFromWorld()
+                                ))
+                .build();
+        Angle angle = mAngle.create(entity);
+        angle.ox = AssetSystem.HAMMER_WIDTH / 2 * G.ZOOM;
+        angle.oy = AssetSystem.HAMMER_HEIGHT / 2 * G.ZOOM;
+        Physics physics = mPhysics.create(entity);
+        physics.friction=0;
+        physics.vr = 400;
     }
 
     public Entity spawn(String id, int productivity) {
@@ -77,9 +122,9 @@ public class MinionSystem extends IteratingSystem {
         Entity e = new DynastyEntityBuilder(world).with(
                 new Bounds(0, 0, 0, 0),
                 new Anim(id))
-                .with(Pos.class,Scale.class,
+                .with(Pos.class, Scale.class,
                         Renderable.class, Physics.class, Gravity.class, Tint.class, ZPos.class)
-                .schedule(OperationFactory.tween(new Tint(TINT_INVISIBLE), new Tint("ffffffff"), 0.5f))
+                .schedule(tween(new Tint(TINT_INVISIBLE), new Tint("ffffffff"), 0.5f))
                 .minion(productivity).build();
         randomizeLocation(e);
         Physics physics = mPhysics.get(e);
@@ -97,7 +142,7 @@ public class MinionSystem extends IteratingSystem {
         for (int i = 0, s = actives.size(); s > i; i++) {
             int entity = ids[i];
             Pos pos = mPos.get(entity);
-            if ( pos.xy.dst2( x, y ) < distance*distance ) {
+            if (pos.xy.dst2(x, y) < distance * distance) {
 
                 mAngle.create(entity);
                 Physics physics = mPhysics.create(entity);
@@ -115,8 +160,7 @@ public class MinionSystem extends IteratingSystem {
         }
     }
 
-    public void allCheer()
-    {
+    public void allCheer() {
         assetSystem.playSfx("workers_cheering");
         IntBag actives = subscription.getEntities();
         int[] ids = actives.getData();
@@ -125,16 +169,15 @@ public class MinionSystem extends IteratingSystem {
             mCheer.create(entity);
             mSchedule.create(entity).operation.add(
                     OperationFactory.sequence(
-                            OperationFactory.delay(MathUtils.random(1f,2f)),
+                            OperationFactory.delay(MathUtils.random(1f, 2f)),
                             OperationFactory.remove(Cheer.class)
                     ));
         }
     }
 
-    public void future()
-    {
+    public void future() {
         clear();
-        spawnMultiple(endgameSystem.getSuccess().ordinal()*endgameSystem.getSuccess().ordinal()*5, new String[]{
+        spawnMultiple(endgameSystem.getSuccess().ordinal() * endgameSystem.getSuccess().ordinal() * 5, new String[]{
                 "TOURIST MALE 1",
                 "TOURIST MALE 2",
                 "TOURIST MALE 3",
@@ -143,9 +186,9 @@ public class MinionSystem extends IteratingSystem {
                 "TOURIST FEMALE 2",
                 "TOURIST FEMALE 3",
                 "TOURIST FEMALE 4"
-        },0);
+        }, 0);
 
-        spawnMultiple(1,"GUIDE PUPPET",0);
+        spawnMultiple(1, "GUIDE PUPPET", 0);
     }
 
     private void clear() {
@@ -159,15 +202,15 @@ public class MinionSystem extends IteratingSystem {
 
     private void randomizeLocation(Entity entity) {
         mPos.get(entity).xy.set(
-                MathUtils.random(8 * G.ZOOM, G.CANVAS_WIDTH - 8*G.ZOOM),0);
+                MathUtils.random(8 * G.ZOOM, G.CANVAS_WIDTH - 8 * G.ZOOM), 0);
     }
 
     public void spawnMultiple(int count, String id, int productivity) {
-        for(int i=0;i<count;i++) spawn(id, productivity);
+        for (int i = 0; i < count; i++) spawn(id, productivity);
     }
 
     public void spawnMultiple(int count, String[] id, int productivity) {
-        for(int i=0;i<count;i++) spawn(id[MathUtils.random(0, id.length-1)], productivity);
+        for (int i = 0; i < count; i++) spawn(id[MathUtils.random(0, id.length - 1)], productivity);
     }
 
 }

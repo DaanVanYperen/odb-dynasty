@@ -130,11 +130,15 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
 
         age += world.delta;
 
-        if ( progressAlgorithmSystem.readyToProgress )
+        if ( progressAlgorithmSystem.isReadyToProgress() )
+        {
+            renderBars(entity);
+        }
+
+        if ( progressAlgorithmSystem.isReadyToProgress() && !progressAlgorithmSystem.tallying )
         {
             mInvisible.remove(progressButton);
             mInvisible.remove(buildLabel);
-            renderBars(entity);
         } else {
             mInvisible.create(progressButton);
             mInvisible.create(buildLabel);

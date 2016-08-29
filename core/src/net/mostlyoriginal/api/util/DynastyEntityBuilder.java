@@ -11,6 +11,7 @@ import net.mostlyoriginal.api.component.Schedule;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Anim;
+import net.mostlyoriginal.api.component.graphics.Invisible;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.physics.Gravity;
@@ -303,6 +304,11 @@ public class DynastyEntityBuilder {
 
     public DynastyEntityBuilder ancient() {
         edit.create(Ancient.class);
+        return this;
+    }
+
+    public DynastyEntityBuilder invisible() {
+        edit.create(Invisible.class);
         return this;
     }
 }

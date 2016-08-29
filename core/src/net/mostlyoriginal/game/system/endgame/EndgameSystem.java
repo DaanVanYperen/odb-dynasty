@@ -60,7 +60,7 @@ public class EndgameSystem extends IteratingSystem {
                 (structureSystem.getObeliskCount()*0.5f));
         return
                 (int) ((completion * completion * COMPLETION_SCORE_FACTOR) +
-                                minionSystem.totalProductivity());
+                                minionSystem.totalProductivity(false));
     }
 
     public Success getSuccess() {

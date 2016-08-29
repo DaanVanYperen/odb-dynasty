@@ -21,9 +21,22 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
     protected M<Stockpile> mStockpile;
     protected RiverDioramaSystem riverDioramaSystem;
 
-    public boolean readyToProgress = false;
+    private boolean readyToProgress = false;
     public int projectedIncrease = 0;
     private boolean increaseAlert = false;
+    public boolean tallying = false;
+
+    public boolean isReadyToProgress() {
+        return readyToProgress;
+    }
+
+    float tallyingAge = 0;
+
+    public void setReadyToProgress(boolean readyToProgress) {
+        this.readyToProgress = readyToProgress;
+        tallying = true;
+        tallyingAge=0;
+    }
 
     public ProgressAlgorithmSystem() {
         super(Aspect.all(Stockpile.class));
@@ -31,7 +44,7 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
 
     public void progress()
     {
-        if ( readyToProgress ) {
+        if ( readyToProgress && !tallying ) {
             readyToProgress=false;
             processSystem();
 
@@ -44,8 +57,8 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
     }
 
     // increase cost based on pyramid size.
-    private int getProjectedIncrease() {
-        int workforceProductivity = minionSystem.totalProductivity();
+    private int getProjectedIncrease(boolean hammer) {
+        int workforceProductivity = minionSystem.totalProductivity(hammer);
         return (int) (workforceProductivity *
                 getProductivityFactor(stockpileSystem.get(StockpileSystem.Resource.COMPLETION))
                 * getRiverFactor()
@@ -80,12 +93,13 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
             stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, 1);
         }
 
-        projectedIncrease = getProjectedIncrease();
-        increaseAlert = getRiverFactor() < 1f; // anything wrong?
-
-        if ( readyToProgress )
+        if ( tallying )
         {
-
+            if ( tallyingAge == 0  ) {
+                projectedIncrease = getProjectedIncrease(true);
+                increaseAlert = getRiverFactor() < 1f; // anything wrong?
+            }
+            tallyingAge += world.delta;
         }
     }
 
