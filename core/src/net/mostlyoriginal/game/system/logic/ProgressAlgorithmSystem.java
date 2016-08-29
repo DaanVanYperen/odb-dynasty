@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.game.component.agent.Hammer;
 import net.mostlyoriginal.game.component.resource.Stockpile;
+import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.system.endgame.EndgameSystem;
 import net.mostlyoriginal.game.system.resource.MinionSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
@@ -31,6 +32,7 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
     private EntitySubscription hammerSubscription;
     public Integer score;
     private EndgameSystem endgameSystem;
+    private AssetSystem assetSystem;
 
     public boolean isReadyToProgress() {
         return readyToProgress;
@@ -59,6 +61,8 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
         if ( readyToProgress && !tallying ) {
             readyToProgress=false;
             processSystem();
+            assetSystem.playRandomHammer();
+            assetSystem.playRandomHammer();
 
             System.out.println("Completion increase by " + (projectedIncrease * COMPLETION_SCALE));
             System.out.println("Alert? " + increaseAlert);

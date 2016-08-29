@@ -85,8 +85,6 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
                 new Button("btn-turn-up", "btn-turn-hover", "btn-turn-down", new ButtonListener() {
                     @Override
                     public void run() {
-                        assetSystem.playRandomHammer();
-                        assetSystem.playRandomHammer();
                         progressAlgorithmSystem.progress();
                     }
                 })
