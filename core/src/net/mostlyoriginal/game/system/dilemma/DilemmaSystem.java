@@ -52,7 +52,8 @@ public class DilemmaSystem extends EntityProcessingSystem {
     public static final String DILEMMA_GROUP = "dilemma";
     public static final int ROW_HEIGHT = 16;
 
-    public static final String COLOR_DILEMMA = "00000080";
+//    public static final String COLOR_DILEMMA = "00000080";
+    public static final String COLOR_DILEMMA = "000000BB";
     public static final String COLOR_RAW_BRIGHT = "ae121f";
     public static final String COLOR_RAW_DIMMED = "86161f";
     private boolean dilemmaActive;
