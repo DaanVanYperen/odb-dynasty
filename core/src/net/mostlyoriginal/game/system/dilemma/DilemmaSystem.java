@@ -45,7 +45,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
     public static final int TEXT_ZOOM = G.ZOOM;
     public static final String DILEMMA_SHADOW_TEXT_COLOR = "9f9a9b";
     public static final String DILEMMA_SCROLL_SHADOW_COLOR = "f3b072";
-    public static final int DISCIPLINE_FOLLOWUP_WAIT_TIME = 6;
+    public static final int DISCIPLINE_FOLLOWUP_WAIT_TIME = 4;
     public static final int INITIAL_DISCIPLINE_WAIT_TIME = 6;
     private DilemmaLibrary dilemmaLibrary;
 
@@ -421,7 +421,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 stockpileSystem.alter(StockpileSystem.Resource.AGE, 1);
                 break;
             case "+LIFESPAN":
-                stockpileSystem.alter(StockpileSystem.Resource.LIFESPAN, 1);
+                stockpileSystem.alter(StockpileSystem.Resource.LIFESPAN, 10);
                 break;
             case "+WEALTH":
                 stockpileSystem.alter(StockpileSystem.Resource.WEALTH, 1);

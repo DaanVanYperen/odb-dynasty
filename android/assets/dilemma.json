@@ -275,7 +275,7 @@
             "predicates": ["NO_WIFE_PYRAMID"],
             "choices": [
                 {
-                    "label": ["Fine! (sacrifice workers as a gift)"],
+                    "label": ["Fine! (sacrifice workers for a gift)"],
                     "success": ["+WIFE_PYRAMID", "-WORKERS", "PROGRESS"]
                 },
                 {
@@ -433,6 +433,76 @@
         },
 
         {
+            "id": "FREEWORKERS1",
+            "comment": "Gain some free workers.",
+            "actor": "ALIEN",
+            "text": [ "I tried to clone myself but he came out human." ],
+            "groups": [ "positive" ],
+            "choices": [
+                {
+                    "label": ["One more worker for me! (+1 worker)"],
+                    "success": ["+WORKERS", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "FREEWORKERS2",
+            "comment": "Gain some free workers.",
+            "actor": "PRIEST",
+            "text": [ "Two of our finest scholars just invented a brand new way of-" ],
+            "groups": [ "positive" ],
+            "choices": [
+                {
+                    "label": ["Shut up! I don't care! Put them to work! (+2 workers)"],
+                    "success": ["+WORKERS", "+WORKERS", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "FREEWORKERS4",
+            "comment": "Gain some free workers.",
+            "actor": "ALIEN",
+            "text": [ "I fired my laser at some dungbeetles and they turned into workers." ],
+            "groups": [ "positive" ],
+            "choices": [
+                {
+                    "label": ["They smell a bit, but it's not like I'll ever be near the plebians. (+3 workers)"],
+                    "success": ["+WORKERS", "+WORKERS", "+WORKERS", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "FREEWORKERS4",
+            "comment": "Gain some free workers.",
+            "actor": "PRIEST",
+            "text": [ "Some of the initiates in my priesthood did some very... unpriestly things." ],
+            "groups": [ "positive" ],
+            "choices": [
+                {
+                    "label": ["Give them some hammers! (+4 workers)"],
+                    "success": ["+WORKERS", "+WORKERS", "+WORKERS", "+WORKERS", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "FREEWORKERS5",
+            "comment": "Gain some free workers.",
+            "actor": "WIFE",
+            "text": [ "Remember our quituplets? They just turned 18! Isn't it grand?" ],
+            "groups": [ "positive" ],
+            "choices": [
+                {
+                    "label": ["Excellent! Off to work they go! (+5 workers)"],
+                    "success": ["+WORKERS", "+WORKERS", "+WORKERS", "+WORKERS", "+WORKERS", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
             "id": "GRANITE_PYRAMID",
             "comment": "Change to a granite pyramid.",
             "actor": "ALIEN",
@@ -570,7 +640,7 @@
         "choices": [
           {
             "label": ["We need more workers! (+1 elephant)"],
-            "success": ["+ELEPHANT"]
+            "success": ["+CAMELS"]
           },
           {
             "label": ["Structures add value and may attract followers! (+1 obelisk)"],

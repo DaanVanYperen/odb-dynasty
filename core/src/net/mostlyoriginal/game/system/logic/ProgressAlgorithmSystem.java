@@ -88,7 +88,7 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
     }
 
     private float getProductivityFactor(int pyramidLevel) {
-        return MathUtils.clamp(20 - pyramidLevel*2,2,20);
+        return MathUtils.clamp(30 - pyramidLevel*2,2,30);
     }
 
     @Override
