@@ -42,7 +42,7 @@ public class ProgressUISystem extends IteratingSystem {
         Entity entity = new DynastyEntityBuilder(world)
                 .with(Pos.class, Renderable.class)
                 .with(new Progress())
-                .renderable(1005)
+                .renderable(3005)
                 .scale(G.ZOOM)
                 .build();
         return entity;

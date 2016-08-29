@@ -278,7 +278,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
     protected void begin() {
         super.begin();
 
-        if ( !dilemmaActive ) {
+        if ( !dilemmaActive && !progressAlgorithmSystem.readyToProgress ) {
             noDisciplineCooldown -= world.delta;
             if (noDisciplineCooldown <= 0) {
                 noDisciplineCooldown = DISCIPLINE_FOLLOWUP_WAIT_TIME;
@@ -437,7 +437,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 stockpileSystem.alter(StockpileSystem.Resource.COMPLETION, 1);
                 break;
             case "PROGRESS":
-                progressAlgorithmSystem.progress();
+                progressAlgorithmSystem.readyToProgress=true;
                 break;
             case "+WORSHIP":
                 stockpileSystem.alter(StockpileSystem.Resource.WORSHIP, 1);

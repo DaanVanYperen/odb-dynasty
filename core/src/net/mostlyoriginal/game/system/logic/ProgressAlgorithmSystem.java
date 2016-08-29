@@ -21,6 +21,7 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
     protected M<Stockpile> mStockpile;
     protected RiverDioramaSystem riverDioramaSystem;
 
+    public boolean readyToProgress = false;
     public int projectedIncrease = 0;
     private boolean increaseAlert = false;
 
@@ -30,13 +31,16 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
 
     public void progress()
     {
-        processSystem();
+        if ( readyToProgress ) {
+            readyToProgress=false;
+            processSystem();
 
-        System.out.println("Completion increase by " +(projectedIncrease* COMPLETION_SCALE));
-        System.out.println("Alert? " +increaseAlert);
+            System.out.println("Completion increase by " + (projectedIncrease * COMPLETION_SCALE));
+            System.out.println("Alert? " + increaseAlert);
 
-        stockpileSystem.alter(StockpileSystem.Resource.COMPLETION_PERCENTILE, projectedIncrease);
-        stockpileSystem.alter(StockpileSystem.Resource.AGE, 1);
+            stockpileSystem.alter(StockpileSystem.Resource.COMPLETION_PERCENTILE, projectedIncrease);
+            stockpileSystem.alter(StockpileSystem.Resource.AGE, 1);
+        }
     }
 
     // increase cost based on pyramid size.
@@ -78,6 +82,11 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
 
         projectedIncrease = getProjectedIncrease();
         increaseAlert = getRiverFactor() < 1f; // anything wrong?
+
+        if ( readyToProgress )
+        {
+
+        }
     }
 
     public float getProgressPercentile() {

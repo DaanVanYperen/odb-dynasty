@@ -2,24 +2,35 @@ package net.mostlyoriginal.game.system.render;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
+import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
+import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Invisible;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
+import net.mostlyoriginal.api.operation.OperationFactory;
+import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.delegate.DeferredEntityProcessingSystem;
 import net.mostlyoriginal.api.system.delegate.EntityProcessPrincipal;
+import net.mostlyoriginal.api.util.DynastyEntityBuilder;
 import net.mostlyoriginal.game.G;
-import net.mostlyoriginal.game.component.ui.Bar;
-import net.mostlyoriginal.game.component.ui.Progress;
+import net.mostlyoriginal.game.component.ui.*;
+import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.manager.FontManager;
+import net.mostlyoriginal.game.system.logic.ProgressAlgorithmSystem;
+
+import static net.mostlyoriginal.game.system.dilemma.DilemmaSystem.COLOR_RAW_BRIGHT;
+import static net.mostlyoriginal.game.system.dilemma.DilemmaSystem.COLOR_RAW_DIMMED;
+import static net.mostlyoriginal.game.system.dilemma.DilemmaSystem.TEXT_ZOOM;
 
 /**
  * Render and progress animations.
@@ -41,11 +52,55 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
     private SpriteBatch batch;
     private GlyphLayout glyphLayout;
     private float age;
+    private ProgressAlgorithmSystem progressAlgorithmSystem;
+    private Entity progressButton;
+    private M<Invisible> mInvisible;
+    private AssetSystem assetSystem;
+    private Entity buildLabel;
+
+
+    public void createLabel(int x, int y, String color, String text, String shadowTextColor, int maxWidth) {
+        Label label = new Label(text, TEXT_ZOOM);
+        label.shadowColor = new Tint(shadowTextColor);
+        label.maxWidth = maxWidth;
+        int insertDistanceY =AssetSystem.SLAB_HEIGHT*G.ZOOM;
+        DynastyEntityBuilder builder = new DynastyEntityBuilder(world)
+                .with(label)
+                .pos(x, y)
+                .renderable(3010)
+                .scale(TEXT_ZOOM)
+                .tint(color);
+
+        buildLabel = builder
+                .build();
+    }
 
     @Override
     protected void initialize() {
         super.initialize();
         glyphLayout = new GlyphLayout();
+
+        createLabel(12 * G.ZOOM, 4 * G.ZOOM + 18 * G.ZOOM, "FFFFFFFF", "Build progress", "000000FF", 4000);
+        progressButton = new DynastyEntityBuilder(world)
+                .with(Tint.class).with(
+                new Bounds(0, 0, 26*G.ZOOM, 16*G.ZOOM),
+                new Clickable(),
+                new Button("btn-turn-up", "btn-turn-hover", "btn-turn-down", new ButtonListener() {
+                    @Override
+                    public void run() {
+                        assetSystem.playRandomHammer();
+                        assetSystem.playRandomHammer();
+                        progressAlgorithmSystem.progress();
+                    }
+                })
+        )
+                .group("progress")
+                .anim("btn-test-up")
+                .renderable(920)
+                .pos(7 * G.ZOOM + AssetSystem.PROGRESS_BAR_BACKGROUND_WIDTH * G.ZOOM, 4 * G.ZOOM)
+                .scale(G.ZOOM)
+                .build();
+
     }
 
     public ProgressRenderSystem(EntityProcessPrincipal principal) {
@@ -75,6 +130,19 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
 
         age += world.delta;
 
+        if ( progressAlgorithmSystem.readyToProgress )
+        {
+            mInvisible.remove(progressButton);
+            mInvisible.remove(buildLabel);
+            renderBars(entity);
+        } else {
+            mInvisible.create(progressButton);
+            mInvisible.create(buildLabel);
+        }
+
+    }
+
+    private void renderBars(int entity) {
         final Progress progress = mProgress.get(entity);
         final Pos pos = pm.get(entity);
 

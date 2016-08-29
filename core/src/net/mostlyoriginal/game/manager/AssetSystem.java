@@ -44,6 +44,7 @@ public class AssetSystem extends AbstractAssetSystem {
     public static final int SLAB_WIDTH = 147;
     public static final int LOGO_WIDTH = 139;
     public static final int LOGO_HEIGHT = 47;
+    public static final int PROGRESS_BAR_BACKGROUND_WIDTH = 121;
     public static int FIREBALL_WIDTH = 14;
     public static int FIREBALL_HEIGHT = 22;
     private static Music music;
@@ -98,7 +99,9 @@ public class AssetSystem extends AbstractAssetSystem {
         add("OBELISK BASE 4", 379, 212 - 11, OBELISK_WIDTH, OBELISK_HEIGHT, 1);
         add("OBELISK BASE 5", 388, 212 - 11, OBELISK_WIDTH, OBELISK_HEIGHT, 1);
 
-        add("PROGRESS BAR BACKGROUND", 400, 490, 147, 16, 1);
+        //PROGRESS BAR BACKGROUND: x:400, y:490, width:121, height:16
+
+        add("PROGRESS BAR BACKGROUND", 400, 490, PROGRESS_BAR_BACKGROUND_WIDTH, 16, 1);
         add("PROGRESS BAR", 552, 495, 8, 7, 1);
         add("PROGRESS BAR PLANNED", 560, 495, 8, 7, 1);
 
@@ -145,6 +148,13 @@ public class AssetSystem extends AbstractAssetSystem {
         add("FIRE PARTICLE 2", 540, 260, 3, 3,1);
         add("FIRE PARTICLE 3", 544, 256, 3, 3,1);
         add("FIRE PARTICLE 4", 544, 260, 3, 3,1);
+
+
+        add("HAMMER", 569, 258, 3, 5,1);
+
+        add("btn-turn-up", 521, 490, 26, 16,1);
+        add("btn-turn-hover", 576, 490, 26, 16,1);
+        add("btn-turn-down", 521, 490, 26, 16,1);
 
 //        FIRE PARTICLE 1: x:540, y:256, width:3, height:3
 //        FIRE PARTICLE 2: x:540, y:260, width:3, height:3
