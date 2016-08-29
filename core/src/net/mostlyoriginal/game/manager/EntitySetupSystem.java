@@ -91,7 +91,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
                 .with(Pos.class, Renderable.class, Scale.class, Tint.class)
                 .schedule(OperationFactory.tween(new Tint("ffffff00"), new Tint("ffffffff"), 2f))
                 .build();
-        mRenderable.get(e).layer = -99;
+        mRenderable.get(e).layer = -19;
         mScale.get(e).scale = G.ZOOM;
         mPos.get(e).xy.y = 133 * G.ZOOM;
     }

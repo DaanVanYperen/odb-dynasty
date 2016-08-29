@@ -7,6 +7,9 @@ import com.artemis.Component;
  */
 public class Fireball extends Component {
 
+    public float smokeCooldown;
+    public float sparkCooldown;
+
     public Fireball() {
     }
 }

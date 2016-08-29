@@ -33,7 +33,9 @@ public class ZPosSystem extends IteratingSystem {
             pos.xy.y = minY;
         }
 
-        mRenderable.get(e).layer = MINION_LAYER + (int)zPos.z;
+        zPos.height = pos.xy.y - minY;
+
+        mRenderable.get(e).layer = MINION_LAYER + (int)zPos.z * 10 + zPos.layerOffset;
 
     }
 }

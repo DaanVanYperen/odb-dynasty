@@ -8,6 +8,9 @@ import com.badlogic.gdx.math.MathUtils;
  */
 public class ZPos extends Component {
     public float z = MathUtils.random(48);
+    public int layerOffset=0;
+    public float height=0;
+
     public ZPos() {
     }
 
