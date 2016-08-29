@@ -184,15 +184,16 @@
             "id": "BLESSING_WORKERS_OR_OBELISK",
             "comment": "Word has travelled, people join up!",
             "actor": "ALIEN",
-            "text": [ "Word has travelled of your great project. They offer to build you an obelisk!"],
-            "groups": [ "positive" ],
+            "text": [ "Word has travelled of your great project. Several workers have offered to join!"],
+            "predicates": ["OBELISK"],
+            "groups": [ "positive","test" ],
             "choices": [
                 {
-                    "label": ["Put them to work on the main pyramid!"],
-                    "success": ["+WORKERS","+WORKERS","+WORKERS", "PROGRESS"]
+                    "label": ["Put them to work on the main pyramid! (+workers)"],
+                    "success": ["+WORKERS","+WORKERS","+WORKERS", "+WORKERS" ,"+WORKERS", "PROGRESS"]
                 },
                 {
-                    "label": ["Better be a pretty obelisk!"],
+                    "label": ["They should have joined sooner. Feed them to your machine! (+1 obelisk)"],
                     "success": ["+OBELISK", "PROGRESS"]
                 }
             ]
@@ -258,7 +259,7 @@
         "comment": "Spaceship.",
         "actor": "PRIEST",
         "text": [ "A chariot of the gods? There seems to be a being inside!" ],
-        "groups": [ "programmatic", "test" ],
+        "groups": [ "programmatic" ],
         "immediate": ["SPACESHIP"],
         "choices": [
           {
