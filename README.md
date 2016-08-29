@@ -1,85 +1,19 @@
-libgdx-artemis-quickstart
-=========================
+odb-dynasty
+=====================
 
-[![Build Status](https://travis-ci.org/DaanVanYperen/libgdx-artemis-quickstart.svg)](https://travis-ci.org/DaanVanYperen/libgdx-artemis-quickstart)
+#### Summary
+Jam game made in 72 hours, Rogue-like-like Pyramid Simulator made with [LibGDX](https://github.com/libgdx/libgdx) and [Artemis-ODB](https://github.com/junkdog/artemis-odb). Tested for desktop and html5 via gwt.
 
-Quickstart for libgdx artemis-odb based games.
+#### Grab what you need!
+Artemis Entity System takes a way a lot of the lifecycle management, and composition is a natural match for a time constrained Jam. While made in a rush, I hope this code gives you an idea or two how to benefit from using an entity system in your project.
 
-Preconfigured for artemis-odb advanced features. Contains
-a logo screen with artemis feature detection and minimal
-game scaffold.
+#### Usage details
+While the meat is with peeking at the systems and components, you might like to compile the game! The project was created using libgdx-setup (not libgdx-setup-ui), which uses gradle for build automation, and snapshot versions of artemis and libgdx. ```gradlew desktop:run``` should run the game. See the [libgdx wiki](https://github.com/libgdx/libgdx/wiki) for how to use gradle with your ide.
 
-### When to use this
+#### License summary
+Code and graphics are under a separate license. Feel free to do whatever with the code, the graphics however are copyrighted.
 
-If you want artemis-odb with weaving, entity factories and 
-LibGDX's gradle, a fork will get you up and running quickly.
+[Play online](http://www.mostlyoriginal.net/play-dynasty/)
 
-I use this as my quickstart for jam games. You are welcome 
-to use it for whatever you need.
 
-### Where to start
 
-Edit `net.mostlyoriginal.game.screen.GameScreen` and start
-adding systems!
-
-Running the game displays a odb feature splash screen,
-before transitioning to your game.
-
-### Feature detection!
-
-Splash screen icons show available features:
-
-| Icon                  | Platform supports/feature active
-|-----------------------|----------------------------------
-| Tiny squares in a box | @PooledWeaver
-| Linked squares        | Hotspot optimization
-
-### Platform cheat sheet
-
-| Platform        | [odb weaving](https://github.com/junkdog/artemis-odb/wiki/Bytecode-weaving)  | [entity factory](https://github.com/junkdog/artemis-odb/wiki/EntityFactory) | quickstart
-|-----------------|----------|----------------|--------------------
-| Desktop         | ✓        | ✓ | `gradlew desktop:run`
-| Android         | ✓        | ✓ | `gradlew android:installDebug android:run`, launch emulator first.
-| iOS             | ✓        | ✓ | `gradlew ios:launchIPhoneSimulator`
-| HTML5/GWT       | -        | ✓ | `gradlew html:superDev`, browse to `http://localhost:8080/html`
-
-✓ supported, - not supported
-
-### Library Versions
-
-LibGDX 1.9.4, Artemis-odb 2.0.0, Artemis-odb-contrib 1.2.1
-
-Alter library versions and enable gdx modules in /build.gradle
-
-### Weaving
-
-Weaving and entity factory creation are part of the core build step.
-
-Gradle plugin requires Gradle 2.2+!
-### Generating component/system matrix
-
-`gradlew generateMatrix`
-
-### GWT build speed
-
-GWT default build speed is horribly slow (10-20 minutes).
-
-Because of this, `enableClosureCompiler` is disabled by default. Re-enable
-it in `html/build.gradle` to shrink your game a bit at the cost of 300%
-compile time.
-
-To speed up your builds further you can chose to limit the target browsers
-by adding a tag to `GdxDefinition.gwt.xml`.
-`<set-property name="user.agent" value="safari" />`
-
-### GWT and Reflection
-
-GWT lacks reflection so the build process creates a reflection cache. 
-
-To use `@Wire` make sure your components, managers and systems are 
-placed under the premade component, manager and system packages.
-
-There are TWO reflection caches, one for LibGDX, one for Artemis-ODB.
-Artemis reflection cache errors are prefixed with `artemis-odb`.
-
-```

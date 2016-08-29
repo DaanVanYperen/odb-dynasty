@@ -160,7 +160,7 @@
             "id": "GREAT_DYNASTY",
             "comment": "Shown when a great dynasty (wealthy pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "Known all around the world, the glory of this Pharao's dynasty and his grandiose pyramid remain one of our nation's greatest treasures. {score} score!"],
+            "text": [ "Known all around the world, the glory of this Pharaoh's dynasty and his grandiose pyramid remain one of our nation's greatest treasures. {score} score!"],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
@@ -174,7 +174,7 @@
             "id": "AMAZING_DYNASTY",
             "comment": "Shown when an amazing dynasty (very wealthy pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "This magnificent Pharao is known to all of us, and I am sure that you all - like me - have miniature replicas of his pyramid in your houses, along with your statue of the Pharao. I personally feel like he is still with us today, and celebrate this great man's life every day. {score} score!"],
+            "text": [ "This magnificent Pharaoh is known to all of us, and I am sure that you all - like me - have miniature replicas of his pyramid in your houses, along with your statue of the Pharaoh. I personally feel like he is still with us today, and celebrate this great man's life every day. {score} score!"],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
