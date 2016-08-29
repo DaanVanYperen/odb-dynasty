@@ -46,6 +46,7 @@ public class AssetSystem extends AbstractAssetSystem {
     public static final int LOGO_HEIGHT = 47;
     public static int FIREBALL_WIDTH = 14;
     public static int FIREBALL_HEIGHT = 22;
+    private static Music music;
 
 
     private TagManager tagManager;
@@ -331,7 +332,10 @@ PROGRESS BAR GREY: x:560, y:495, width:8, height:7
                 "workers_cheering" //
         });
 
-        Music music = Gdx.audio.newMusic(Gdx.files.internal("sfx/music.mp3"));
+        if ( music == null ) {
+            music = Gdx.audio.newMusic(Gdx.files.internal("sfx/music.mp3"));
+        }
+        music.stop();
         music.setLooping(true);
         music.play();
         music.setPan(0, 0.1f);

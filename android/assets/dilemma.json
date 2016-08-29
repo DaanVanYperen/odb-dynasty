@@ -49,6 +49,26 @@
                 }
             ]
         },
+
+        {
+          "id": "FIGHT_OR_FLIGHT",
+          "comment": "Kingdom attack",
+          "actor": "PRIEST",
+          "text": [ "An army at our doorstep!" ],
+          "groups": [ "negative", "positive" ],
+          "immediate": ["ROCK"],
+          "choices": [
+            {
+              "label": ["Halt all work, build a tribute instead! (Loss of time)"],
+              "success": ["+OBELISK", "+AGE", "+AGE", "+AGE", "PROGRESS"],
+            },
+            {
+              "label": ["We can wait out the siege."],
+              "success": ["ROCK", "ROCK", "ROCK", "ROCK", "ROCK", "+AGE", "+AGE", "+AGE", "+AGE" ]
+            }
+          ]
+        },
+
         {
             "id": "BAD_DYNASTY",
             "comment": "Shown when a bad dynasty (almost no pyramid) has been achieved.",
@@ -451,6 +471,10 @@
           {
             "label": ["Test"],
             "success": [ "TEST" ]
+          },
+          {
+            "label": ["Reset"],
+            "success": [ "RESTART" ]
           },
           {
             "label": ["Fireball"],
