@@ -30,6 +30,7 @@ import net.mostlyoriginal.game.system.resource.FireballSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 import net.mostlyoriginal.game.system.ui.RiverDioramaSystem;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -53,6 +54,8 @@ public class DilemmaSystem extends EntityProcessingSystem {
     public static final String COLOR_RAW_BRIGHT = "ae121f";
     public static final String COLOR_RAW_DIMMED = "86161f";
     private boolean dilemmaActive;
+
+    private LinkedList<String> questQueue = new LinkedList<>();
 
     private GroupManager groupManager;
     private StockpileSystem stockpileSystem;
@@ -126,6 +129,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
     protected void initialize() {
         super.initialize();
         loadDilemmas();
+        questQueue.add("INTRODUCTION");
         //startDebugDilemma();
     }
 
@@ -278,7 +282,12 @@ public class DilemmaSystem extends EntityProcessingSystem {
             noDisciplineCooldown -= world.delta;
             if (noDisciplineCooldown <= 0) {
                 noDisciplineCooldown = DISCIPLINE_FOLLOWUP_WAIT_TIME;
-                randomDilemma();
+                if ( !questQueue.isEmpty() )
+                {
+                    startDilemma(questQueue.pop());
+                } else {
+                    randomDilemma();
+                }
             }
         }
     }
