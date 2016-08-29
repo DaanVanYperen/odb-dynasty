@@ -104,7 +104,7 @@
             "id": "BAD_DYNASTY",
             "comment": "Shown when a bad dynasty (almost no pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "Kinda sad dynasty. {score} score!"],
+            "text": [ "We believe this was meant to be a pyramid, possibly created by a child who imagined he was a Pharaoh. {score} score!"],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
@@ -118,7 +118,7 @@
             "id": "TINY_DYNASTY",
             "comment": "Shown when a tiny dynasty (some pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "Tiny dynasty. {score} score!"],
+            "text": [ "We're unsure how a Pharaoh with such little power managed to leave enough of a pyramid to stand the test of time, but there you have it. {score} score!"],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
@@ -132,7 +132,7 @@
             "id": "MODERATE_DYNASTY",
             "comment": "Shown when a moderate dynasty (some pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "Moderate dynasty. {score} score!"],
+            "text": [ "Not much is known of this Pharaoh, but he left a modest legacy with this fine pyramid. {score} score!"],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
@@ -146,7 +146,7 @@
             "id": "GOOD_DYNASTY",
             "comment": "Shown when a good dynasty (some pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "Good dynasty. {score} score!"],
+            "text": [ "This beautiful pyramid built by a celebrated Pharaoh is a widely-known landmark. A suitable legacy for a wonderful dynasty. {score} score!"],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
@@ -160,7 +160,7 @@
             "id": "GREAT_DYNASTY",
             "comment": "Shown when a great dynasty (wealthy pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "Great dynasty. {score} score!"],
+            "text": [ "Known all around the world, the glory of this Pharao's dynasty and his grandiose pyramid remain one of our nation's greatest treasures. {score} score!"],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
@@ -174,7 +174,7 @@
             "id": "AMAZING_DYNASTY",
             "comment": "Shown when an amazing dynasty (very wealthy pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "Amazing dynasty. {score} score!"],
+            "text": [ "This magnificent Pharao is known to all of us, and I am sure that you all - like me - have miniature replicas of his pyramid in your houses, along with your statue of the Pharao. I personally feel like he is still with us today, and celebrate this great man's life every day. {score} score!"],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
@@ -188,7 +188,7 @@
             "id": "SUPER_DYNASTY",
             "comment": "Shown when a great dynasty (max pyramid) has been achieved.",
             "actor": "GUIDE",
-            "text": [ "Reached biggest dynasty possible. {score} score!"],
+            "text": [ "Hallowed be His name, our great lord Pharao's glory is all around us still today. This dynasty has never ended, and will never end. Let us gather and sacrifice our first-borns now, and bask in His warming glow. {score} score!"],
             "groups": [ "programmatic" ],
             "immediate": ["TIMETRAVEL"],
             "choices": [
@@ -209,7 +209,7 @@
             "immediate": ["RIVER_BLOOD"],
             "choices": [
                 {
-                    "label": ["It stinks, figuratively and literally!"],
+                    "label": ["It stinks, figuratively and literally! (production penalty)"],
                     "success": ["PROGRESS"]
                 }
             ]
@@ -219,13 +219,13 @@
             "id": "BLESSING_RIVER",
             "comment": "Productivity boost.",
             "actor": "PRIEST",
-            "text": [ "Blessed be! A flood fills the river with water!"],
+            "text": [ "Blessed be! A flood fills the river with water! "],
             "groups": [ "positive" ],
             "predicates": ["RIVER_DRY"],
             "immediate": ["RIVER_WATER"],
             "choices": [
                 {
-                    "label": ["Fill my bath!"],
+                    "label": ["Fill my bath! (production bonus)"],
                     "success": ["PROGRESS"]
                 }
             ]
@@ -503,6 +503,51 @@
         },
 
         {
+            "id": "FREEWORKERS1_OBELISKS",
+            "comment": "Gain some free workers.",
+            "actor": "WIFE",
+            "text": [ "My cousin is visiting from overseas to come and see our obelisks." ],
+            "groups": [ "positive" ],
+            "predicates": ["OBELISK"],
+            "choices": [
+                {
+                    "label": ["He'll need a job. (+1 worker)"],
+                    "success": ["+WORKERS", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "FREEWORKERS2_OBELISKS",
+            "comment": "Gain some free workers.",
+            "actor": "PRIEST",
+            "text": [ "Some foreigners came to our land because they learned of our obelisks." ],
+            "groups": [ "positive" ],
+            "predicates": ["OBELISK"],
+            "choices": [
+                {
+                    "label": ["Tell them to forget about the obelisks and work on my pyramid! (+3 workers)"],
+                    "success": ["+WORKERS", "+WORKERS", "+WORKERS", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
+            "id": "FREEWORKERS3_OBELISKS",
+            "comment": "Gain some free workers.",
+            "actor": "PRIEST",
+            "text": [ "A whole bunch of people were waiting for the sea to part, but when we told them about our obelisks, some of them came back with us."],
+            "groups": [ "positive" ],
+            "predicates": ["OBELISK"],
+            "choices": [
+                {
+                    "label": ["Great! Make them do something productive now! (+5 workers)"],
+                    "success": ["+WORKERS", "+WORKERS", "+WORKERS", "+WORKERS", "+WORKERS", "PROGRESS"]
+                }
+            ]
+        },
+
+        {
             "id": "GRANITE_PYRAMID",
             "comment": "Change to a granite pyramid.",
             "actor": "ALIEN",
@@ -639,7 +684,7 @@
         "text": [ "Ok, I can make this work! What would you have me do first? Since my probe is broken, I gift you an abductee! Or convert it into some matter with my machine. Both work for me!" ],
         "choices": [
           {
-            "label": ["We need more workers! (+1 camel)"],
+            "label": ["We need more workers to build my pyramid! (+1 camel)"],
             "success": ["+CAMELS"]
           },
           {
