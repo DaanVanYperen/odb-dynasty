@@ -42,7 +42,10 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
     // increase cost based on pyramid size.
     private int getProjectedIncrease() {
         int workforceProductivity = minionSystem.totalProductivity();
-        return (int) (workforceProductivity * getProductivityFactor(stockpileSystem.get(StockpileSystem.Resource.COMPLETION)) * getRiverFactor());
+        return (int) (workforceProductivity *
+                getProductivityFactor(stockpileSystem.get(StockpileSystem.Resource.COMPLETION))
+                * getRiverFactor()
+                * getBuildspeedFactor());
     }
 
     private float getRiverFactor() {
@@ -52,6 +55,10 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
             case RIVER_WATER: return 1.5f;
             default: return 1f;
         }
+    }
+
+    private float getBuildspeedFactor() {
+        return 1 + stockpileSystem.get(StockpileSystem.Resource.BUILDSPEED) * 0.25f;
     }
 
     private float getProductivityFactor(int pyramidLevel) {

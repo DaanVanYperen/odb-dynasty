@@ -418,8 +418,8 @@ public class DilemmaSystem extends EntityProcessingSystem {
             case "+WEALTH":
                 stockpileSystem.alter(StockpileSystem.Resource.WEALTH, 1);
                 break;
-            case "+FOOD":
-                stockpileSystem.alter(StockpileSystem.Resource.FOOD, 1);
+            case "+BUILDSPEED":
+                stockpileSystem.alter(StockpileSystem.Resource.BUILDSPEED, 1);
                 break;
             case "+WORKERS":
                 stockpileSystem.alter(StockpileSystem.Resource.WORKERS, 1);
@@ -448,8 +448,8 @@ public class DilemmaSystem extends EntityProcessingSystem {
             case "-WEALTH":
                 stockpileSystem.alter(StockpileSystem.Resource.WEALTH, -1);
                 break;
-            case "-FOOD":
-                stockpileSystem.alter(StockpileSystem.Resource.FOOD, -1);
+            case "-BUILDSPEED":
+                stockpileSystem.alter(StockpileSystem.Resource.BUILDSPEED, -1);
                 break;
             case "-WORKERS":
                 stockpileSystem.alter(StockpileSystem.Resource.WORKERS, -1);

@@ -31,7 +31,7 @@ public class StockpileSystem extends EntityProcessingSystem {
         AGE(1),
         LIFESPAN(1),
         WEALTH(1),
-        FOOD(1),
+        BUILDSPEED(1),
         WORKERS(1),
         ELEPHANTS(1),
         CAMELS(1),
@@ -68,8 +68,8 @@ public class StockpileSystem extends EntityProcessingSystem {
                 case LIFESPAN:
                     stockpile.lifespan = MathUtils.clamp(stockpile.lifespan + amount, 0,100);
                     break;
-                case FOOD:
-                    stockpile.food = MathUtils.clamp(stockpile.food + amount, 0,100);
+                case BUILDSPEED:
+                    stockpile.buildspeed = MathUtils.clamp(stockpile.buildspeed + amount, 0,100);
                     break;
                 case WORKERS:
                     stockpile.workers = MathUtils.clamp(stockpile.workers + amount, 0,1000);
@@ -110,8 +110,8 @@ public class StockpileSystem extends EntityProcessingSystem {
                     return stockpile.age;
                 case LIFESPAN:
                     return stockpile.lifespan;
-                case FOOD:
-                    return stockpile.food;
+                case BUILDSPEED:
+                    return stockpile.buildspeed;
                 case WORKERS:
                     return stockpile.workers;
                 case CAMELS:
