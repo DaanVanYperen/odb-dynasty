@@ -391,6 +391,18 @@
             "success": [ "TEST" ]
           },
           {
+            "label": ["Fireball"],
+            "success": [ "FIREBALL" ]
+          },
+          {
+            "label": ["Spaceship"],
+            "success": [ "SPACESHIP" ]
+          },
+          {
+            "label": ["Rock"],
+            "success": [ "ROCK" ]
+          },
+          {
             "label": ["Back"],
             "success": [ "DEBUG" ]
           },

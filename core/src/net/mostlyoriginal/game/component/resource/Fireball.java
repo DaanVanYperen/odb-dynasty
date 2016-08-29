@@ -9,6 +9,9 @@ public class Fireball extends Component {
 
     public float smokeCooldown;
     public float sparkCooldown;
+    public boolean hasSmoke;
+    public boolean hasSparks;
+    public boolean explodes;
 
     public Fireball() {
     }

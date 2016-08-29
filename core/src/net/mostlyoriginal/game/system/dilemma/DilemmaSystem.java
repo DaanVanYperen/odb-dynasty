@@ -504,6 +504,12 @@ public class DilemmaSystem extends EntityProcessingSystem {
             case "FIREBALL":
                 fireballSystem.queueFireball();
                 break;
+            case "SPACESHIP":
+                fireballSystem.queueSpaceship();
+                break;
+            case "ROCK":
+                fireballSystem.queueRock();
+                break;
             default:
                 startDilemma(action);
                 break;

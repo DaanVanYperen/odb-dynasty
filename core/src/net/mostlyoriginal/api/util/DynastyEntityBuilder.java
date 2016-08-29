@@ -16,6 +16,7 @@ import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.physics.Gravity;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.operation.common.Operation;
+import net.mostlyoriginal.game.component.resource.Fireball;
 import net.mostlyoriginal.game.component.resource.Minion;
 import net.mostlyoriginal.game.component.resource.ZPos;
 
@@ -288,6 +289,14 @@ public class DynastyEntityBuilder {
         Gravity gravity = edit.create(Gravity.class);
         gravity.x=x;
         gravity.y=y;
+        return this;
+    }
+
+    public DynastyEntityBuilder fireball(boolean smoke, boolean spark, boolean explodes) {
+        Fireball fireball = edit.create(Fireball.class);
+        fireball.hasSmoke= smoke;
+        fireball.hasSparks= spark;
+        fireball.explodes=explodes;
         return this;
     }
 }

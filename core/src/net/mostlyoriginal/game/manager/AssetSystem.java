@@ -136,6 +136,7 @@ public class AssetSystem extends AbstractAssetSystem {
 
         add("ROCK", 514, 253, 10, 10, 1);
         add("FIREBALL", 525, 241, FIREBALL_WIDTH, FIREBALL_HEIGHT, 1);
+        add("SPACESHIP", 548, 244, 20, 19, 1);
 
         add("SKYSCRAPERS", 0, 266, 160, 133, 1);
 
