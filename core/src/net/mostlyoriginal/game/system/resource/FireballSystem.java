@@ -62,14 +62,21 @@ public class FireballSystem extends IteratingSystem {
     }
 
     float cooldown = 0;
+    int pendingFireballs =0;
+
+    public void queueFireball()
+    {
+        pendingFireballs++;
+    }
 
     @Override
     protected void begin() {
         super.begin();
         cooldown -= world.delta;
-        if (cooldown < 0) {
+        if (cooldown < 0 && pendingFireballs > 0) {
             cooldown = 1;
-            spawn(G.CANVAS_WIDTH / 2, (int) (G.CANVAS_HEIGHT * 0.75f));
+            pendingFireballs--;
+            spawn(MathUtils.random(0,G.CANVAS_WIDTH), (int) (G.CANVAS_HEIGHT * 1.10f));
         }
     }
 

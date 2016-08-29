@@ -228,22 +228,45 @@
         },
 
         {
-            "id": "EARTHQUAKE",
-            "comment": "Earthquake destroys all obelisks.",
+            "id": "FIREBALLS",
+            "comment": "Fire falls from the sky.",
             "actor": "PRIEST",
-            "text": [ "The gods shake your kingdom!" ],
-            "groups": [ "negative" ],
-            "predicates": ["OBELISK"],
-            "immediate": ["-OBELISK"],
+            "text": [ "Fire rains from the sky. The gods are clearly angry! We must appease them!" ],
+            "groups": [ "negative", "test" ],
+            "immediate": ["FIREBALL"],
             "choices": [
-                {
-                    "label": ["No! My obelisks!"],
-                    "success": ["PROGRESS"]
-                }
+              {
+                "label": ["Halt all work, build a tribute instead! (Loss of time)"],
+                "success": ["+OBELISK", "+AGE", "+AGE", "+AGE", "PROGRESS"]
+              },
+              {
+                "label": ["Phah, the gods are nothing."],
+                "success": ["FIREBALL", "FIREBALL", "FIREBALL", "FIREBALL", "FIREBALL", "PROGRESS"]
+              }
             ]
         },
 
-        {
+      {
+        "id": "TEST",
+        "comment": "Length test.",
+        "actor": "ALIEN",
+        "text": [ "Word has travelled of your great project. They offer to build you nothing, because this is just a test message to test linebreaks." ],
+        "groups": [ "test" ],
+        "choices": [
+          {
+            "label": ["Uh ok but if that is the case why can I respond with such a giant story that confuses everyone amazing lalalalala. "],
+            "success": ["PROGRESS"]
+          },
+          {
+            "label": ["Bottles Bottles Chickens And Bottles Bottling Banana All Other What Ramble Ramble X."],
+            "success": ["PROGRESS"]
+          }
+        ]
+      },
+
+
+
+      {
             "id": "TEST",
             "comment": "Length test.",
             "actor": "ALIEN",
@@ -365,7 +388,7 @@
           },
           {
             "label": ["Test"],
-            "success": [ "DEBUG_EVENTS" ]
+            "success": [ "TEST" ]
           },
           {
             "label": ["Back"],
