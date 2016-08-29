@@ -639,7 +639,7 @@
         "text": [ "Ok, I can make this work! What would you have me do first? Since my probe is broken, I gift you an abductee! Or convert it into some matter with my machine. Both work for me!" ],
         "choices": [
           {
-            "label": ["We need more workers! (+1 elephant)"],
+            "label": ["We need more workers! (+1 camel)"],
             "success": ["+CAMELS"]
           },
           {
