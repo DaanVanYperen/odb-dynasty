@@ -1,0 +1,81 @@
+Audio used in Dynasty for Ludum Dare #36
+
+pyramid_rise.mp3:
+
+- Rumble.wav
+- LG at Freesound
+- https://www.freesound.org/people/LG/sounds/76262/
+
+- Bricks, stones, tumble, rockslide
+- nebulousflynn at Freesound
+- https://www.freesound.org/people/nebulousflynn/sounds/234360/
+
+- Rockfall in mine.wav
+- Benboncan at Freesound
+- https://www.freesound.org/people/Benboncan/sounds/60085/
+
+- Digging.wav
+- prozaciswack at Freesound
+- https://www.freesound.org/people/prozaciswack/sounds/82722/
+
+chisel_strike1.mp3, chisel_strike2.mp3, chisel_strike3.mp3, chisel_strike4.mp3
+
+- Rock_Hammer_Chisel_01.wav
+- dheming at Freesound
+- https://www.freesound.org/people/dheming/sounds/240981/
+
+hammer_strike1.mp3, hammer_strike2.mp3, hammer_strike3.mp3
+
+- HighCrackingHammerGavel.WAV
+- TurtleLG at Freesound
+- https://www.freesound.org/people/TurtleLG/sounds/80447/
+
+workers_cheering.mp3
+
+- Group of people - Cheering - Outside - 06.wav
+- Sirderf at Freesound
+- https://www.freesound.org/people/Sirderf/sounds/332306/
+
+catapult.mp3
+
+- meteor fly-by 1
+- LiamG_SFX at Freesound
+- https://www.freesound.org/people/LiamG_SFX/sounds/323085/
+
+catapult_impact.mp3
+
+- before-after remix 2 of 117091__lagomen__Climactic_Boom.flac
+- Timbre at Freesound
+- https://www.freesound.org/people/Timbre/sounds/117134/
+
+- Gravel Impacts and Falls.wav
+- lolamadeus at Freesound
+- https://www.freesound.org/people/lolamadeus/sounds/179341/
+
+- Rockburst7.wav
+- Cheddababy at Freesound
+- https://www.freesound.org/people/Cheddababy/sounds/325911/
+
+worker_scream.mp3
+
+- Wild scream.mp3
+- mariallinas at Freesound
+- https://www.freesound.org/people/mariallinas/sounds/222648/
+
+elephant_scream.mp3
+
+- Voice elephant.mp3
+- vataaa at Freesound
+- https://www.freesound.org/people/vataaa/sounds/148873/
+
+camel_scream.mp3
+
+- CamelTalk.wav
+- acclivity at Freesound
+- https://www.freesound.org/people/acclivity/sounds/16932/
+
+hammer_blop.mp3
+
+- Blop!
+- CrazyFrog249 at Freesound
+- https://www.freesound.org/people/CrazyFrog249/sounds/161628/
