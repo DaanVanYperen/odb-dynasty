@@ -64,9 +64,6 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
             assetSystem.playRandomHammer();
             assetSystem.playRandomHammer();
 
-            System.out.println("Completion increase by " + (projectedIncrease * COMPLETION_SCALE));
-            System.out.println("Alert? " + increaseAlert);
-
             stockpileSystem.alter(StockpileSystem.Resource.COMPLETION_PERCENTILE, projectedIncrease);
             stockpileSystem.alter(StockpileSystem.Resource.AGE, 1);
         }

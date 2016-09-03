@@ -124,7 +124,6 @@ public class MinionSystem extends IteratingSystem {
     }
 
     public Entity spawn(String id, int productivity, String deathSfx) {
-        System.out.println("Spawn " + id);
         Entity e = new B(world)
                     .bounds(0,0,0,0)
                     .anim(id)
