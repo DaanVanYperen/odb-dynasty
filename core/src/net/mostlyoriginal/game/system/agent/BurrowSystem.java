@@ -62,13 +62,12 @@ public class BurrowSystem extends EntityProcessingSystem {
             pos.xy.y = burrow.surfaceY - (keyFrame.getRegionHeight() * scale *
                     burrow.percentage);
 
-            if ( burrow.smokeAge > 1f/30f )
-            {
-                burrow.smokeAge -= 1f/30f;
+            if (burrow.smokeAge > 1f / 30f) {
+                burrow.smokeAge -= 1f / 30f;
                 float maxWidth = keyFrame.getRegionWidth() * scale;
                 // some structures are wider at the bottom. account for this with the dust.
                 float surfacedWidth = Interpolation.linear.apply(maxWidth, maxWidth * burrow.topWidthPercentage, burrow.percentage);
-                smokeSystem.dust(burrow.surfaceY, pos.xy.x + maxWidth/2f - surfacedWidth/2f, pos.xy.x + maxWidth/2f + surfacedWidth/2f, 5, burrow.smokeLayer);
+                smokeSystem.dust(burrow.surfaceY, pos.xy.x + maxWidth / 2f - surfacedWidth / 2f, pos.xy.x + maxWidth / 2f + surfacedWidth / 2f, 5, burrow.smokeLayer);
             }
 
 
@@ -78,9 +77,7 @@ public class BurrowSystem extends EntityProcessingSystem {
     }
 
     private void stopTrembling(Entity e) {
-        if (mTremble.has(e)) {
-            mTremble.remove(e);
-        }
+        mTremble.remove(e);
     }
 
     private void startTrembling(Entity e, float intensity) {

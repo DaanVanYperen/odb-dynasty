@@ -3,7 +3,6 @@ package net.mostlyoriginal.game.manager;
 import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.managers.TagManager;
-import com.artemis.utils.EntityBuilder;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapProperties;
 import net.mostlyoriginal.api.component.basic.Bounds;
@@ -18,7 +17,7 @@ import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.manager.AbstractEntityFactorySystem;
 import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.DynastyEntityBuilder;
+import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.Burrow;
 import net.mostlyoriginal.game.component.resource.Stockpile;
@@ -27,7 +26,10 @@ import net.mostlyoriginal.game.component.ui.ButtonListener;
 import net.mostlyoriginal.game.component.ui.Clickable;
 import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
-import net.mostlyoriginal.game.util.Anims;
+
+import static net.mostlyoriginal.api.operation.JamOperationFactory.moveBetween;
+import static net.mostlyoriginal.api.operation.JamOperationFactory.tintBetween;
+import static net.mostlyoriginal.api.operation.OperationFactory.*;
 
 /**
  * Game specific entity factory.
@@ -62,54 +64,53 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
         structureSystem.createPyramid();
 
         /**
-        createButton(5, 5, 16 * G.ZOOM, 10 * G.ZOOM, "btn-test", new ButtonListener() {
-            @Override
-            public void run() {
-                dilemmaSystem.startDebugDilemma();
-            }
+         createButton(5, 5, 16 * G.ZOOM, 10 * G.ZOOM, "btn-test", new ButtonListener() {
+        @Override public void run() {
+        dilemmaSystem.startDebugDilemma();
+        }
         }, "test"); **/
     }
 
     private void createBackground() {
-        Entity e = new DynastyEntityBuilder(world)
-                .with(new Anim("SKY"))
-                .with(Pos.class, Renderable.class, Scale.class)
+        Entity e = new B(world)
+                .anim("SKY")
+                .pos(0, 133 * G.ZOOM)
+                .renderable(-100)
+                .scale(G.ZOOM)
                 .build();
-        mRenderable.get(e).layer = -100;
-        mScale.get(e).scale = G.ZOOM;
-        mPos.get(e).xy.y = 133 * G.ZOOM;
 
-        e = new DynastyEntityBuilder(world)
-                .with(new Anim("DESERT"))
-                .with(Pos.class, Renderable.class, Scale.class)
+        e = new B(world)
+                .anim("DESERT")
+                .pos()
+                .renderable(100)
+                .scale(G.ZOOM)
                 .build();
-        mRenderable.get(e).layer = 100;
-        mScale.get(e).scale = G.ZOOM;
     }
 
     public void createSkyscrapers() {
-        Entity e = new DynastyEntityBuilder(world)
-                .with(new Anim("SKYSCRAPERS"))
-                .with(Pos.class, Renderable.class, Scale.class, Tint.class)
-                .schedule(OperationFactory.tween(new Tint("ffffff00"), new Tint("ffffffff"), 2f))
-                .build();
-        mRenderable.get(e).layer = -19;
-        mScale.get(e).scale = G.ZOOM;
-        mPos.get(e).xy.y = 133 * G.ZOOM;
+        Entity e = new B(world)
+                .anim("SKYSCRAPERS")
+                .pos(0, 133 * G.ZOOM)
+                .scale(G.ZOOM)
+                .renderable(-19)
+                .tint()
+                .script(
+                        tintBetween(Tint.TRANSPARENT, Tint.WHITE, 2f)
+                ).build();
     }
 
     private void createLogo() {
         float y = G.CANVAS_HEIGHT * 0.75f - (AssetSystem.LOGO_HEIGHT / 2) * G.ZOOM;
         float x = G.CANVAS_WIDTH * 0.5f - (AssetSystem.LOGO_WIDTH / 2) * G.ZOOM;
-        Entity e = new DynastyEntityBuilder(world)
-                .with(new Anim("LOGO"))
-                .schedule(
-                        OperationFactory.parallel(
-                                OperationFactory.tween(new Pos(x, y - 5 * G.ZOOM), new Pos(x, y + 5 * G.ZOOM), 6f),
-                                OperationFactory.sequence(
-                                        OperationFactory.tween(new Tint("ffffff00"), new Tint("ffffffff"), 0.5f),
-                                        OperationFactory.delay(4),
-                                        OperationFactory.tween(new Tint("ffffffff"), new Tint("ffffff00"), 0.5f)
+        Entity e = new B(world)
+                .anim("LOGO")
+                .script(
+                        parallel(
+                                moveBetween(x, y - 5 * G.ZOOM, x, y + 5 * G.ZOOM, 6f),
+                                sequence(
+                                        tintBetween(Tint.TRANSPARENT, Tint.WHITE, 0.5f),
+                                        delay(4),
+                                        tintBetween(Tint.WHITE, Tint.TRANSPARENT, 0.5f)
                                 )))
                 .with(Pos.class, Renderable.class, Scale.class)
                 .build();
@@ -129,8 +130,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     }
 
     private void createDynastyMetadata() {
-        new DynastyEntityBuilder(world).with(
-                new Stockpile()).tag("dynasty").build();
+        new B(world).with(Stockpile.class).tag("dynasty").build();
     }
 
     @Override
@@ -141,8 +141,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
 
     public void createCamera(int cx, int cy) {
         // now create a drone that will swerve towards the player which contains the camera. this will create a smooth moving camera.
-        Entity camera = new DynastyEntityBuilder(world).with(Pos.class).with(createCameraBounds(), new Camera()).build();
-        mPos.get(camera).xy.set(cx, cy);
+        new B(world).pos(cx, cy).mirror(createCameraBounds()).with(Pos.class, Camera.class).build();
     }
 
     private Bounds createCameraBounds() {
@@ -156,24 +155,19 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     }
 
     public Entity createButton(int x, int y, int width, int height, String animPrefix, ButtonListener listener, String hint) {
-        Entity e = new DynastyEntityBuilder(world)
-                .with(new Bounds(0, 0, width, height),
-                        new Anim(),
-                        new Button(animPrefix, listener, hint),
-                        new Clickable())
-                .with(Pos.class, Renderable.class, Tint.class, Scale.class)
+        Entity e = new B(world)
+                .bounds(0, 0, width, height)
+                .anim()
+                .button(animPrefix, listener, hint)
+                .clickable()
+                .pos(x, y).renderable(11000).tint().scale(G.ZOOM)
                 .build();
-        mPos.get(e).xy.set(x, y);
-        mScale.get(e).scale = G.ZOOM;
-        mRenderable.get(e).layer = 1100;
         return e;
     }
 
     private Entity createMousecursor() {
-        Entity entity = new DynastyEntityBuilder(world).with(
-                new MouseCursor(),
-                new Bounds(0, 0, 0, 0))
-                .with(Pos.class)
+        Entity entity = new B(world)
+                .with(Pos.class, MouseCursor.class, Bounds.class)
                 .tag("cursor").build();
 
         return entity;

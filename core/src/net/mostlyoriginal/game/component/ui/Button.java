@@ -42,6 +42,10 @@ public class Button extends Component {
     }
 
     public Button(String animPrefix, ButtonListener listener, String hint) {
+        set(animPrefix, listener, hint);
+    }
+
+    public void set(String animPrefix, ButtonListener listener, String hint) {
         this.animPrefix = animPrefix;
         this.listener = listener;
         this.hint = hint;

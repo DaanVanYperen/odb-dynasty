@@ -3,7 +3,6 @@ package net.mostlyoriginal.game.manager;
 import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.managers.TagManager;
-import com.artemis.utils.EntityBuilder;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
@@ -13,12 +12,16 @@ import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.ColorAnimation;
 import net.mostlyoriginal.api.component.graphics.Renderable;
+import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
+import net.mostlyoriginal.api.operation.JamOperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.DynastyEntityBuilder;
+import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.api.util.GdxUtil;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.ui.Label;
+
+import static net.mostlyoriginal.api.operation.JamOperationFactory.*;
 
 /**
  * @author Daan van Yperen
@@ -146,17 +149,17 @@ public class AssetSystem extends AbstractAssetSystem {
 
         add("SKYSCRAPERS", 0, 266, 160, 133, 1);
 
-        add("FIRE PARTICLE 1", 540, 256, 3, 3,1);
-        add("FIRE PARTICLE 2", 540, 260, 3, 3,1);
-        add("FIRE PARTICLE 3", 544, 256, 3, 3,1);
-        add("FIRE PARTICLE 4", 544, 260, 3, 3,1);
+        add("FIRE PARTICLE 1", 540, 256, 3, 3, 1);
+        add("FIRE PARTICLE 2", 540, 260, 3, 3, 1);
+        add("FIRE PARTICLE 3", 544, 256, 3, 3, 1);
+        add("FIRE PARTICLE 4", 544, 260, 3, 3, 1);
 
 
-        add("GO-HAMMER", 569, 258, HAMMER_WIDTH, HAMMER_HEIGHT,1);
+        add("GO-HAMMER", 569, 258, HAMMER_WIDTH, HAMMER_HEIGHT, 1);
 
-        add("btn-turn-up", 521, 490, 26, 16,1);
-        add("btn-turn-hover", 576, 490, 26, 16,1);
-        add("btn-turn-down", 521, 490, 26, 16,1);
+        add("btn-turn-up", 521, 490, 26, 16, 1);
+        add("btn-turn-hover", 576, 490, 26, 16, 1);
+        add("btn-turn-down", 521, 490, 26, 16, 1);
 
 //        FIRE PARTICLE 1: x:540, y:256, width:3, height:3
 //        FIRE PARTICLE 2: x:540, y:260, width:3, height:3
@@ -350,8 +353,7 @@ PROGRESS BAR GREY: x:560, y:495, width:8, height:7
         });
 
 
-
-        if ( music == null ) {
+        if (music == null) {
             music = Gdx.audio.newMusic(Gdx.files.internal("sfx/music.mp3"));
         }
         music.stop();
@@ -378,11 +380,13 @@ PROGRESS BAR GREY: x:560, y:495, width:8, height:7
     @Override
     protected void initialize() {
         super.initialize();
-        final Label label = new Label(G.version);
-        label.align = Label.Align.RIGHT;
-        Entity entity = new DynastyEntityBuilder(world)
-                .with(Pos.class, Renderable.class)
-                .with(label, new ColorAnimation(GdxUtil.convert(Color.WHITE), GdxUtil.convert(Color.valueOf("333333")), GdxUtil.convert(Interpolation.exp5), 1f / 2f, 2f)).build();
+        Entity entity = new B(world)
+                .pos()
+                .renderable()
+                .script(
+                        tintBetween(Tint.WHITE, GdxUtil.convert(Color.valueOf("333333")), 2f, Interpolation.exp5))
+                .label(G.version, Label.Align.RIGHT
+                ).build();
         mPos.get(entity).xy.set(G.CANVAS_WIDTH - 2, G.CANVAS_HEIGHT - 2);
     }
 

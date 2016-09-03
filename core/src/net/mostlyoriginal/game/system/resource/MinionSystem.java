@@ -19,7 +19,7 @@ import net.mostlyoriginal.api.component.physics.Gravity;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.DynastyEntityBuilder;
+import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.Cheer;
 import net.mostlyoriginal.game.component.agent.Hammer;
@@ -28,6 +28,7 @@ import net.mostlyoriginal.game.component.resource.ZPos;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.system.endgame.EndgameSystem;
 
+import static net.mostlyoriginal.api.operation.JamOperationFactory.tintBetween;
 import static net.mostlyoriginal.api.operation.OperationFactory.*;
 
 /**
@@ -98,14 +99,14 @@ public class MinionSystem extends IteratingSystem {
 
         Pos pos = mPos.get(e);
 
-        Entity entity = new DynastyEntityBuilder(world)
+        Entity entity = new B(world)
                 .with(Hammer.class)
                 .pos(pos.xy.x, pos.xy.y + 8 * G.ZOOM)
                 .renderable(9000)
                 .anim("GO-HAMMER")
                 .scale(G.ZOOM)
                 .tint("FFFFFF00")
-                .schedule(
+                .script(
                         sequence(
                                 delay(delayTime),
                                 tween( new Tint("FFFFFF00"), new Tint("FFFFFFFF"), 0.1f),
@@ -125,21 +126,21 @@ public class MinionSystem extends IteratingSystem {
 
     public Entity spawn(String id, int productivity, String deathSfx) {
         System.out.println("Spawn " + id);
-        Entity e = new DynastyEntityBuilder(world).with(
-                new Bounds(0, 0, 0, 0),
-                new Anim(id))
-                .with(Pos.class, Scale.class,
-                        Renderable.class, Physics.class, Gravity.class, Tint.class, ZPos.class)
-                .schedule(tween(new Tint(TINT_INVISIBLE), new Tint("ffffffff"), 0.5f))
-                .minion(productivity).build();
+        Entity e = new B(world)
+                    .bounds(0,0,0,0)
+                    .anim(id)
+                    .renderable(MINION_LAYER)
+                    .tint(TINT_INVISIBLE)
+                    .pos().scale(G.ZOOM)
+                    .with(Physics.class, Gravity.class, ZPos.class)
+                    .script(tintBetween(Tint.TRANSPARENT, Tint.WHITE, 0.5f))
+                    .minion(productivity, deathSfx)
+                    .build();
+
         randomizeLocation(e);
         Physics physics = mPhysics.get(e);
         physics.vy = 500;
         physics.friction = 20f;
-        mColor.get(e).setHex(TINT_INVISIBLE);
-        mScale.get(e).scale = G.ZOOM;
-        mRenderable.get(e).layer = MINION_LAYER;
-        mMinion.get(e).deathSfx = deathSfx;
 
         return e;
     }

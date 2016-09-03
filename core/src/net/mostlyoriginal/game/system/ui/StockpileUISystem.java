@@ -3,11 +3,10 @@ package net.mostlyoriginal.game.system.ui;
 import com.artemis.BaseSystem;
 import com.artemis.Entity;
 import com.artemis.managers.TagManager;
-import com.artemis.utils.EntityBuilder;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.DynastyEntityBuilder;
+import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.ui.Bar;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
@@ -39,13 +38,13 @@ public class StockpileUISystem extends BaseSystem {
 
 
     public Entity createBar(int x, int y, String label, String icon, String iconEmpty, int value, int valueEmpty) {
-        Entity entity = new DynastyEntityBuilder(world)
+        Entity entity = new B(world)
+                .pos(x,y)
+                .renderable(500)
                 .with(Pos.class, Renderable.class)
-                .with(new Bar(label, icon, value, iconEmpty, valueEmpty))
+                .withUnpooled(new Bar(label, icon, value, iconEmpty, valueEmpty))
                 .tag("resource-" + label)
                 .build();
-        mRenderable.get(entity).layer = 500;
-        mPos.get(entity).xy.set(x,y);
         return entity;
     }
 

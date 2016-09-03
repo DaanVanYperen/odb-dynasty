@@ -15,9 +15,8 @@ import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.operation.OperationFactory;
-import net.mostlyoriginal.api.operation.common.Operation;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.DynastyEntityBuilder;
+import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.Ancient;
 import net.mostlyoriginal.game.component.agent.Cheer;
@@ -185,7 +184,7 @@ public class FireballSystem extends IteratingSystem {
     public void spawn(int x, int y, String id, String color, boolean smoke, boolean spark, boolean explodes) {
 
         assetSystem.playSfx("catapult");
-        new DynastyEntityBuilder(world).pos(x, y)
+        new B(world).pos(x, y)
                 .with(Angle.class)
                 .ancient()
                 .gravity(0, -1f)

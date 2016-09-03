@@ -1,19 +1,15 @@
 package net.mostlyoriginal.game.system.ui;
 
 import com.artemis.Aspect;
-import com.artemis.BaseSystem;
 import com.artemis.Entity;
-import com.artemis.managers.TagManager;
 import com.artemis.systems.IteratingSystem;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.DynastyEntityBuilder;
+import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
-import net.mostlyoriginal.game.component.ui.Bar;
 import net.mostlyoriginal.game.component.ui.Progress;
 import net.mostlyoriginal.game.system.logic.ProgressAlgorithmSystem;
-import net.mostlyoriginal.game.system.resource.StockpileSystem;
 
 /**
  * Debug stockpile UI
@@ -39,9 +35,9 @@ public class ProgressUISystem extends IteratingSystem {
 
 
     public Entity createBar() {
-        Entity entity = new DynastyEntityBuilder(world)
-                .with(Pos.class, Renderable.class)
-                .with(new Progress())
+        Entity entity = new B(world)
+                .with(Progress.class)
+                .pos()
                 .renderable(3005)
                 .scale(G.ZOOM)
                 .build();

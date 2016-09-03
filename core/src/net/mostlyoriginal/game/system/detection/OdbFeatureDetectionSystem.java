@@ -3,10 +3,9 @@ package net.mostlyoriginal.game.system.detection;
 import com.artemis.*;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.EntityProcessingSystem;
-import com.artemis.utils.EntityBuilder;
 import com.artemis.utils.reflect.ClassReflection;
 import com.badlogic.gdx.Gdx;
-import net.mostlyoriginal.api.util.DynastyEntityBuilder;
+import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.component.detection.OdbFeatureComponent;
 import net.mostlyoriginal.game.component.detection.PoolDetectionComponent;
 
@@ -24,9 +23,9 @@ public class OdbFeatureDetectionSystem extends BaseSystem {
 	protected void initialize() {
 		super.initialize();
 
-		OdbFeatureComponent features = new OdbFeatureComponent();
-		new DynastyEntityBuilder(world).with(features).tag(FEATURES_TAG).build();
+		Entity entity = new B(world).with(OdbFeatureComponent.class).tag(FEATURES_TAG).build();
 
+		OdbFeatureComponent features = entity.getComponent(OdbFeatureComponent.class);
 		// detect packing based on reflection.
 		features.isPacked = false;
 		features.isPooled = isPooledWeavingEnabled();

@@ -2,31 +2,17 @@ package net.mostlyoriginal.game.system.ui;
 
 import com.artemis.Aspect;
 import com.artemis.BaseSystem;
-import com.artemis.Entity;
 import com.artemis.EntitySubscription;
-import com.artemis.managers.TagManager;
-import com.artemis.systems.EntityProcessingSystem;
-import com.artemis.systems.IteratingSystem;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import net.mostlyoriginal.api.component.Schedule;
 import net.mostlyoriginal.api.component.basic.Pos;
-import net.mostlyoriginal.api.component.basic.Scale;
-import net.mostlyoriginal.api.component.graphics.Anim;
-import net.mostlyoriginal.api.component.graphics.Invisible;
-import net.mostlyoriginal.api.component.graphics.Renderable;
-import net.mostlyoriginal.api.component.graphics.Tint;
-import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.DynastyEntityBuilder;
+import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.Scaffold;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.manager.SmokeSystem;
-import net.mostlyoriginal.game.system.resource.StockpileSystem;
-
-import static net.mostlyoriginal.game.system.ui.RiverDioramaSystem.RiverState.*;
 
 /**
  * Minions need scaffolds!
@@ -111,7 +97,7 @@ public class ScaffoldDioramaSystem extends BaseSystem {
 
     private void createScaffold(int x, int y, String[] ids) {
         String id = ids[MathUtils.random(0, ids.length - 1)];
-        new DynastyEntityBuilder(world)
+        new B(world)
                 .pos(x, y)
                 .with(Scaffold.class)
                 .renderable(500)

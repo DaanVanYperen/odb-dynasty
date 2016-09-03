@@ -5,7 +5,7 @@ import com.artemis.annotations.DelayedComponentRemoval;
 import com.badlogic.gdx.math.MathUtils;
 
 /**
- * Created by Daan on 27-8-2016.
+ * Cheering!
  */
 @DelayedComponentRemoval
 public class Cheer extends Component {

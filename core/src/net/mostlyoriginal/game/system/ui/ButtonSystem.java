@@ -5,7 +5,6 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.EntityProcessingSystem;
-import com.artemis.utils.EntityBuilder;
 import com.badlogic.gdx.graphics.Color;
 import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
@@ -14,7 +13,7 @@ import net.mostlyoriginal.api.component.graphics.Invisible;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.DynastyEntityBuilder;
+import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.api.util.GdxUtil;
 import net.mostlyoriginal.game.component.ui.Button;
 import net.mostlyoriginal.game.component.ui.Clickable;
@@ -49,12 +48,13 @@ public class ButtonSystem extends EntityProcessingSystem {
     protected void initialize() {
         super.initialize();
 
-        hintlabel = new Label("hintlabel");
-        Entity hint = new DynastyEntityBuilder(world)
+        Entity hint = new B(world)
                 .with(Pos.class, Renderable.class, Tint.class)
-                .with(hintlabel).build();
+                .label("hintlabel").build();
         mColor.get(hint).setHex("004290");
         mPos.get(hint).set(10, 6);
+
+        hintlabel = mLabel.get(hint);
     }
 
     @Override

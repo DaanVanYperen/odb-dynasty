@@ -14,9 +14,8 @@ import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
-import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.DynastyEntityBuilder;
+import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.api.utils.EntityUtil;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.GdxArtemisGame;
@@ -35,6 +34,9 @@ import net.mostlyoriginal.game.system.ui.RiverDioramaSystem;
 import java.util.LinkedList;
 import java.util.List;
 
+import static net.mostlyoriginal.api.operation.JamOperationFactory.*;
+import static net.mostlyoriginal.api.operation.OperationFactory.*;
+
 /**
  * Responsible for serving and processing dilemmas.
  *
@@ -52,7 +54,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
     public static final String DILEMMA_GROUP = "dilemma";
     public static final int ROW_HEIGHT = 16;
 
-//    public static final String COLOR_DILEMMA = "00000080";
+    //    public static final String COLOR_DILEMMA = "00000080";
     public static final String COLOR_DILEMMA = "000000BB";
     public static final String COLOR_RAW_BRIGHT = "ae121f";
     public static final String COLOR_RAW_DIMMED = "86161f";
@@ -80,48 +82,52 @@ public class DilemmaSystem extends EntityProcessingSystem {
     }
 
     public float createLabel(int x, int y, String color, String text, String shadowTextColor, int maxWidth) {
-        Label label = new Label(text, TEXT_ZOOM);
-        label.shadowColor = new Tint(shadowTextColor);
-        label.maxWidth = maxWidth;
-        int insertDistanceY =AssetSystem.SLAB_HEIGHT*G.ZOOM;
-        DynastyEntityBuilder builder = new DynastyEntityBuilder(world)
-                .with(label)
+        int insertDistanceY = AssetSystem.SLAB_HEIGHT * G.ZOOM;
+
+        Entity entity = new B(world)
+                .label(text)
                 .group(DILEMMA_GROUP)
-                .pos(x, y- insertDistanceY)
+                .pos(x, y - insertDistanceY)
                 .renderable(920)
                 .scale(TEXT_ZOOM)
-                .tint(color);
-
-        builder.schedule(OperationFactory.tween(new Pos(x,y -insertDistanceY ),
-                new Pos(x, y), 1f, Interpolation.pow4Out ));
-
-        builder
+                .tint(color)
+                .script(moveBetween(x, y - insertDistanceY, x, y, 1f, Interpolation.pow4Out))
                 .build();
+
+        Label label = entity.getComponent(Label.class);
+        label.scale = TEXT_ZOOM;
+        label.shadowColor = new Tint(shadowTextColor);
+        label.maxWidth = maxWidth;
+
         return labelRenderSystem.estimateHeight(label);
     }
 
     private float createOption(int x, int y, String text, ButtonListener listener, int maxWidth) {
         //createLabel(x, y, COLOR_DILEMMA, text);
-        Label label = new Label(text, TEXT_ZOOM);
-        label.shadowColor = new Tint(DILEMMA_SHADOW_TEXT_COLOR);
-        label.maxWidth = maxWidth;
-        float height = labelRenderSystem.estimateHeight(label);
-        int insertDistanceY =AssetSystem.SLAB_HEIGHT*G.ZOOM;
-        DynastyEntityBuilder builder = new DynastyEntityBuilder(world)
-                .with(Tint.class).with(
-                        new Bounds(0, (int) -height, text.length() * 8, 0),
-                        new Clickable(),
-                        new Button(COLOR_RAW_DIMMED, COLOR_RAW_BRIGHT, COLOR_RAW_BRIGHT, listener),
-                        label
-                )
+        int insertDistanceY = AssetSystem.SLAB_HEIGHT * G.ZOOM;
+
+        Entity entity = new B(world)
+                .with(Tint.class)
+                .bounds(0, 0, text.length() * 8, 0)
+                .clickable()
+                .button(COLOR_RAW_DIMMED, COLOR_RAW_BRIGHT, COLOR_RAW_BRIGHT, listener)
                 .group(DILEMMA_GROUP)
                 .renderable(920)
-                .pos(x, y-insertDistanceY)
-                .scale(TEXT_ZOOM);
+                .pos(x, y - insertDistanceY)
+                .scale(TEXT_ZOOM)
+                .script(moveBetween(x, y - insertDistanceY, x, y, 1f, Interpolation.pow4Out))
+                .label(text)
+                .build();
 
-        builder.schedule(OperationFactory.tween(new Pos(x,y-insertDistanceY),
-                new Pos(x, y), 1f, Interpolation.pow4Out ));
-        builder.build();
+        Label label = entity.getComponent(Label.class);
+        label.scale = TEXT_ZOOM;
+        label.shadowColor = new Tint(DILEMMA_SHADOW_TEXT_COLOR);
+        label.maxWidth = maxWidth;
+
+        float height = labelRenderSystem.estimateHeight(label);
+        Bounds bounds = entity.getComponent(Bounds.class);
+        bounds.miny = -height;
+
         return height;
     }
 
@@ -192,7 +198,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
             int maxLabelWidth = AssetSystem.SLAB_WIDTH * G.ZOOM - 20 * G.ZOOM;
 
             for (String text : dilemma.text) {
-                row+=2*G.ZOOM+createLabel(slabX + textMarginX, slabY - textMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - row, COLOR_DILEMMA, replaceTokens(text), DILEMMA_SHADOW_TEXT_COLOR, maxLabelWidth);
+                row += 2 * G.ZOOM + createLabel(slabX + textMarginX, slabY - textMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - row, COLOR_DILEMMA, replaceTokens(text), DILEMMA_SHADOW_TEXT_COLOR, maxLabelWidth);
             }
 
             for (Dilemma.Choice choice : dilemma.choices) {
@@ -201,7 +207,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 final String[] choices = (choice.failure == null) || (MathUtils.random(0, 100) < 100 - choice.risk) ? choice.success : choice.failure;
 
                 String choiceText = "] " + choice.label[MathUtils.random(0, choice.label.length - 1)];
-                row+= 3*G.ZOOM+createOption(slabX + textMarginX, slabY - textMarginY - optionMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - row, choiceText, new DilemmaListener(choices), maxLabelWidth);
+                row += 3 * G.ZOOM + createOption(slabX + textMarginX, slabY - textMarginY - optionMarginY + AssetSystem.SLAB_HEIGHT * G.ZOOM - row, choiceText, new DilemmaListener(choices), maxLabelWidth);
             }
         }
 
@@ -209,52 +215,51 @@ public class DilemmaSystem extends EntityProcessingSystem {
     }
 
     private String replaceTokens(String text) {
-        return text.replace("{score}", ""+endgameSystem.getScore()).replace("{rank}", ""+endgameSystem.getSuccess().name());
+        return text.replace("{score}", "" + endgameSystem.getScore()).replace("{rank}", "" + endgameSystem.getSuccess().name());
     }
 
     private void createBackground(int x, int y, String actorId, String actorName, String actorRole) {
 
-        int insertDistanceY =AssetSystem.SLAB_HEIGHT*G.ZOOM;
+        int insertDistanceY = AssetSystem.SLAB_HEIGHT * G.ZOOM;
 
-        Entity slab =
-                new DynastyEntityBuilder(world)
-                        .pos(x, y- insertDistanceY)
-                        .anim("SLAB")
-                        .renderable(910)
-                        .scale(G.ZOOM)
-                        .group(DILEMMA_GROUP)
-                        .schedule(OperationFactory.tween(new Pos(x,y - insertDistanceY), new Pos(x,y), 1f, Interpolation.pow4Out ))
-                        .build();
+        new B(world)
+                .pos(x, y - insertDistanceY)
+                .anim("SLAB")
+                .renderable(910)
+                .scale(G.ZOOM)
+                .group(DILEMMA_GROUP)
+                .script(
+                        moveBetween(x, y - insertDistanceY, x, y, 1f, Interpolation.pow4Out))
+                .build();
 
         int actorSlabOverlap = 6;
         int actorOffsetX = 16 * G.ZOOM;
         int actorOffsetY = (AssetSystem.SLAB_HEIGHT - actorSlabOverlap) * G.ZOOM;
 
         if (actorId != null) {
-            Entity actor =
-                    new DynastyEntityBuilder(world)
-                            .pos(x + actorOffsetX, y + actorOffsetY- insertDistanceY)
-                            .anim(actorId)
-                            .renderable(908)
-                            .scale(G.ZOOM)
-                            .group(DILEMMA_GROUP)
-                            .schedule(OperationFactory.tween(new Pos(x + actorOffsetX, y + actorOffsetY - insertDistanceY), new Pos(x + actorOffsetX, y + actorOffsetY), 1f, Interpolation.pow4Out ))
-                            .build();
+            new B(world)
+                    .pos(x + actorOffsetX, y + actorOffsetY - insertDistanceY)
+                    .anim(actorId)
+                    .renderable(908)
+                    .scale(G.ZOOM)
+                    .group(DILEMMA_GROUP)
+                    .script(
+                            moveBetween(x + actorOffsetX, y + actorOffsetY - insertDistanceY, x + actorOffsetX, y + actorOffsetY, 1f, Interpolation.pow4Out))
+                    .build();
 
             int actorVsScrollMargin = 0;
             int scrollSlabOverlap = 11;
             int scrollOffsetX = (AssetSystem.DEFAULT_ACTOR_WIDTH + actorVsScrollMargin) * G.ZOOM + actorOffsetX;
             int scrollOffsetY = (AssetSystem.SLAB_HEIGHT - scrollSlabOverlap) * G.ZOOM;
 
-            Entity scroll =
-                    new DynastyEntityBuilder(world)
-                            .pos(x + scrollOffsetX, y + scrollOffsetY- insertDistanceY)
+             new B(world)
+                            .pos(x + scrollOffsetX, y + scrollOffsetY - insertDistanceY)
                             .anim("SCROLL")
                             .renderable(912)
                             .scale(G.ZOOM)
                             .group(DILEMMA_GROUP)
-                            .schedule(OperationFactory.tween(new Pos(x + scrollOffsetX, y + scrollOffsetY - insertDistanceY),
-                                    new Pos(x + scrollOffsetX, y + scrollOffsetY), 1f, Interpolation.pow4Out ))
+                            .script(moveBetween(x + scrollOffsetX, y + scrollOffsetY - insertDistanceY,
+                                    x + scrollOffsetX, y + scrollOffsetY, 1f, Interpolation.pow4Out))
                             .build();
 
             int labelHeight = 8 * G.ZOOM;
@@ -262,9 +267,8 @@ public class DilemmaSystem extends EntityProcessingSystem {
             int labelMarginY = 8 * G.ZOOM;
             int labelOffsetY = scrollOffsetY + AssetSystem.SCROLL_HEIGHT * G.ZOOM;
 
-
             createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY - labelMarginY, "3e2819", actorName, DILEMMA_SCROLL_SHADOW_COLOR, G.CANVAS_WIDTH - 10);
-            createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY - labelHeight * 1 - labelMarginY, "333333", actorRole, DILEMMA_SCROLL_SHADOW_COLOR, G.CANVAS_WIDTH - 10);
+            createLabel(x + scrollOffsetX + labelMarginX, y + labelOffsetY - labelHeight - labelMarginY, "333333", actorRole, DILEMMA_SCROLL_SHADOW_COLOR, G.CANVAS_WIDTH - 10);
         }
     }
 
@@ -282,17 +286,15 @@ public class DilemmaSystem extends EntityProcessingSystem {
     protected void begin() {
         super.begin();
 
-        if ( !dilemmaActive && !progressAlgorithmSystem.isReadyToProgress() ) {
+        if (!dilemmaActive && !progressAlgorithmSystem.isReadyToProgress()) {
 
-            if ( Gdx.input.isKeyPressed(Input.Keys.F6))
-            {
+            if (Gdx.input.isKeyPressed(Input.Keys.F6)) {
                 startDebugDilemma();
             }
             noDisciplineCooldown -= world.delta;
             if (noDisciplineCooldown <= 0) {
                 noDisciplineCooldown = DISCIPLINE_FOLLOWUP_WAIT_TIME;
-                if ( !questQueue.isEmpty() )
-                {
+                if (!questQueue.isEmpty()) {
                     String next = questQueue.getFirst();
                     questQueue.removeFirst();
                     startDilemma(next);
@@ -400,6 +402,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
 
     /**
      * pharao died
+     *
      * @param success
      */
     public void ENDGAME(EndgameSystem.Success success) {

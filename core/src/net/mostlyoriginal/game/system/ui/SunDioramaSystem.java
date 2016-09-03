@@ -9,11 +9,9 @@ import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.DynastyEntityBuilder;
+import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
-import net.mostlyoriginal.game.component.agent.Burrow;
 import net.mostlyoriginal.game.manager.AssetSystem;
-import net.mostlyoriginal.game.system.resource.MinionSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 
 /**
@@ -36,8 +34,8 @@ public class SunDioramaSystem extends BaseSystem {
     }
 
     private void createSun() {
-        new DynastyEntityBuilder(world)
-                .with(new Anim("SUN"))
+        new B(world)
+                .anim("SUN")
                 .with(Pos.class, Renderable.class, Scale.class)
                 .tag("sun")
                 .renderable(-20)

@@ -3,6 +3,8 @@ package net.mostlyoriginal.game.component.agent;
 import com.artemis.Component;
 
 /**
+ * Reverse burrowing structures.
+ *
  * Created by Daan on 27-8-2016.
  */
 public class Burrow extends Component {

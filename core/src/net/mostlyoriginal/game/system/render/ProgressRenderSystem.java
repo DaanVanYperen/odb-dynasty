@@ -17,7 +17,7 @@ import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.delegate.DeferredEntityProcessingSystem;
 import net.mostlyoriginal.api.system.delegate.EntityProcessPrincipal;
-import net.mostlyoriginal.api.util.DynastyEntityBuilder;
+import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.ui.*;
 import net.mostlyoriginal.game.manager.AssetSystem;
@@ -56,19 +56,20 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
 
 
     public Entity createLabel(int x, int y, String color, String text, String shadowTextColor, int maxWidth) {
-        Label label = new Label(text, TEXT_ZOOM);
-        label.shadowColor = new Tint(shadowTextColor);
-        label.maxWidth = maxWidth;
         int insertDistanceY =AssetSystem.SLAB_HEIGHT*G.ZOOM;
-        DynastyEntityBuilder builder = new DynastyEntityBuilder(world)
-                .with(label)
+        Entity entity = new B(world)
+                .label(text)
                 .pos(x, y)
                 .renderable(3010)
                 .scale(TEXT_ZOOM)
-                .tint(color);
+                .tint(color).build();
 
-        return builder
-                .build();
+        Label label = entity.getComponent(Label.class);
+        label.scale = TEXT_ZOOM;
+        label.shadowColor = new Tint(shadowTextColor);
+        label.maxWidth = maxWidth;
+
+        return entity;
     }
 
     @Override
@@ -78,17 +79,15 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
 
         buildLabel =  createLabel(12 * G.ZOOM, 4 * G.ZOOM + 18 * G.ZOOM, "FFFFFFFF", "Build progress", "000000FF", 4000);
         scoreLabel = createLabel(80 * G.ZOOM, 4 * G.ZOOM + 18 * G.ZOOM, "FFFFFFFF", "Score:", "000000FF", 4000);
-        progressButton = new DynastyEntityBuilder(world)
-                .with(Tint.class).with(
-                new Bounds(0, 0, 26*G.ZOOM, 16*G.ZOOM),
-                new Clickable(),
-                new Button("btn-turn-up", "btn-turn-hover", "btn-turn-down", new ButtonListener() {
+        progressButton = new B(world)
+                .with(Tint.class).bounds(0, 0, 26*G.ZOOM, 16*G.ZOOM)
+                .clickable()
+                .button("btn-turn-up", "btn-turn-hover", "btn-turn-down", new ButtonListener() {
                     @Override
                     public void run() {
                         progressAlgorithmSystem.progress();
                     }
                 })
-        )
                 .group("progress")
                 .anim("btn-test-up")
                 .renderable(920)
