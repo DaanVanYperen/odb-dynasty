@@ -44,7 +44,7 @@ public class StockpileUISystem extends BaseSystem {
                 .with(Pos.class, Renderable.class)
                 .withUnpooled(new Bar(label, icon, value, iconEmpty, valueEmpty))
                 .tag("resource-" + label)
-                .build();
+                .entity();
         return entity;
     }
 

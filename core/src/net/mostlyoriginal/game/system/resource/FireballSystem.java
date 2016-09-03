@@ -195,7 +195,7 @@ public class FireballSystem extends IteratingSystem {
                 .scale(G.ZOOM)
                 .z(MathUtils.random(0, 48))
                 .fireball(smoke, spark, explodes)
-                .build();
+                .entity();
     }
 
     private Tint invis = new Tint(1f, 1f, 1f, 0f);

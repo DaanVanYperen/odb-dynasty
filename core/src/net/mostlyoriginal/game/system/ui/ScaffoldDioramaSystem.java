@@ -102,7 +102,7 @@ public class ScaffoldDioramaSystem extends BaseSystem {
                 .with(Scaffold.class)
                 .renderable(500)
                 .anim(id)
-                .scale(G.ZOOM).build();
+                .scale(G.ZOOM).entity();
 
         TextureRegion frame = assetSystem.get(id).getKeyFrame(0,true);
         smokeSystem.cloud(x,y,x+frame.getRegionWidth()*G.ZOOM,y+frame.getRegionHeight()*G.ZOOM, 20, 505);

@@ -23,7 +23,7 @@ public class OdbFeatureDetectionSystem extends BaseSystem {
 	protected void initialize() {
 		super.initialize();
 
-		Entity entity = new B(world).with(OdbFeatureComponent.class).tag(FEATURES_TAG).build();
+		Entity entity = new B(world).with(OdbFeatureComponent.class).tag(FEATURES_TAG).entity();
 
 		OdbFeatureComponent features = entity.getComponent(OdbFeatureComponent.class);
 		// detect packing based on reflection.

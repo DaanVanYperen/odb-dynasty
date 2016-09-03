@@ -50,7 +50,7 @@ public class ButtonSystem extends EntityProcessingSystem {
 
         Entity hint = new B(world)
                 .with(Pos.class, Renderable.class, Tint.class)
-                .label("hintlabel").build();
+                .label("hintlabel").entity();
         mColor.get(hint).setHex("004290");
         mPos.get(hint).set(10, 6);
 

@@ -9,21 +9,17 @@ import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.camera.Camera;
-import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.mouse.MouseCursor;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.manager.AbstractEntityFactorySystem;
-import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.Burrow;
 import net.mostlyoriginal.game.component.resource.Stockpile;
-import net.mostlyoriginal.game.component.ui.Button;
 import net.mostlyoriginal.game.component.ui.ButtonListener;
-import net.mostlyoriginal.game.component.ui.Clickable;
 import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 
@@ -77,14 +73,14 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
                 .pos(0, 133 * G.ZOOM)
                 .renderable(-100)
                 .scale(G.ZOOM)
-                .build();
+                .entity();
 
         e = new B(world)
                 .anim("DESERT")
                 .pos()
                 .renderable(100)
                 .scale(G.ZOOM)
-                .build();
+                .entity();
     }
 
     public void createSkyscrapers() {
@@ -96,7 +92,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
                 .tint()
                 .script(
                         tintBetween(Tint.TRANSPARENT, Tint.WHITE, 2f)
-                ).build();
+                ).entity();
     }
 
     private void createLogo() {
@@ -113,7 +109,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
                                         tintBetween(Tint.WHITE, Tint.TRANSPARENT, 0.5f)
                                 )))
                 .with(Pos.class, Renderable.class, Scale.class)
-                .build();
+                .entity();
         mRenderable.get(e).layer = 2000;
         mScale.get(e).scale = G.ZOOM;
         mPos.get(e).xy.y = y;
@@ -130,7 +126,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     }
 
     private void createDynastyMetadata() {
-        new B(world).with(Stockpile.class).tag("dynasty").build();
+        new B(world).with(Stockpile.class).tag("dynasty").entity();
     }
 
     @Override
@@ -141,7 +137,7 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
 
     public void createCamera(int cx, int cy) {
         // now create a drone that will swerve towards the player which contains the camera. this will create a smooth moving camera.
-        new B(world).pos(cx, cy).mirror(createCameraBounds()).with(Pos.class, Camera.class).build();
+        new B(world).pos(cx, cy).mirror(createCameraBounds()).with(Pos.class, Camera.class).entity();
     }
 
     private Bounds createCameraBounds() {
@@ -161,14 +157,14 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
                 .button(animPrefix, listener, hint)
                 .clickable()
                 .pos(x, y).renderable(11000).tint().scale(G.ZOOM)
-                .build();
+                .entity();
         return e;
     }
 
     private Entity createMousecursor() {
         Entity entity = new B(world)
                 .with(Pos.class, MouseCursor.class, Bounds.class)
-                .tag("cursor").build();
+                .tag("cursor").entity();
 
         return entity;
 

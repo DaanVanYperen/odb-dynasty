@@ -62,7 +62,7 @@ public class RiverDioramaSystem extends BaseSystem {
                 .renderable(101)
                 .pos(0, (133 - riverMarginY - AssetSystem.RIVER_HEIGHT) * G.ZOOM)
                 .scale(G.ZOOM)
-                .build();
+                .entity();
         new B(world)
                 .anim("RIVER-BLOOD")
                 .with(Pos.class, Renderable.class, Scale.class, Tint.class)
@@ -70,7 +70,7 @@ public class RiverDioramaSystem extends BaseSystem {
                 .renderable(101)
                 .pos(0, (133 - riverMarginY - AssetSystem.RIVER_HEIGHT) * G.ZOOM)
                 .scale(G.ZOOM)
-                .build();
+                .entity();
         clear();
     }
 

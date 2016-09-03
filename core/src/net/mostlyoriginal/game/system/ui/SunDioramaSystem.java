@@ -6,7 +6,6 @@ import com.artemis.managers.TagManager;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
-import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.util.B;
@@ -40,7 +39,7 @@ public class SunDioramaSystem extends BaseSystem {
                 .tag("sun")
                 .renderable(-20)
                 .scale(G.ZOOM)
-                .build();
+                .entity();
     }
 
 

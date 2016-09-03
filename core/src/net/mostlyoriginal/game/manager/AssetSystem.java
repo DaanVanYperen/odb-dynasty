@@ -10,11 +10,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
-import net.mostlyoriginal.api.component.graphics.ColorAnimation;
-import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
-import net.mostlyoriginal.api.operation.JamOperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.api.util.GdxUtil;
@@ -386,7 +383,7 @@ PROGRESS BAR GREY: x:560, y:495, width:8, height:7
                 .script(
                         tintBetween(Tint.WHITE, GdxUtil.convert(Color.valueOf("333333")), 2f, Interpolation.exp5))
                 .label(G.version, Label.Align.RIGHT
-                ).build();
+                ).entity();
         mPos.get(entity).xy.set(G.CANVAS_WIDTH - 2, G.CANVAS_HEIGHT - 2);
     }
 

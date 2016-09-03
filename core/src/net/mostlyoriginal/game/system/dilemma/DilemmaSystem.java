@@ -35,7 +35,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static net.mostlyoriginal.api.operation.JamOperationFactory.*;
-import static net.mostlyoriginal.api.operation.OperationFactory.*;
 
 /**
  * Responsible for serving and processing dilemmas.
@@ -92,7 +91,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 .scale(TEXT_ZOOM)
                 .tint(color)
                 .script(moveBetween(x, y - insertDistanceY, x, y, 1f, Interpolation.pow4Out))
-                .build();
+                .entity();
 
         Label label = entity.getComponent(Label.class);
         label.scale = TEXT_ZOOM;
@@ -117,7 +116,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 .scale(TEXT_ZOOM)
                 .script(moveBetween(x, y - insertDistanceY, x, y, 1f, Interpolation.pow4Out))
                 .label(text)
-                .build();
+                .entity();
 
         Label label = entity.getComponent(Label.class);
         label.scale = TEXT_ZOOM;
@@ -230,7 +229,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 .group(DILEMMA_GROUP)
                 .script(
                         moveBetween(x, y - insertDistanceY, x, y, 1f, Interpolation.pow4Out))
-                .build();
+                .entity();
 
         int actorSlabOverlap = 6;
         int actorOffsetX = 16 * G.ZOOM;
@@ -245,7 +244,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                     .group(DILEMMA_GROUP)
                     .script(
                             moveBetween(x + actorOffsetX, y + actorOffsetY - insertDistanceY, x + actorOffsetX, y + actorOffsetY, 1f, Interpolation.pow4Out))
-                    .build();
+                    .entity();
 
             int actorVsScrollMargin = 0;
             int scrollSlabOverlap = 11;
@@ -260,7 +259,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                             .group(DILEMMA_GROUP)
                             .script(moveBetween(x + scrollOffsetX, y + scrollOffsetY - insertDistanceY,
                                     x + scrollOffsetX, y + scrollOffsetY, 1f, Interpolation.pow4Out))
-                            .build();
+                            .entity();
 
             int labelHeight = 8 * G.ZOOM;
             int labelMarginX = 12 * G.ZOOM;

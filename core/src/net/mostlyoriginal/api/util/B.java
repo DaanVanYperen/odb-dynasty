@@ -21,6 +21,7 @@ import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.physics.Gravity;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.operation.common.Operation;
+import net.mostlyoriginal.api.operation.flow.ParallelOperation;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.game.component.agent.Ancient;
 import net.mostlyoriginal.game.component.resource.Fireball;
@@ -31,7 +32,7 @@ import net.mostlyoriginal.game.component.ui.*;
 import java.util.UUID;
 
 /**
- * Created by Daan on 28-8-2016.
+ * Convenience builder- and editor for domain specific entity prototyping.
  */
 public class B {
 
@@ -56,11 +57,16 @@ public class B {
         entity = world.create(archetype);
     }
 
+    public B(World world, int entity) {
+        this.world = world;
+        this.entity = entity;
+    }
+
     /**
      * Add artemis managed components to entity.
      */
     public B mirror(ExtendedComponent component) {
-        M.getFor(component,world).create(entity).set(component);
+        M.getFor(component, world).create(entity).set(component);
         return this;
     }
 
@@ -159,14 +165,14 @@ public class B {
     }
 
     /**
-     * Assemble, add to world
+     * Fetch entity.
      */
-    public Entity build() {
+    public Entity entity() {
         return world.getEntity(entity);
     }
 
     /**
-     * Assemble, add to world
+     * Fetch ID
      */
     public int id() {
         return entity;
@@ -220,6 +226,11 @@ public class B {
         return this;
     }
 
+    public B tint(Tint color) {
+        create(Tint.class).set(color);
+        return this;
+    }
+
     public B tint(String color) {
         create(Tint.class).setHex(color);
         return this;
@@ -227,6 +238,13 @@ public class B {
 
     public B script(Operation operation) {
         create(Schedule.class).operation.add(operation);
+        return this;
+    }
+
+    public B script(Operation operationA, Operation operationB) {
+        ParallelOperation root = create(Schedule.class).operation;
+        root.add(operationA);
+        root.add(operationB);
         return this;
     }
 
@@ -326,5 +344,13 @@ public class B {
     public B tint() {
         create(Tint.class);
         return this;
+    }
+
+    public static B edit(Entity entity) {
+        return new B(entity.getWorld(), entity.getId());
+    }
+
+    public static B create(World world) {
+        return new B(world);
     }
 }

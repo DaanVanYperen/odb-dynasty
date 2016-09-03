@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Invisible;
 import net.mostlyoriginal.api.component.graphics.Tint;
@@ -62,7 +61,7 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
                 .pos(x, y)
                 .renderable(3010)
                 .scale(TEXT_ZOOM)
-                .tint(color).build();
+                .tint(color).entity();
 
         Label label = entity.getComponent(Label.class);
         label.scale = TEXT_ZOOM;
@@ -93,7 +92,7 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
                 .renderable(920)
                 .pos(7 * G.ZOOM + AssetSystem.PROGRESS_BAR_BACKGROUND_WIDTH * G.ZOOM, 4 * G.ZOOM)
                 .scale(G.ZOOM)
-                .build();
+                .entity();
 
     }
 

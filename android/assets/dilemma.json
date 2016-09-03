@@ -765,6 +765,10 @@
             "label": ["Time travel"],
             "success": [ "TIMETRAVEL" ]
           },
+            {
+                "label": ["Restart"],
+                "success": [ "RESTART" ]
+            },
           {
             "label": ["Back"],
             "success": [ "DEBUG" ]

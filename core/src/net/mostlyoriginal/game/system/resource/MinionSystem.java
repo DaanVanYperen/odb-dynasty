@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.Schedule;
 import net.mostlyoriginal.api.component.basic.Angle;
-import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Anim;
@@ -115,7 +114,7 @@ public class MinionSystem extends IteratingSystem {
                                         new Pos(G.CANVAS_WIDTH / 2, 10 * G.ZOOM), 2f, Interpolation.pow2In),
                                 deleteFromWorld()
                                 ))
-                .build();
+                .entity();
         Angle angle = mAngle.create(entity);
         angle.ox = AssetSystem.HAMMER_WIDTH / 2 * G.ZOOM;
         angle.oy = AssetSystem.HAMMER_HEIGHT / 2 * G.ZOOM;
@@ -135,7 +134,7 @@ public class MinionSystem extends IteratingSystem {
                     .with(Physics.class, Gravity.class, ZPos.class)
                     .script(tintBetween(Tint.TRANSPARENT, Tint.WHITE, 0.5f))
                     .minion(productivity, deathSfx)
-                    .build();
+                    .entity();
 
         randomizeLocation(e);
         Physics physics = mPhysics.get(e);

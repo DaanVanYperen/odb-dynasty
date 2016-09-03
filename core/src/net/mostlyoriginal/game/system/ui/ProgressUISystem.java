@@ -3,8 +3,6 @@ package net.mostlyoriginal.game.system.ui;
 import com.artemis.Aspect;
 import com.artemis.Entity;
 import com.artemis.systems.IteratingSystem;
-import net.mostlyoriginal.api.component.basic.Pos;
-import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
@@ -40,7 +38,7 @@ public class ProgressUISystem extends IteratingSystem {
                 .pos()
                 .renderable(3005)
                 .scale(G.ZOOM)
-                .build();
+                .entity();
         return entity;
     }
 
