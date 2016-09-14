@@ -1,2 +1,2 @@
-include 'desktop', 'core',  'html'
+include 'desktop', 'components', 'core',  'html'
 //'android', 'ios', 'matrix',

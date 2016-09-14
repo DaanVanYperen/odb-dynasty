@@ -1,9 +1,14 @@
 apply plugin: "java"
+apply plugin: "artemis-fluid"
 apply plugin: "artemis"
+
+ext {
+    fluidOutputDir = file("$buildDir/generated-sources/fluid/")
+}
 
 sourceCompatibility = 1.7
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-sourceSets.main.java.srcDirs = ["src/"]
+sourceSets.main.java.srcDirs = ["src/", fluidOutputDir]
 eclipse.project {
     name = appName + "-core"
 }
@@ -16,7 +21,21 @@ weave {
     classesDir = sourceSets.main.output.classesDir
 }
 
+fluid {
+    generatedSourcesDirectory = fluidOutputDir
+    classpath = sourceSets.main.compileClasspath
+}
+compileJava.dependsOn fluid
 classes.finalizedBy weave
+
+// Help intellIJ pick up the generated classes.
+idea.module {
+    excludeDirs -= file("$buildDir")
+    excludeDirs += file("$buildDir/classes")
+    excludeDirs += file("$buildDir/dependency-cache")
+    excludeDirs += file("$buildDir/libs")
+    excludeDirs += file("$buildDir/tmp")
+}
 
 dependencies {
 }

@@ -1,8 +1,11 @@
 package net.mostlyoriginal.game.component.ui;
 
+import com.artemis.annotations.Fluid;
+
 /**
  * @author Daan van Yperen
  */
+@Fluid( name = "bar")
 public class Bar extends Label {
 
     public int value;

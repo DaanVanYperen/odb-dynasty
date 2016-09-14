@@ -6,7 +6,6 @@ import com.artemis.annotations.PooledWeaver;
 /**
  * Pooled testing component.
  *
- * @see net.mostlyoriginal.game.system.detection.OdbFeatureDetectionSystem
  * @author Daan van Yperen
  */
 @PooledWeaver

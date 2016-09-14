@@ -5,7 +5,6 @@ import com.artemis.Component;
 /**
  * Artemis-odb metadata of active odb features.
  *
- * @see net.mostlyoriginal.game.system.detection.OdbFeatureDetectionSystem
  * @author Daan van Yperen
  */
 public class OdbFeatureComponent extends Component {

@@ -1,12 +1,13 @@
 package net.mostlyoriginal.game.component.ui;
 
 import com.artemis.Component;
+import com.artemis.annotations.Fluid;
 import net.mostlyoriginal.api.component.graphics.Tint;
-import net.mostlyoriginal.game.G;
 
 /**
  * @author Daan van Yperen
  */
+@Fluid( name = "apiLabel")
 public class Label extends Component {
 
     public String text;
@@ -15,7 +16,7 @@ public class Label extends Component {
 
     /** target smokeLayer, higher is in front, lower is behind. */
     public float scale = 1f;
-    public float maxWidth = G.CANVAS_WIDTH;
+    public float maxWidth = 160 * 3;
 
     public Label() {}
     public Label(String text) {
