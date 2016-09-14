@@ -8,11 +8,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.Scaffold;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.manager.SmokeSystem;
+
+import static com.artemis.E.E;
 
 /**
  * Minions need scaffolds!
@@ -97,9 +98,9 @@ public class ScaffoldDioramaSystem extends BaseSystem {
 
     private void createScaffold(int x, int y, String[] ids) {
         String id = ids[MathUtils.random(0, ids.length - 1)];
-        new B(world)
+        E()
                 .pos(x, y)
-                .with(Scaffold.class)
+                .scaffold()
                 .renderable(500)
                 .anim(id)
                 .scale(G.ZOOM).entity();

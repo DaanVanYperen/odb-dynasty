@@ -17,4 +17,9 @@ public class Minion extends Component {
     public Minion(int productivity) {
         this.productivity = productivity;
     }
+
+    public void set(int productivity, String deathSfx) {
+        this.productivity = productivity;
+        this.deathSfx = deathSfx;
+    }
 }

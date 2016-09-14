@@ -16,7 +16,6 @@ import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.Ancient;
 import net.mostlyoriginal.game.component.agent.Cheer;
@@ -27,6 +26,8 @@ import net.mostlyoriginal.game.component.resource.ZPos;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.manager.SmokeSystem;
 import net.mostlyoriginal.game.system.endgame.EndgameSystem;
+
+import static com.artemis.E.E;
 
 /**
  * Created by Daan on 27-8-2016.
@@ -184,16 +185,16 @@ public class FireballSystem extends IteratingSystem {
     public void spawn(int x, int y, String id, String color, boolean smoke, boolean spark, boolean explodes) {
 
         assetSystem.playSfx("catapult");
-        new B(world).pos(x, y)
-                .with(Angle.class)
+        E().pos(x, y)
+                .angle()
                 .ancient()
                 .gravity(0, -1f)
-                .velocity(MathUtils.random(-400, 400), MathUtils.random(-100, -50), 0.2f)
-                .tint(color)
+                .physicsVelocity(MathUtils.random(-400, 400), MathUtils.random(-100, -50), 0.2f)
+                .tintHex(color)
                 .anim(id)
                 .renderable(800)
                 .scale(G.ZOOM)
-                .z(MathUtils.random(0, 48))
+                .zPos(MathUtils.random(0, 48))
                 .fireball(smoke, spark, explodes)
                 .entity();
     }

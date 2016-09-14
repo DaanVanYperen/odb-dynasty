@@ -10,15 +10,15 @@ import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.graphics.Invisible;
-import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.api.util.GdxUtil;
 import net.mostlyoriginal.game.component.ui.Button;
 import net.mostlyoriginal.game.component.ui.Clickable;
 import net.mostlyoriginal.game.component.ui.Label;
 import net.mostlyoriginal.game.manager.AssetSystem;
+
+import static com.artemis.E.E;
 
 /**
  * @author Daan van Yperen
@@ -48,11 +48,9 @@ public class ButtonSystem extends EntityProcessingSystem {
     protected void initialize() {
         super.initialize();
 
-        Entity hint = new B(world)
-                .with(Pos.class, Renderable.class, Tint.class)
-                .label("hintlabel").entity();
-        mColor.get(hint).setHex("004290");
-        mPos.get(hint).set(10, 6);
+        Entity hint = E()
+                .pos(10,6).renderable().tintHex("004290")
+                .localLabel("hintlabel").entity();
 
         hintlabel = mLabel.get(hint);
     }

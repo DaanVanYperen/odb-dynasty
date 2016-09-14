@@ -14,19 +14,16 @@ import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.graphics.Invisible;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
-import net.mostlyoriginal.api.component.physics.Gravity;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.agent.Cheer;
-import net.mostlyoriginal.game.component.agent.Hammer;
 import net.mostlyoriginal.game.component.resource.Minion;
-import net.mostlyoriginal.game.component.resource.ZPos;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.system.endgame.EndgameSystem;
 
+import static com.artemis.E.E;
 import static net.mostlyoriginal.api.operation.JamOperationFactory.tintBetween;
 import static net.mostlyoriginal.api.operation.OperationFactory.*;
 
@@ -98,13 +95,14 @@ public class MinionSystem extends IteratingSystem {
 
         Pos pos = mPos.get(e);
 
-        Entity entity = new B(world)
-                .with(Hammer.class)
+        Entity entity = E()
+                .hammer()
                 .pos(pos.xy.x, pos.xy.y + 8 * G.ZOOM)
                 .renderable(9000)
                 .anim("GO-HAMMER")
                 .scale(G.ZOOM)
-                .tint("FFFFFF00")
+                .tintHex("FFFFFF00")
+                .angle()
                 .script(
                         sequence(
                                 delay(delayTime),
@@ -115,6 +113,7 @@ public class MinionSystem extends IteratingSystem {
                                 deleteFromWorld()
                                 ))
                 .entity();
+
         Angle angle = mAngle.create(entity);
         angle.ox = AssetSystem.HAMMER_WIDTH / 2 * G.ZOOM;
         angle.oy = AssetSystem.HAMMER_HEIGHT / 2 * G.ZOOM;
@@ -124,13 +123,13 @@ public class MinionSystem extends IteratingSystem {
     }
 
     public Entity spawn(String id, int productivity, String deathSfx) {
-        Entity e = new B(world)
+        Entity e = E()
                     .bounds(0,0,0,0)
                     .anim(id)
                     .renderable(MINION_LAYER)
-                    .tint(TINT_INVISIBLE)
+                    .tintHex(TINT_INVISIBLE)
                     .pos().scale(G.ZOOM)
-                    .with(Physics.class, Gravity.class, ZPos.class)
+                    .physics().gravity().zPos()
                     .script(tintBetween(Tint.TRANSPARENT, Tint.WHITE, 0.5f))
                     .minion(productivity, deathSfx)
                     .entity();

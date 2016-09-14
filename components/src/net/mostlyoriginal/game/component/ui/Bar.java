@@ -14,8 +14,8 @@ public class Bar extends Label {
     public String animationId;
 
     public Bar() {}
-    public Bar(String text, String animationId, int value, String animationIdEmpty, int valueEmpty) {
-        super(text);
+    public void set (String text, String animationId, int value, String animationIdEmpty, int valueEmpty) {
+        this.text = text;
         this.animationId = animationId;
         this.value = value;
         this.animationIdEmpty = animationIdEmpty;

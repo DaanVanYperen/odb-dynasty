@@ -15,4 +15,11 @@ public class Fireball extends Component {
 
     public Fireball() {
     }
+
+    public void set(boolean smoke, boolean spark, boolean explodes) {
+        this.hasSmoke = smoke;
+        this.hasSparks = spark;
+        this.explodes = explodes;
+    }
+
 }

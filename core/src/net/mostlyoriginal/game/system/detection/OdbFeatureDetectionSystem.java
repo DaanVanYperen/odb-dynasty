@@ -5,9 +5,10 @@ import com.artemis.annotations.Wire;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.reflect.ClassReflection;
 import com.badlogic.gdx.Gdx;
-import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.component.detection.OdbFeatureComponent;
 import net.mostlyoriginal.game.component.detection.PoolDetectionComponent;
+
+import static com.artemis.E.E;
 
 /**
  * Detect which odb weaving features have been applied.
@@ -23,7 +24,7 @@ public class OdbFeatureDetectionSystem extends BaseSystem {
 	protected void initialize() {
 		super.initialize();
 
-		Entity entity = new B(world).with(OdbFeatureComponent.class).tag(FEATURES_TAG).entity();
+		Entity entity = E().odbFeatureComponent().tag(FEATURES_TAG).entity();
 
 		OdbFeatureComponent features = entity.getComponent(OdbFeatureComponent.class);
 		// detect packing based on reflection.

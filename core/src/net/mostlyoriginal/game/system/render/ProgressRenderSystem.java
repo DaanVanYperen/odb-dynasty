@@ -16,13 +16,13 @@ import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.delegate.DeferredEntityProcessingSystem;
 import net.mostlyoriginal.api.system.delegate.EntityProcessPrincipal;
-import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.ui.*;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.manager.FontManager;
 import net.mostlyoriginal.game.system.logic.ProgressAlgorithmSystem;
 
+import static com.artemis.E.E;
 import static net.mostlyoriginal.game.system.dilemma.DilemmaSystem.TEXT_ZOOM;
 
 /**
@@ -56,12 +56,12 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
 
     public Entity createLabel(int x, int y, String color, String text, String shadowTextColor, int maxWidth) {
         int insertDistanceY =AssetSystem.SLAB_HEIGHT*G.ZOOM;
-        Entity entity = new B(world)
-                .label(text)
+        Entity entity = E()
+                .localLabel(text)
                 .pos(x, y)
                 .renderable(3010)
                 .scale(TEXT_ZOOM)
-                .tint(color).entity();
+                .tintHex(color).entity();
 
         Label label = entity.getComponent(Label.class);
         label.scale = TEXT_ZOOM;
@@ -78,8 +78,8 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
 
         buildLabel =  createLabel(12 * G.ZOOM, 4 * G.ZOOM + 18 * G.ZOOM, "FFFFFFFF", "Build progress", "000000FF", 4000);
         scoreLabel = createLabel(80 * G.ZOOM, 4 * G.ZOOM + 18 * G.ZOOM, "FFFFFFFF", "Score:", "000000FF", 4000);
-        progressButton = new B(world)
-                .with(Tint.class).bounds(0, 0, 26*G.ZOOM, 16*G.ZOOM)
+        progressButton = E().
+                tint().bounds(0, 0, 26*G.ZOOM, 16*G.ZOOM)
                 .clickable()
                 .button("btn-turn-up", "btn-turn-hover", "btn-turn-down", new ButtonListener() {
                     @Override

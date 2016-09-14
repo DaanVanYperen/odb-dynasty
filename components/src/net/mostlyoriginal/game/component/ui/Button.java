@@ -30,19 +30,15 @@ public class Button extends Component {
     }
 
     /** create a button event handler without effects. */
-    public Button(ButtonListener listener) {
+    public void set(ButtonListener listener) {
         this.listener = listener;
     }
 
-    public Button(String animDefault, String animHover, String animClicked, ButtonListener listener) {
+    public void set(String animDefault, String animHover, String animClicked, ButtonListener listener) {
         this.animHover = animHover;
         this.animClicked = animClicked;
         this.animDefault = animDefault;
         this.listener = listener;
-    }
-
-    public Button(String animPrefix, ButtonListener listener, String hint) {
-        set(animPrefix, listener, hint);
     }
 
     public void set(String animPrefix, ButtonListener listener, String hint) {

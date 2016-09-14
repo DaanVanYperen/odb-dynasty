@@ -1,6 +1,7 @@
 package net.mostlyoriginal.game.component.resource;
 
 import com.artemis.Component;
+import com.artemis.annotations.Fluid;
 import com.badlogic.gdx.math.MathUtils;
 
 /**
@@ -14,7 +15,7 @@ public class ZPos extends Component {
     public ZPos() {
     }
 
-    public ZPos(float z) {
+    public void set(float z) {
         this.z = z;
     }
 }

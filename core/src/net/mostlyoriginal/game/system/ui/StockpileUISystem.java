@@ -6,10 +6,11 @@ import com.artemis.managers.TagManager;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.ui.Bar;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
+
+import static com.artemis.E.E;
 
 /**
  * Debug stockpile UI
@@ -38,14 +39,13 @@ public class StockpileUISystem extends BaseSystem {
 
 
     public Entity createBar(int x, int y, String label, String icon, String iconEmpty, int value, int valueEmpty) {
-        Entity entity = new B(world)
+        return E()
                 .pos(x,y)
                 .renderable(500)
-                .with(Pos.class, Renderable.class)
-                .withUnpooled(new Bar(label, icon, value, iconEmpty, valueEmpty))
+                .bar(label, icon, value, iconEmpty, valueEmpty)
                 .tag("resource-" + label)
                 .entity();
-        return entity;
+
     }
 
     @Override

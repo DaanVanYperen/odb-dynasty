@@ -5,18 +5,16 @@ import com.artemis.Entity;
 import com.artemis.managers.TagManager;
 import net.mostlyoriginal.api.component.Schedule;
 import net.mostlyoriginal.api.component.basic.Pos;
-import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.graphics.Invisible;
-import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 
+import static com.artemis.E.E;
 import static net.mostlyoriginal.game.system.ui.RiverDioramaSystem.RiverState.RIVER_BLOOD;
 import static net.mostlyoriginal.game.system.ui.RiverDioramaSystem.RiverState.RIVER_NONE;
 import static net.mostlyoriginal.game.system.ui.RiverDioramaSystem.RiverState.RIVER_WATER;
@@ -55,17 +53,17 @@ public class RiverDioramaSystem extends BaseSystem {
 
     private void createSun() {
         int riverMarginY = 8;
-        new B(world)
+        E()
                 .anim("RIVER")
-                .with(Pos.class, Renderable.class, Scale.class, Tint.class)
+                .pos().renderable().scale().tint()
                 .tag("river")
                 .renderable(101)
                 .pos(0, (133 - riverMarginY - AssetSystem.RIVER_HEIGHT) * G.ZOOM)
                 .scale(G.ZOOM)
                 .entity();
-        new B(world)
+        E()
                 .anim("RIVER-BLOOD")
-                .with(Pos.class, Renderable.class, Scale.class, Tint.class)
+                .pos().renderable().scale().tint()
                 .tag("river-blood")
                 .renderable(101)
                 .pos(0, (133 - riverMarginY - AssetSystem.RIVER_HEIGHT) * G.ZOOM)

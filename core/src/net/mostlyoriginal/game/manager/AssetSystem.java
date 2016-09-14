@@ -1,6 +1,5 @@
 package net.mostlyoriginal.game.manager;
 
-import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
@@ -13,11 +12,11 @@ import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.api.util.GdxUtil;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.ui.Label;
 
+import static com.artemis.E.E;
 import static net.mostlyoriginal.api.operation.JamOperationFactory.*;
 
 /**
@@ -377,14 +376,14 @@ PROGRESS BAR GREY: x:560, y:495, width:8, height:7
     @Override
     protected void initialize() {
         super.initialize();
-        Entity entity = new B(world)
-                .pos()
+
+        E()
+                .pos(G.CANVAS_WIDTH - 2, G.CANVAS_HEIGHT - 2)
                 .renderable()
                 .script(
                         tintBetween(Tint.WHITE, GdxUtil.convert(Color.valueOf("333333")), 2f, Interpolation.exp5))
-                .label(G.version, Label.Align.RIGHT
-                ).entity();
-        mPos.get(entity).xy.set(G.CANVAS_WIDTH - 2, G.CANVAS_HEIGHT - 2);
+                .localLabel(G.version, Label.Align.RIGHT)
+                .entity();
     }
 
 }

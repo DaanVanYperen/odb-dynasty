@@ -3,7 +3,8 @@ package net.mostlyoriginal.game.util;
 import com.artemis.Entity;
 import com.artemis.World;
 import com.badlogic.gdx.Gdx;
-import net.mostlyoriginal.api.util.B;
+
+import static com.artemis.E.E;
 
 /**
  * @author Daan van Yperen
@@ -37,7 +38,7 @@ public class Anims {
 	}
 
 	public static Entity createAnimAt(World world, int x, int y, String animId, float scale) {
-		return B.create(world)
+		return E()
 				.renderable()
 				.pos(x, y)
 				.anim(animId)

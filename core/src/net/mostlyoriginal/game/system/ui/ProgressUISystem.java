@@ -4,10 +4,11 @@ import com.artemis.Aspect;
 import com.artemis.Entity;
 import com.artemis.systems.IteratingSystem;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.component.ui.Progress;
 import net.mostlyoriginal.game.system.logic.ProgressAlgorithmSystem;
+
+import static com.artemis.E.E;
 
 /**
  * Debug stockpile UI
@@ -33,13 +34,11 @@ public class ProgressUISystem extends IteratingSystem {
 
 
     public Entity createBar() {
-        Entity entity = new B(world)
-                .with(Progress.class)
+        return E().progress()
                 .pos()
                 .renderable(3005)
                 .scale(G.ZOOM)
                 .entity();
-        return entity;
     }
 
     @Override

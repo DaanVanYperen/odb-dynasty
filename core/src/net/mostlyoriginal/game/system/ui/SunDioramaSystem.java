@@ -5,13 +5,12 @@ import com.artemis.Entity;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
-import net.mostlyoriginal.api.component.basic.Scale;
-import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
+
+import static com.artemis.E.E;
 
 /**
  * Sets the scene to reflect stockpiles, sun specifically.
@@ -33,9 +32,9 @@ public class SunDioramaSystem extends BaseSystem {
     }
 
     private void createSun() {
-        new B(world)
+        E()
                 .anim("SUN")
-                .with(Pos.class, Renderable.class, Scale.class)
+                .pos()
                 .tag("sun")
                 .renderable(-20)
                 .scale(G.ZOOM)

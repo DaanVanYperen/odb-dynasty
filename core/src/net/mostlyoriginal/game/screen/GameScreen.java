@@ -1,5 +1,6 @@
 package net.mostlyoriginal.game.screen;
 
+import com.artemis.SuperMapper;
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import com.artemis.managers.GroupManager;
@@ -53,6 +54,7 @@ public class GameScreen extends WorldScreen {
                 .dependsOn(ExtendedComponentMapperPlugin.class)
 				.dependsOn(OperationsPlugin.class)
 				.with(
+						new SuperMapper(),
                         new GroupManager(),
 						new TagManager(),
 						new FontManager(),

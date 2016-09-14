@@ -15,7 +15,6 @@ import net.mostlyoriginal.api.component.basic.Scale;
 import net.mostlyoriginal.api.component.graphics.Renderable;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.api.utils.EntityUtil;
 import net.mostlyoriginal.game.G;
 import net.mostlyoriginal.game.GdxArtemisGame;
@@ -34,6 +33,7 @@ import net.mostlyoriginal.game.system.ui.RiverDioramaSystem;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.artemis.E.E;
 import static net.mostlyoriginal.api.operation.JamOperationFactory.*;
 
 /**
@@ -83,13 +83,13 @@ public class DilemmaSystem extends EntityProcessingSystem {
     public float createLabel(int x, int y, String color, String text, String shadowTextColor, int maxWidth) {
         int insertDistanceY = AssetSystem.SLAB_HEIGHT * G.ZOOM;
 
-        Entity entity = new B(world)
-                .label(text)
+        Entity entity = E()
+                .localLabelText(text)
                 .group(DILEMMA_GROUP)
                 .pos(x, y - insertDistanceY)
                 .renderable(920)
                 .scale(TEXT_ZOOM)
-                .tint(color)
+                .tintHex(color)
                 .script(moveBetween(x, y - insertDistanceY, x, y, 1f, Interpolation.pow4Out))
                 .entity();
 
@@ -105,8 +105,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
         //createLabel(x, y, COLOR_DILEMMA, text);
         int insertDistanceY = AssetSystem.SLAB_HEIGHT * G.ZOOM;
 
-        Entity entity = new B(world)
-                .with(Tint.class)
+        Entity entity = E().tint()
                 .bounds(0, 0, text.length() * 8, 0)
                 .clickable()
                 .button(COLOR_RAW_DIMMED, COLOR_RAW_BRIGHT, COLOR_RAW_BRIGHT, listener)
@@ -115,7 +114,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
                 .pos(x, y - insertDistanceY)
                 .scale(TEXT_ZOOM)
                 .script(moveBetween(x, y - insertDistanceY, x, y, 1f, Interpolation.pow4Out))
-                .label(text)
+                .localLabel(text)
                 .entity();
 
         Label label = entity.getComponent(Label.class);
@@ -221,7 +220,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
 
         int insertDistanceY = AssetSystem.SLAB_HEIGHT * G.ZOOM;
 
-        new B(world)
+        E()
                 .pos(x, y - insertDistanceY)
                 .anim("SLAB")
                 .renderable(910)
@@ -236,7 +235,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
         int actorOffsetY = (AssetSystem.SLAB_HEIGHT - actorSlabOverlap) * G.ZOOM;
 
         if (actorId != null) {
-            new B(world)
+            E()
                     .pos(x + actorOffsetX, y + actorOffsetY - insertDistanceY)
                     .anim(actorId)
                     .renderable(908)
@@ -251,7 +250,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
             int scrollOffsetX = (AssetSystem.DEFAULT_ACTOR_WIDTH + actorVsScrollMargin) * G.ZOOM + actorOffsetX;
             int scrollOffsetY = (AssetSystem.SLAB_HEIGHT - scrollSlabOverlap) * G.ZOOM;
 
-             new B(world)
+             E()
                             .pos(x + scrollOffsetX, y + scrollOffsetY - insertDistanceY)
                             .anim("SCROLL")
                             .renderable(912)

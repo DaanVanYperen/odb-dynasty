@@ -7,7 +7,7 @@ import net.mostlyoriginal.api.component.graphics.Tint;
 /**
  * @author Daan van Yperen
  */
-@Fluid( name = "apiLabel")
+@Fluid( name = "localLabel")
 public class Label extends Component {
 
     public String text;
@@ -26,6 +26,20 @@ public class Label extends Component {
     public Label(String text, float scale) {
         this.text = text;
         this.scale = scale;
+    }
+
+    public void set(String text, float scale) {
+        this.text = text;
+        this.scale = scale;
+    }
+
+    public void set(String text, Align align) {
+        this.text = text;
+        this.align = align;
+    }
+
+    public void set(String text) {
+        this.text = text;
     }
 
     public enum Align {

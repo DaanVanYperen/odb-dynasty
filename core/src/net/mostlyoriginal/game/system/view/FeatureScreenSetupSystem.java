@@ -7,13 +7,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Interpolation;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.system.core.PassiveSystem;
-import net.mostlyoriginal.api.util.B;
 import net.mostlyoriginal.game.component.detection.OdbFeatureComponent;
 import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.detection.OdbFeatureDetectionSystem;
 import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.util.Anims;
 
+import static com.artemis.E.E;
 import static net.mostlyoriginal.api.operation.JamOperationFactory.moveBetween;
 import static net.mostlyoriginal.api.operation.JamOperationFactory.scaleBetween;
 import static net.mostlyoriginal.api.operation.JamOperationFactory.tintBetween;
@@ -96,7 +96,7 @@ public class FeatureScreenSetupSystem extends PassiveSystem {
     }
 
     private void animateMissing(float cX, float cY, Entity entity) {
-        B.edit(entity)
+        E(entity)
                 .tint(COLOR_FEATURE_OFF)
                 .script(
                         sequence(
@@ -110,7 +110,7 @@ public class FeatureScreenSetupSystem extends PassiveSystem {
     }
 
     private void animateAvailable(float cX, float cY, Entity entity) {
-        B.edit(entity)
+        E(entity)
                 .tint(COLOR_FEATURE_OFF)
                 .script(
                         sequence(
@@ -135,7 +135,7 @@ public class FeatureScreenSetupSystem extends PassiveSystem {
                 "logo",
                 zoom);
 
-        B.edit(entity)
+        E(entity)
                 .tint(COLOR_LOGO_FADED)
                 .script(
                         parallel(
