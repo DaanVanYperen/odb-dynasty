@@ -1,10 +1,9 @@
 package net.mostlyoriginal.game.system.logic;
 
 import com.artemis.Aspect;
-import com.artemis.ComponentMapper;
-import com.artemis.Entity;
+import com.artemis.E;
 import com.artemis.annotations.Wire;
-import com.artemis.systems.EntityProcessingSystem;
+import com.artemis.systems.FluidIteratingSystem;
 import com.artemis.utils.reflect.ClassReflection;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
@@ -19,9 +18,8 @@ import static net.mostlyoriginal.api.utils.Duration.*;
  * @author Daan van Yperen
  */
 @Wire
-public class TransitionSystem extends EntityProcessingSystem {
+public class TransitionSystem extends FluidIteratingSystem {
 
-    protected ComponentMapper<Transition> mTransition;
     private Game game;
 
     public TransitionSystem(Game game) {
@@ -40,9 +38,9 @@ public class TransitionSystem extends EntityProcessingSystem {
     }
 
     @Override
-    protected void process(Entity e) {
+    protected void process(E e) {
         try {
-            game.setScreen(ClassReflection.newInstance(mTransition.get(e).screen));
+            game.setScreen(ClassReflection.newInstance(e.transitionScreen()));
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }

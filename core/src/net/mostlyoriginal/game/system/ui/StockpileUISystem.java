@@ -1,6 +1,7 @@
 package net.mostlyoriginal.game.system.ui;
 
 import com.artemis.BaseSystem;
+import com.artemis.E;
 import com.artemis.Entity;
 import com.artemis.managers.TagManager;
 import net.mostlyoriginal.api.component.basic.Pos;
@@ -20,9 +21,6 @@ public class StockpileUISystem extends BaseSystem {
 
     private StockpileSystem stockpileSystem;
     private TagManager tagManager;
-    private M<Pos> mPos;
-    private M<Bar> mBar;
-    private M<Renderable> mRenderable;
 
     @Override
     protected void initialize() {
@@ -51,9 +49,9 @@ public class StockpileUISystem extends BaseSystem {
     @Override
     protected void processSystem() {
         for (StockpileSystem.Resource resource : StockpileSystem.Resource.values()) {
-            Entity barEntity = tagManager.getEntity("resource-" + resource.name());
-            mBar.get(barEntity).value = stockpileSystem.get(resource) / resource.getBarScale();
-            mBar.get(barEntity).valueEmpty = 0;
+            E barEntity = E(tagManager.getEntity("resource-" + resource.name()));
+            barEntity.barValue(stockpileSystem.get(resource) / resource.getBarScale());
+            barEntity.barValueEmpty(0);
         }
     }
 }

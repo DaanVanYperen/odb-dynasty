@@ -1,31 +1,21 @@
 package net.mostlyoriginal.game.system.agent;
 
 import com.artemis.Aspect;
-import com.artemis.Entity;
-import com.artemis.systems.EntityProcessingSystem;
+import com.artemis.E;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
+import com.artemis.systems.FluidIteratingSystem;
 import net.mostlyoriginal.api.component.basic.Pos;
-import net.mostlyoriginal.api.component.basic.Scale;
-import net.mostlyoriginal.api.component.graphics.Anim;
-import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.game.component.agent.Burrow;
-import net.mostlyoriginal.game.component.agent.Tremble;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.manager.SmokeSystem;
 
 /**
  * Created by Daan on 27-8-2016.
  */
-public class BurrowSystem extends EntityProcessingSystem {
-
-    protected M<Anim> mAnim;
-    protected M<Pos> mPos;
-    protected M<Burrow> mBurrow;
-    protected M<Tremble> mTremble;
-    protected M<Scale> mScale;
+public class BurrowSystem extends FluidIteratingSystem {
 
     protected AssetSystem assetSystem;
     protected SmokeSystem smokeSystem;
@@ -35,13 +25,11 @@ public class BurrowSystem extends EntityProcessingSystem {
     }
 
     @Override
-    protected void process(Entity e) {
+    protected void process(E e) {
 
-        Pos pos = mPos.get(e);
-        Burrow burrow = mBurrow.get(e);
-        Anim anim = mAnim.get(e);
+        Burrow burrow = e._burrow();
 
-        Animation animation = assetSystem.get(anim.id);
+        Animation animation = assetSystem.get(e.animId());
 
         if (Math.abs(burrow.targetPercentage - burrow.percentage) >= 0.01f) {
             float distance = Math.abs(burrow.targetPercentage - burrow.percentage);
@@ -56,18 +44,18 @@ public class BurrowSystem extends EntityProcessingSystem {
                 startTrembling(e, 1);
             }
 
-            float scale = mScale.has(e) ? mScale.get(e).scale : 1;
+            float scale = e.scaleScale();
 
             TextureRegion keyFrame = animation.getKeyFrame(0);
-            pos.xy.y = burrow.surfaceY - (keyFrame.getRegionHeight() * scale *
-                    burrow.percentage);
+
+            e.posY(burrow.surfaceY - (keyFrame.getRegionHeight() * scale *  burrow.percentage));
 
             if (burrow.smokeAge > 1f / 30f) {
                 burrow.smokeAge -= 1f / 30f;
                 float maxWidth = keyFrame.getRegionWidth() * scale;
                 // some structures are wider at the bottom. account for this with the dust.
                 float surfacedWidth = Interpolation.linear.apply(maxWidth, maxWidth * burrow.topWidthPercentage, burrow.percentage);
-                smokeSystem.dust(burrow.surfaceY, pos.xy.x + maxWidth / 2f - surfacedWidth / 2f, pos.xy.x + maxWidth / 2f + surfacedWidth / 2f, 5, burrow.smokeLayer);
+                smokeSystem.dust(burrow.surfaceY, e.posX() + maxWidth / 2f - surfacedWidth / 2f, e.posX() + maxWidth / 2f + surfacedWidth / 2f, 5, burrow.smokeLayer);
             }
 
 
@@ -76,11 +64,11 @@ public class BurrowSystem extends EntityProcessingSystem {
         }
     }
 
-    private void stopTrembling(Entity e) {
-        mTremble.remove(e);
+    private void stopTrembling(E e) {
+        e.removeTremble();
     }
 
-    private void startTrembling(Entity e, float intensity) {
-        mTremble.create(e).intensity = intensity;
+    private void startTrembling(E e, float intensity) {
+        e.trembleIntensity(intensity);
     }
 }

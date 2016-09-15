@@ -1,28 +1,30 @@
 package net.mostlyoriginal.game.system.resource;
 
 import com.artemis.Aspect;
-import com.artemis.ComponentMapper;
+import com.artemis.E;
 import com.artemis.Entity;
 import com.artemis.managers.TagManager;
 import com.artemis.systems.EntityProcessingSystem;
+import com.artemis.systems.FluidIteratingSystem;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.game.component.resource.Stockpile;
+
+import static com.artemis.E.E;
 
 /**
  * Sync UI with Stockpile.
  *
  * @author Daan van Yperen
  */
-public class StockpileSystem extends EntityProcessingSystem {
+public class StockpileSystem extends FluidIteratingSystem {
 
-    protected ComponentMapper<Stockpile> mStockpile;
     private Stockpile Stockpile;
     private TagManager tagManager;
 
     public Stockpile getStockpile() {
         final Entity entity = tagManager.getEntity("dynasty");
         if (entity != null) {
-            return mStockpile.get(entity);
+            return E(entity)._stockpile();
         }
         return null;
     }
@@ -139,7 +141,7 @@ public class StockpileSystem extends EntityProcessingSystem {
     }
 
     @Override
-    protected void process(Entity e) {
-        Stockpile stockpile = mStockpile.get(e);
+    protected void process(E e) {
+
     }
 }

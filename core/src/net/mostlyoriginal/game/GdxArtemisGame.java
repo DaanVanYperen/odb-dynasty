@@ -1,5 +1,6 @@
 package net.mostlyoriginal.game;
 
+import com.artemis.E;
 import com.badlogic.gdx.Game;
 import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.screen.detection.OdbFeatureScreen;

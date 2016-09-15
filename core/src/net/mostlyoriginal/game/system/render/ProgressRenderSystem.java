@@ -2,6 +2,7 @@ package net.mostlyoriginal.game.system.render;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
+import com.artemis.E;
 import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -34,9 +35,7 @@ import static net.mostlyoriginal.game.system.dilemma.DilemmaSystem.TEXT_ZOOM;
 @Wire
 public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
 
-    private ComponentMapper<Pos> pm;
-    protected ComponentMapper<Tint> mTint;
-    private ComponentMapper<Progress> mProgress;
+    private ComponentMapper<Invisible> mInvisible;
 
     private AbstractAssetSystem abstractAssetSystem;
     private CameraSystem cameraSystem;
@@ -47,11 +46,10 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
     private float age;
     private ProgressAlgorithmSystem progressAlgorithmSystem;
     private Entity progressButton;
-    private M<Invisible> mInvisible;
     private AssetSystem assetSystem;
     private Entity buildLabel;
     private Entity scoreLabel;
-    private M<Label> mLabel;
+    private ComponentMapper<Label> mLabel;
 
 
     public Entity createLabel(int x, int y, String color, String text, String shadowTextColor, int maxWidth) {
@@ -126,7 +124,7 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
 
         if ( progressAlgorithmSystem.isReadyToProgress() )
         {
-            renderBars(entity);
+            renderBars(E(entity));
         }
 
         if ( progressAlgorithmSystem.isReadyToProgress() && !progressAlgorithmSystem.tallying )
@@ -141,15 +139,13 @@ public class ProgressRenderSystem extends DeferredEntityProcessingSystem {
         } else {
             mInvisible.create(progressButton);
             mInvisible.create(buildLabel);
-
             mInvisible.create(scoreLabel);
         }
 
     }
 
-    private void renderBars(int entity) {
-        final Progress progress = mProgress.get(entity);
-        final Pos pos = pm.get(entity);
+    private void renderBars(E e) {
+        final Progress progress = e._progress();
 
         TextureRegion barBackground = abstractAssetSystem.get("PROGRESS BAR BACKGROUND").getKeyFrame(0, false);
         TextureRegion bar = abstractAssetSystem.get("PROGRESS BAR").getKeyFrame(0, false);

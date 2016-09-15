@@ -1,6 +1,7 @@
 package net.mostlyoriginal.game.system.ui;
 
 import com.artemis.BaseSystem;
+import com.artemis.E;
 import com.artemis.Entity;
 import com.artemis.managers.TagManager;
 import net.mostlyoriginal.api.component.Schedule;
@@ -31,11 +32,6 @@ public class RiverDioramaSystem extends BaseSystem {
     protected float sunPercentage = 0;
 
     protected TagManager tagManager;
-    protected M<Pos> mPos;
-    protected M<Invisible> mInvisible;
-    protected M<Schedule> mSchedule;
-    protected M<Tint> mColor;
-    protected M<Anim> mAnim;
     private Tint vis = new Tint(1f, 1f, 1f, 1f);
     private Tint invis = new Tint(1f, 1f, 1f, 0f);
     private RiverState state =RIVER_NONE;
@@ -84,16 +80,14 @@ public class RiverDioramaSystem extends BaseSystem {
         state = RIVER_WATER;
     }
 
-    private void slowHide(Entity e) {
-        mSchedule.remove(e);
-        mSchedule.create(e).operation.add(
-                OperationFactory.tween(new Tint(mColor.get(e).color), invis, 3f));
+    private void slowHide(E e) {
+        e.removeScript().script(
+                OperationFactory.tween(new Tint(e.tintColor()), invis, 3f));
     }
 
-    private void slowReveal(Entity e) {
-        mSchedule.remove(e);
-        mSchedule.create(e).operation.add(
-                OperationFactory.tween(new Tint(mColor.get(e).color), vis, 3f));
+    private void slowReveal(E e) {
+        e.removeScript().script(
+                OperationFactory.tween(new Tint(e.tintColor()), vis, 3f));
     }
 
     public void blood() {
@@ -102,12 +96,12 @@ public class RiverDioramaSystem extends BaseSystem {
         state = RIVER_BLOOD;
     }
 
-    private Entity getRiver() {
-        return tagManager.getEntity("river");
+    private E getRiver() {
+        return E(tagManager.getEntity("river"));
     }
 
-    private Entity getRiverBlood() {
-        return tagManager.getEntity("river-blood");
+    private E getRiverBlood() {
+        return E(tagManager.getEntity("river-blood"));
     }
 
 

@@ -2,6 +2,7 @@ package net.mostlyoriginal.game.system.ui;
 
 import com.artemis.Aspect;
 import com.artemis.BaseSystem;
+import com.artemis.E;
 import com.artemis.EntitySubscription;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -25,8 +26,6 @@ public class ScaffoldDioramaSystem extends BaseSystem {
     public static final int BIG_SCAFFOLD_HEIGHT = 16;
     private static final int BIG_SCAFFOLD_WIDTH = 16;
     public static final int MAX_COLUMNS = 12;
-
-    protected M<Pos> mPos;
 
     protected SmokeSystem smokeSystem;
     private int targetHeight[] = new int[MAX_COLUMNS];
@@ -149,11 +148,11 @@ public class ScaffoldDioramaSystem extends BaseSystem {
         IntBag entities = scaffoldSubscription.getEntities();
         for(int i=0,s=entities.size();i<s;i++)
         {
-            int entity = entities.get(i);
-            float entityX = mPos.get(entity).xy.x;
+            E entity = E(entities.get(i));
+            float entityX = entity.posX();
             if ( entityX >= x && entityX <= x2 )
             {
-                world.delete(entity);
+                world.delete(entity.id());
             }
         }
     }

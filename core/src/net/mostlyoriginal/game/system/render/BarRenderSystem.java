@@ -1,8 +1,9 @@
 package net.mostlyoriginal.game.system.render;
 
 import com.artemis.Aspect;
-import com.artemis.ComponentMapper;
+import com.artemis.E;
 import com.artemis.annotations.Wire;
+import com.artemis.systems.FluidDeferredEntityProcessingSystem;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -26,11 +27,7 @@ import net.mostlyoriginal.game.manager.FontManager;
  * @see net.mostlyoriginal.api.component.graphics.Anim
  */
 @Wire
-public class BarRenderSystem extends DeferredEntityProcessingSystem {
-
-    private ComponentMapper<Pos> pm;
-    protected ComponentMapper<Tint> mTint;
-    private ComponentMapper<Bar> mBar;
+public class BarRenderSystem extends FluidDeferredEntityProcessingSystem {
 
     private AbstractAssetSystem abstractAssetSystem;
     private CameraSystem cameraSystem;
@@ -74,14 +71,14 @@ public class BarRenderSystem extends DeferredEntityProcessingSystem {
     }
 
     @Override
-    protected void process(int entity) {
+    protected void process(E e) {
 
-        final Bar bar = mBar.get(entity);
-        final Pos pos = pm.get(entity);
+        final Bar bar = e._bar();
+        final Pos pos = e._pos();
 
         final BitmapFont font = fontManager.font;
-        if ( mTint.has(entity) ) {
-            final Color color = mTint.get(entity).color;
+        if ( e.hasTint() ) {
+            final Color color = e.tintColor();
             font.setColor(color.r, color.g, color.b, color.a);
             batch.setColor(color.r, color.g, color.b, color.a);
         } else {

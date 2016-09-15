@@ -1,16 +1,13 @@
 package net.mostlyoriginal.game.system.ui;
 
 import com.artemis.Aspect;
-import com.artemis.ComponentMapper;
-import com.artemis.Entity;
+import com.artemis.E;
 import com.artemis.annotations.Wire;
-import com.artemis.systems.EntityProcessingSystem;
+import com.artemis.systems.FluidIteratingSystem;
 import com.badlogic.gdx.graphics.Color;
 import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Anim;
-import net.mostlyoriginal.api.component.graphics.Invisible;
-import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.api.util.GdxUtil;
 import net.mostlyoriginal.game.component.ui.Button;
@@ -24,18 +21,10 @@ import static com.artemis.E.E;
  * @author Daan van Yperen
  */
 @Wire
-public class ButtonSystem extends EntityProcessingSystem {
+public class ButtonSystem extends FluidIteratingSystem {
 
     public static final float COOLDOWN_AFTER_BUTTON_CLICK = 0.15f;
     public static final int NO_ENTITY = -1;
-    protected ComponentMapper<Clickable> mClickable;
-
-    protected ComponentMapper<Label> mLabel;
-    protected ComponentMapper<Button> mButton;
-    protected ComponentMapper<Anim> mAnim;
-    protected ComponentMapper<Tint> mColor;
-    protected ComponentMapper<Invisible> mInvisible;
-    protected M<Pos> mPos;
     public Label hintlabel;
     public float globalButtonCooldown = 0;
     private AssetSystem assetSystem;
@@ -48,15 +37,13 @@ public class ButtonSystem extends EntityProcessingSystem {
     protected void initialize() {
         super.initialize();
 
-        Entity hint = E()
+        hintlabel = E()
                 .pos(10,6).renderable().tintHex("004290")
-                .localLabel("hintlabel").entity();
-
-        hintlabel = mLabel.get(hint);
+                .localLabel("hintlabel")._localLabel();
     }
 
     @Override
-    protected void process(Entity e) {
+    protected void process(E e) {
         updateAnim(e);
     }
 
@@ -67,11 +54,11 @@ public class ButtonSystem extends EntityProcessingSystem {
         globalButtonCooldown -= world.delta;
     }
 
-    private void updateAnim(Entity e) {
+    private void updateAnim(E e) {
         String id = getNewAnimId(e);
 
         if (id != null) {
-            final Button button = mButton.get(e);
+            final Button button = e._button();
             boolean automaticDisable = button.hideIfDisabled && !button.listener.enabled();
             if (automaticDisable) {
                 id = null;
@@ -79,27 +66,27 @@ public class ButtonSystem extends EntityProcessingSystem {
 
             // quick hack to hide icons when button is hidden. @todo cleanup.
             if (button.transientIcon != NO_ENTITY) {
-                int bute = button.transientIcon;
-                if ((id != null) && mInvisible.has(bute)) {
-                    mInvisible.remove(bute);
+                E bute = E(button.transientIcon);
+                if ((id != null) && bute.isInvisible()) {
+                    bute.invisible(false);
                 }
-                if ((id == null) && !mInvisible.has(bute)) {
-                    mInvisible.create(bute);
+                if ((id == null) && !bute.isInvisible()) {
+                    bute.invisible(true);
                 }
             }
 
-            if (mAnim.has(e)) {
-                mAnim.get(e).id = id;
-            } else if (mColor.has(e)) {
+            if (e.hasAnim()) {
+                e.animId(id);
+            } else if (e.hasTint()) {
                 // @todo fix this hack! XD
-                mColor.get(e).set(GdxUtil.asColor(id));
+                e.tint(GdxUtil.asColor(id));
             }
         }
     }
 
-    private String getNewAnimId(Entity e) {
-        final Clickable clickable = mClickable.get(e);
-        final Button button = mButton.get(e);
+    private String getNewAnimId(E e) {
+        final Clickable clickable = e._clickable();
+        final Button button = e._button();
         if (button.autoclick) {
             button.autoclickCooldown -= world.delta;
         }
@@ -112,17 +99,17 @@ public class ButtonSystem extends EntityProcessingSystem {
 
         // gray out disabled items. @todo separate.
         boolean active = button.listener.enabled() && !button.manualDisable;
-        if (mColor.has(e)) {
-            Color color = mColor.get(e).color;
+        if (e.hasTint()) {
+            Color color = e.tintColor();
             color.r = button.color.r * (active ? 1f : 0.5f);
             color.g = button.color.g * (active ? 1f : 0.5f);
             color.b = button.color.b * (active ? 1f : 0.5f);
             color.a = button.color.a;
 
             if (button.transientIcon != NO_ENTITY) {
-                final int iconEntity = button.transientIcon;
-                if (mColor.has(iconEntity)) {
-                    mColor.get(iconEntity).set(color);
+                final E iconEntity = E(button.transientIcon);
+                if (iconEntity.hasTint()) {
+                    iconEntity.tint(color);
                 }
             }
 

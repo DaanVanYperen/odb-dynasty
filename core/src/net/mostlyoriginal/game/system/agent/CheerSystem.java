@@ -1,30 +1,27 @@
 package net.mostlyoriginal.game.system.agent;
 
 import com.artemis.Aspect;
-import com.artemis.systems.IteratingSystem;
+import com.artemis.E;
+import com.artemis.systems.FluidIteratingSystem;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
-import net.mostlyoriginal.api.component.graphics.Anim;
-import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.game.component.agent.Cheer;
-import net.mostlyoriginal.game.component.agent.Tremble;
+
+import static com.artemis.E.E;
 
 /**
  * Created by Daan on 27-8-2016.
  */
-public class CheerSystem extends IteratingSystem {
-
-    protected M<Pos> mPos;
-    protected M<Cheer> mCheer;
+public class CheerSystem extends FluidIteratingSystem {
 
     public CheerSystem() {
         super(Aspect.all(Cheer.class, Pos.class));
     }
 
     @Override
-    protected void process(int e) {
+    protected void process(E e) {
 
-        final Cheer cheer = mCheer.get(e);
+        final Cheer cheer = e._cheer();
         cheer.age += world.delta * cheer.intensity * 100f;
         if ( cheer.age >= 180 ) cheer.age -= 180;
 
@@ -33,19 +30,19 @@ public class CheerSystem extends IteratingSystem {
     }
 
     @Override
-    public void removed(int e) {
-        revertTremble(e);
+    public void removed(int id) {
+        revertTremble(E(id));
     }
 
-    private void setTremble(int e, float offset) {
-        Cheer tremble = mCheer.get(e);
+    private void setTremble(E e, float offset) {
+        final Cheer tremble = e._cheer();
         tremble.appliedY = offset;
-        mPos.get(e).xy.y += tremble.appliedY;
+        e.posY( e.posY() + tremble.appliedY );
     }
 
-    private void revertTremble(int e) {
-        Cheer tremble = mCheer.get(e);
-        mPos.get(e).xy.y -= tremble.appliedY;
+    private void revertTremble(E e) {
+        final Cheer tremble = e._cheer();
+        e.posY( e.posY() - tremble.appliedY );
         tremble.appliedY=0;
     }
 }

@@ -1,6 +1,8 @@
 package net.mostlyoriginal.game.system.resource;
 
 import com.artemis.Aspect;
+import com.artemis.E;
+import com.artemis.systems.FluidIteratingSystem;
 import com.artemis.systems.IteratingSystem;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Renderable;
@@ -13,29 +15,26 @@ import static net.mostlyoriginal.game.system.resource.MinionSystem.MINION_LAYER;
 /**
  * Created by Daan on 28-8-2016.
  */
-public class ZPosSystem extends IteratingSystem {
-    private M<Pos> mPos;
-    private M<ZPos> mZPos;
-    private M<Renderable> mRenderable;
+public class ZPosSystem extends FluidIteratingSystem {
 
     public ZPosSystem() {
         super(Aspect.all(Renderable.class, ZPos.class, Pos.class));
     }
 
     @Override
-    protected void process(int e) {
+    protected void process(E e) {
 
         // min-y based on z.
-        ZPos zPos = mZPos.get(e);
-        Pos pos = mPos.get(e);
+        ZPos zPos = e._zPos();
+        Pos pos = e._pos();
         float minY = G.CANVAS_HEIGHT / 2 - zPos.z / 2;
-        if ( pos.xy.y < minY ) {
+        if (pos.xy.y < minY) {
             pos.xy.y = minY;
         }
 
         zPos.height = pos.xy.y - minY;
 
-        mRenderable.get(e).layer = MINION_LAYER + (int)zPos.z * 5 + zPos.layerOffset;
+        e.renderableLayer(MINION_LAYER + (int) zPos.z * 5 + zPos.layerOffset);
 
     }
 }

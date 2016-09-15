@@ -1,7 +1,9 @@
 package net.mostlyoriginal.game.system.ui;
 
 import com.artemis.Aspect;
+import com.artemis.E;
 import com.artemis.Entity;
+import com.artemis.systems.FluidIteratingSystem;
 import com.artemis.systems.IteratingSystem;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.game.G;
@@ -14,9 +16,8 @@ import static com.artemis.E.E;
  * Debug stockpile UI
  * Created by Daan on 27-8-2016.
  */
-public class ProgressUISystem extends IteratingSystem {
+public class ProgressUISystem extends FluidIteratingSystem {
 
-    private M<Progress> mProgress;
     private ProgressAlgorithmSystem progressAlgorithmSystem;
 
     public ProgressUISystem() {
@@ -42,8 +43,8 @@ public class ProgressUISystem extends IteratingSystem {
     }
 
     @Override
-    protected void process(int entityId) {
-        mProgress.get(entityId).planned = progressAlgorithmSystem.getProjectedPercentile();
-        mProgress.get(entityId).value = progressAlgorithmSystem.getProgressPercentile();
+    protected void process(E e) {
+        e.progressPlanned(progressAlgorithmSystem.getProjectedPercentile());
+        e.progressValue(progressAlgorithmSystem.getProgressPercentile());
     }
 }

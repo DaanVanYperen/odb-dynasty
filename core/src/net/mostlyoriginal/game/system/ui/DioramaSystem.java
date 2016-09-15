@@ -11,6 +11,8 @@ import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.system.resource.MinionSystem;
 import net.mostlyoriginal.game.system.resource.StockpileSystem;
 
+import static com.artemis.E.E;
+
 /**
  * Sets the scene to reflect stockpiles.
  * <p>
@@ -26,8 +28,6 @@ public class DioramaSystem extends BaseSystem {
     protected int completion = -1;
 
     protected TagManager tagManager;
-    protected M<Burrow> mBurrow;
-    protected M<Pos> mPos;
     private AssetSystem assetSystem;
 
     float chiselCooldown = 0;
@@ -70,7 +70,7 @@ public class DioramaSystem extends BaseSystem {
         int completionNew = stockpileSystem.get(StockpileSystem.Resource.COMPLETION);
         final int completionDelta = completionNew - completion;
         if (completionDelta != 0) {
-            Burrow burrow = mBurrow.get(tagManager.getEntity("pyramid"));
+            Burrow burrow = E(tagManager.getEntity("pyramid"))._burrow();
             burrow.targetPercentage = 1f - (completionNew / (float) G.MAX_COMPLETION);
             completion = completionNew;
             minionSystem.allCheer();

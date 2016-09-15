@@ -1,9 +1,11 @@
 package net.mostlyoriginal.game.system.dilemma;
 
 import com.artemis.Aspect;
+import com.artemis.E;
 import com.artemis.Entity;
 import com.artemis.managers.GroupManager;
 import com.artemis.systems.EntityProcessingSystem;
+import com.artemis.systems.FluidIteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Interpolation;
@@ -22,8 +24,10 @@ import net.mostlyoriginal.game.component.dilemma.DilemmaChoice;
 import net.mostlyoriginal.game.component.ui.*;
 import net.mostlyoriginal.game.manager.AssetSystem;
 import net.mostlyoriginal.game.manager.StructureSystem;
+import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.endgame.EndgameSystem;
 import net.mostlyoriginal.game.system.logic.ProgressAlgorithmSystem;
+import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.render.LabelRenderSystem;
 import net.mostlyoriginal.game.system.resource.FireballSystem;
 import net.mostlyoriginal.game.system.resource.MinionSystem;
@@ -41,13 +45,14 @@ import static net.mostlyoriginal.api.operation.JamOperationFactory.*;
  *
  * @author Daan van Yperen
  */
-public class DilemmaSystem extends EntityProcessingSystem {
+public class DilemmaSystem extends FluidIteratingSystem {
 
     public static final int TEXT_ZOOM = G.ZOOM;
     public static final String DILEMMA_SHADOW_TEXT_COLOR = "9f9a9b";
     public static final String DILEMMA_SCROLL_SHADOW_COLOR = "f3b072";
     public static final int DISCIPLINE_FOLLOWUP_WAIT_TIME = 4;
     public static final int INITIAL_DISCIPLINE_WAIT_TIME = 6;
+    private static TransitionSystem transitionSystem;
     private DilemmaLibrary dilemmaLibrary;
 
     public static final String DILEMMA_GROUP = "dilemma";
@@ -65,10 +70,6 @@ public class DilemmaSystem extends EntityProcessingSystem {
     private StockpileSystem stockpileSystem;
     private StructureSystem structureSystem;
 
-    private M<Tint> mColor;
-    private M<Pos> mPos;
-    private M<Scale> mScale;
-    private M<Renderable> mRenderable;
     private RiverDioramaSystem riverSystem;
     private ProgressAlgorithmSystem progressAlgorithmSystem;
     private LabelRenderSystem labelRenderSystem;
@@ -304,7 +305,7 @@ public class DilemmaSystem extends EntityProcessingSystem {
     }
 
     @Override
-    protected void process(Entity e) {
+    protected void process(E e) {
     }
 
     /**
@@ -529,6 +530,6 @@ public class DilemmaSystem extends EntityProcessingSystem {
     }
 
     private static void restartGame() {
-        GdxArtemisGame.getInstance().restart();
+        transitionSystem.transition(GameScreen.class,0f);
     }
 }

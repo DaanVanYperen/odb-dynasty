@@ -1,33 +1,27 @@
 package net.mostlyoriginal.game.system.agent;
 
 import com.artemis.Aspect;
-import com.artemis.Entity;
-import com.artemis.systems.EntityProcessingSystem;
-import com.artemis.systems.IteratingSystem;
+import com.artemis.E;
+import com.artemis.systems.FluidIteratingSystem;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
-import net.mostlyoriginal.api.component.graphics.Anim;
-import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
-import net.mostlyoriginal.game.component.agent.Burrow;
 import net.mostlyoriginal.game.component.agent.Tremble;
+
+import static com.artemis.E.E;
 
 /**
  * Created by Daan on 27-8-2016.
  */
-public class TrembleSystem extends IteratingSystem {
-
-    protected M<Anim> mAnim;
-    protected M<Pos> mPos;
-    protected M<Tremble> mTremble;
+public class TrembleSystem extends FluidIteratingSystem {
 
     public TrembleSystem() {
         super(Aspect.all(Tremble.class, Pos.class));
     }
 
     @Override
-    protected void process(int e) {
+    protected void process(E e) {
 
-        Tremble tremble = mTremble.get(e);
+        Tremble tremble = e._tremble();
         tremble.age += world.delta * tremble.intensity;
 
         revertTremble(e);
@@ -36,18 +30,18 @@ public class TrembleSystem extends IteratingSystem {
 
     @Override
     public void removed(int e) {
-        revertTremble(e);
+        revertTremble(E(e));
     }
 
-    private void setTremble(int e, float offset) {
-        Tremble tremble = mTremble.get(e);
+    private void setTremble(E e, float offset) {
+        final Tremble tremble = e._tremble();
         tremble.appliedX = offset;
-        mPos.get(e).xy.x += tremble.appliedX;
+        e.posX( e.posX() + tremble.appliedX );
     }
 
-    private void revertTremble(int e) {
-        Tremble tremble = mTremble.get(e);
-        mPos.get(e).xy.x -= tremble.appliedX;
+    private void revertTremble(E e) {
+        final Tremble tremble = e._tremble();
+        e.posX( e.posX() - tremble.appliedX );
         tremble.appliedX=0;
     }
 }

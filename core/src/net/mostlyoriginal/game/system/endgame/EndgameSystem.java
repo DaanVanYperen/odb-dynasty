@@ -1,6 +1,9 @@
 package net.mostlyoriginal.game.system.endgame;
 
 import com.artemis.Aspect;
+import com.artemis.E;
+import com.artemis.annotations.Fluid;
+import com.artemis.systems.FluidIteratingSystem;
 import com.artemis.systems.IteratingSystem;
 import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.game.G;
@@ -17,14 +20,12 @@ import net.mostlyoriginal.game.system.ui.ScaffoldDioramaSystem;
 /**
  * Created by Daan on 27-8-2016.
  */
-public class EndgameSystem extends IteratingSystem {
+public class EndgameSystem extends FluidIteratingSystem {
 
-    protected M<Stockpile> mStockpile;
     protected StockpileSystem stockpileSystem;
     protected MinionSystem minionSystem;
     protected DilemmaSystem dilemmaSystem;
     ScaffoldDioramaSystem scaffoldDioramaSystem;
-    protected M<EndgameReached> mEndgameReached;
     private StructureSystem structureSystem;
     private EntitySetupSystem entitySetupSystem;
     private FireballSystem fireballSystem;
@@ -34,16 +35,15 @@ public class EndgameSystem extends IteratingSystem {
     }
 
     @Override
-    protected void process(int e) {
+    protected void process(E e) {
         checkForDeath(e);
         checkForSuperDynasty(e);
     }
 
-    private void checkForSuperDynasty(int e) {
-        Stockpile stockpile = mStockpile.get(e);
-        if (stockpile.completion >= G.MAX_COMPLETION) {
+    private void checkForSuperDynasty(E e) {
+        if (e.stockpileCompletion() >= G.MAX_COMPLETION) {
             dilemmaSystem.ENDGAME(Success.SUPER);
-            mEndgameReached.create(e);
+            e.endgameReached();
         }
     }
 
@@ -91,11 +91,11 @@ public class EndgameSystem extends IteratingSystem {
         SUPER
     }
 
-    private void checkForDeath(int e) {
-        Stockpile stockpile = mStockpile.get(e);
+    private void checkForDeath(E e) {
+        Stockpile stockpile = e._stockpile();
         if (stockpile.age >= stockpile.lifespan) {
             dilemmaSystem.ENDGAME(getSuccess());
-            mEndgameReached.create(e);
+            e.endgameReached();
         }
     }
 

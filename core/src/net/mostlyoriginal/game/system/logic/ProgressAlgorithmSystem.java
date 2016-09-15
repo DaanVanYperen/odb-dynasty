@@ -1,10 +1,10 @@
 package net.mostlyoriginal.game.system.logic;
 
 import com.artemis.Aspect;
+import com.artemis.E;
 import com.artemis.EntitySubscription;
-import com.artemis.systems.IteratingSystem;
+import com.artemis.systems.FluidIteratingSystem;
 import com.badlogic.gdx.math.MathUtils;
-import net.mostlyoriginal.api.plugin.extendedcomponentmapper.M;
 import net.mostlyoriginal.game.component.agent.Hammer;
 import net.mostlyoriginal.game.component.resource.Stockpile;
 import net.mostlyoriginal.game.manager.AssetSystem;
@@ -16,13 +16,12 @@ import net.mostlyoriginal.game.system.ui.RiverDioramaSystem;
 /**
  * Created by Daan on 28-8-2016.
  */
-public class ProgressAlgorithmSystem extends IteratingSystem {
+public class ProgressAlgorithmSystem extends FluidIteratingSystem {
 
     public static final float COMPLETION_SCALE = 0.001f;
     protected StockpileSystem stockpileSystem;
     protected MinionSystem minionSystem;
 
-    protected M<Stockpile> mStockpile;
     protected RiverDioramaSystem riverDioramaSystem;
 
     private boolean readyToProgress = false;
@@ -96,10 +95,10 @@ public class ProgressAlgorithmSystem extends IteratingSystem {
     }
 
     @Override
-    protected void process(int entityId) {
+    protected void process(E e) {
 
         // progress if needed.
-        Stockpile stockpile = mStockpile.get(entityId);
+        Stockpile stockpile = e._stockpile();
         while ( stockpile.completionPercentile >= 1000 )
         {
             stockpile.completionPercentile -= 1000;

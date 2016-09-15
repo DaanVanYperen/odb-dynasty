@@ -52,7 +52,6 @@ public class AssetSystem extends AbstractAssetSystem {
 
 
     private TagManager tagManager;
-    private M<Pos> mPos;
 
     public AssetSystem() {
         super("dynasty.png");

@@ -1,11 +1,11 @@
 package net.mostlyoriginal.game.system.ui;
 
 import com.artemis.Aspect;
-import com.artemis.ComponentMapper;
+import com.artemis.E;
 import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.managers.TagManager;
-import com.artemis.systems.EntityProcessingSystem;
+import com.artemis.systems.FluidIteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import net.mostlyoriginal.api.component.basic.Bounds;
@@ -18,12 +18,11 @@ import net.mostlyoriginal.game.component.ui.Clickable;
  * @author Daan van Yperen
  */
 @Wire
-public class MouseClickSystem extends EntityProcessingSystem {
+public class MouseClickSystem extends FluidIteratingSystem {
 
     CollisionSystem system;
     TagManager tagManager;
 
-    protected ComponentMapper<Clickable> mClickable;
     private boolean leftMousePressed;
 
     public MouseClickSystem() {
@@ -38,13 +37,13 @@ public class MouseClickSystem extends EntityProcessingSystem {
     }
 
     @Override
-    protected void process(Entity e) {
+    protected void process(E e) {
         final Entity cursor = tagManager.getEntity("cursor");
         if ( cursor != null )
         {
             // update state based on cursor.
-            final Clickable clickable = mClickable.get(e);
-            final boolean overlapping = system.overlaps(cursor, e);
+            final Clickable clickable = e._clickable();
+            final boolean overlapping = system.overlaps(cursor, e.entity());
             if ( overlapping )
             {
                clickable.state = leftMousePressed ? Clickable.ClickState.CLICKED : Clickable.ClickState.HOVER;

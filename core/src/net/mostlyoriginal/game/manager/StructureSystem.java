@@ -1,5 +1,6 @@
 package net.mostlyoriginal.game.manager;
 
+import com.artemis.E;
 import com.artemis.Entity;
 import com.artemis.Manager;
 import com.artemis.managers.GroupManager;
@@ -18,6 +19,7 @@ import net.mostlyoriginal.game.component.agent.Burrow;
 import net.mostlyoriginal.game.system.resource.MinionSystem;
 import net.mostlyoriginal.game.util.Anims;
 
+import static com.artemis.E.E;
 import static net.mostlyoriginal.api.operation.OperationFactory.sequence;
 
 /**
@@ -32,22 +34,16 @@ public class StructureSystem extends Manager {
     private TagManager tagManager;
     private GroupManager groupManager;
 
-    private M<Burrow> mBurrow;
-    private M<Pos> mPos;
-    private M<Renderable> mRenderable;
-    private M<Scale> mScale;
-    private M<Schedule> mSchedule;
-    private M<Anim> mAnim;
     public Decor decor = Decor.SANDSTONE;
 
     public void createWifePyramid() {
-        createStructure((int) (G.CANVAS_WIDTH * 0.75f), G.CANVAS_HEIGHT / 2, "PYRAMID-WIFE", TAG_WIFE_PYRAMID, 1.0f, 0f, AssetSystem.PYRAMID_WIFE_WIDTH, AssetSystem.PYRAMID_WIFE_HEIGHT, PYRAMID_BURROW_SPEED*3, -10);
+        createStructure((int) (G.CANVAS_WIDTH * 0.75f), G.CANVAS_HEIGHT / 2, "PYRAMID-WIFE", TAG_WIFE_PYRAMID, 1.0f, 0f, AssetSystem.PYRAMID_WIFE_WIDTH, AssetSystem.PYRAMID_WIFE_HEIGHT, PYRAMID_BURROW_SPEED * 3, -10);
         minionSystem.allCheer();
     }
 
     public void createObelisk() {
         Entity entity = createStructure(MathUtils.randomBoolean() ? (int) MathUtils.random(G.CANVAS_WIDTH * 0.05f, G.CANVAS_WIDTH * 0.35f) :
-                (int) MathUtils.random(G.CANVAS_WIDTH * 0.65f, G.CANVAS_WIDTH * 0.95f) ,
+                        (int) MathUtils.random(G.CANVAS_WIDTH * 0.65f, G.CANVAS_WIDTH * 0.95f),
                 G.CANVAS_HEIGHT / 2,
                 randomObeliskId(),
                 TAG_OBELISK, 1.0f, 0f, AssetSystem.OBELISK_WIDTH, AssetSystem.OBELISK_HEIGHT, PYRAMID_BURROW_SPEED * 6, -5);
@@ -57,13 +53,17 @@ public class StructureSystem extends Manager {
     }
 
     private String randomObeliskId() {
-        switch (MathUtils.random(1,5))
-        {
-            case 1: return "OBELISK BASE 1";
-            case 2: return "OBELISK BASE 2";
-            case 3: return "OBELISK BASE 3";
-            case 4: return "OBELISK BASE 4";
-            default: return "OBELISK BASE 5";
+        switch (MathUtils.random(1, 5)) {
+            case 1:
+                return "OBELISK BASE 1";
+            case 2:
+                return "OBELISK BASE 2";
+            case 3:
+                return "OBELISK BASE 3";
+            case 4:
+                return "OBELISK BASE 4";
+            default:
+                return "OBELISK BASE 5";
         }
     }
 
@@ -77,14 +77,18 @@ public class StructureSystem extends Manager {
                 height,
                 animId,
                 G.ZOOM);
-        mRenderable.get(entity).layer = layer;
-        mPos.get(entity).xy.set(x - (width * G.ZOOM * 0.5f), y);
+
+        E e = E(entity);
+
+        e
+                .renderable(layer)
+                .pos(x - (width * G.ZOOM * 0.5f), y);
 
         if (tag != null) {
-            tagManager.register(tag, entity);
+            e.tag(tag);
         }
 
-        Burrow burrow = mBurrow.create(entity);
+        Burrow burrow = e.burrow()._burrow();
         burrow.percentage = burrowPercentage;
         burrow.smokeLayer = layer + 1;
         burrow.targetPercentage = burrowTargetPercentage;
@@ -97,11 +101,11 @@ public class StructureSystem extends Manager {
     public void destroyObelisks() {
         ImmutableBag<Entity> entities = groupManager.getEntities("obelisks");
         for (int i = 0, s = entities.size(); i < s; i++) {
-            Entity entity = entities.get(i);
-            Burrow burrow = mBurrow.get(entity);
-            burrow.targetPercentage=1.0f;
+            E entity = E(entities.get(i));
+            Burrow burrow = entity._burrow();
+            burrow.targetPercentage = 1.0f;
             burrow.speed *= 5;
-            mSchedule.create(entity).operation.add(sequence(OperationFactory.delay(3), OperationFactory.deleteFromWorld()));
+            entity.script(sequence(OperationFactory.delay(3), OperationFactory.deleteFromWorld()));
         }
     }
 
@@ -118,11 +122,12 @@ public class StructureSystem extends Manager {
     }
 
     public void pyramidDecor(Decor decor) {
-        mAnim.get(tagManager.getEntity("pyramid")).id = "PYRAMID-" + decor.name();
-        this.decor=decor;
+        E(tagManager.getEntity("pyramid")).animId("PYRAMID-" + decor.name());
+        this.decor = decor;
     }
 
-    public enum Decor {MARBLE(3), GRANITE(2), PLAID(4), SANDSTONE(1);
+    public enum Decor {
+        MARBLE(3), GRANITE(2), PLAID(4), SANDSTONE(1);
         public int scoreMultiplier;
 
         Decor(int scoreMultiplier) {

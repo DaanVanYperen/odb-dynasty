@@ -5,8 +5,9 @@ package net.mostlyoriginal.game.system.render;
  */
 
 import com.artemis.Aspect;
-import com.artemis.ComponentMapper;
+import com.artemis.E;
 import com.artemis.annotations.Wire;
+import com.artemis.systems.FluidDeferredEntityProcessingSystem;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -29,11 +30,7 @@ import net.mostlyoriginal.game.manager.FontManager;
  * @see net.mostlyoriginal.api.component.graphics.Anim
  */
 @Wire
-public class LabelRenderSystem extends DeferredEntityProcessingSystem {
-
-    protected ComponentMapper<Pos> mPos;
-    protected ComponentMapper<Label> mLabel;
-    protected ComponentMapper<Tint> mTint;
+public class LabelRenderSystem extends FluidDeferredEntityProcessingSystem {
 
     protected CameraSystem cameraSystem;
     protected FontManager fontManager;
@@ -70,15 +67,14 @@ public class LabelRenderSystem extends DeferredEntityProcessingSystem {
     }
 
     @Override
-    protected void process(int entity) {
+    protected void process(E e) {
 
-        final Label label = mLabel.get(entity);
-        final Pos pos = mPos.get(entity);
+        final Label label = e._localLabel();
+        final Pos pos = e._pos();
 
         if (label.text != null) {
 
             final BitmapFont font = label.scale == 3f ? fontManager.bigFont : fontManager.font;
-
 
             glyphLayout.setText(font, label.text);
 
@@ -98,8 +94,8 @@ public class LabelRenderSystem extends DeferredEntityProcessingSystem {
                 }
             }
 
-            if (mTint.has(entity)) {
-                final Color color = mTint.get(entity).color;
+            if (e.hasTint()) {
+                final Color color = e.tintColor();
                 font.setColor(color.r, color.g, color.b, color.a);
             } else {
                 font.setColor(1f, 1f, 1f, 1f);

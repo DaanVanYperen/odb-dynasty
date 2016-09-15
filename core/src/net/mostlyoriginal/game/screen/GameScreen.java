@@ -20,6 +20,7 @@ import net.mostlyoriginal.api.system.physics.PhysicsSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.api.system.script.EntitySpawnerSystem;
+import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.manager.*;
 import net.mostlyoriginal.game.system.agent.BurrowSystem;
 import net.mostlyoriginal.game.system.agent.CheerSystem;
@@ -27,6 +28,7 @@ import net.mostlyoriginal.game.system.endgame.EndgameSystem;
 import net.mostlyoriginal.game.system.agent.TrembleSystem;
 import net.mostlyoriginal.game.system.dilemma.DilemmaSystem;
 import net.mostlyoriginal.game.system.logic.ProgressAlgorithmSystem;
+import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.render.BarRenderSystem;
 import net.mostlyoriginal.game.system.render.LabelRenderSystem;
 import net.mostlyoriginal.game.system.render.ProgressRenderSystem;
@@ -112,7 +114,9 @@ public class GameScreen extends WorldScreen {
 						new AnimRenderSystem(renderBatchingSystem),
 						new LabelRenderSystem(renderBatchingSystem),
 						new BarRenderSystem(renderBatchingSystem),
-						new ProgressRenderSystem(renderBatchingSystem)
+						new ProgressRenderSystem(renderBatchingSystem),
+
+						new TransitionSystem(GdxArtemisGame.getInstance())
 				).build());
 
 	}

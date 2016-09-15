@@ -40,11 +40,6 @@ public class EntitySetupSystem extends AbstractEntityFactorySystem {
     private StockpileSystem stockpileSystem;
     private StructureSystem structureSystem;
 
-    private M<Burrow> mBurrow;
-    private M<Pos> mPos;
-    private M<Renderable> mRenderable;
-    private M<Scale> mScale;
-
     @Override
     protected void initialize() {
         super.initialize();
