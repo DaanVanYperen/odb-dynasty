@@ -1,3 +1,5 @@
+import com.artemis.FluidGeneratorPreferences
+
 apply plugin: "java"
 apply plugin: "artemis-fluid"
 apply plugin: "artemis"
@@ -24,6 +26,8 @@ weave {
 fluid {
     generatedSourcesDirectory = fluidOutputDir
     classpath = sourceSets.main.compileClasspath
+    preferences.prefixComponentGetter = "_"
+    preferences.swallowGettersWithParameters = false // global setting. overridden by @Fluid annotation.
 }
 compileJava.dependsOn fluid
 classes.finalizedBy weave
