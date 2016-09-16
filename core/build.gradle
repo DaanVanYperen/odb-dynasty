@@ -26,8 +26,16 @@ weave {
 fluid {
     generatedSourcesDirectory = fluidOutputDir
     classpath = sourceSets.main.compileClasspath
-    preferences.prefixComponentGetter = "_"
-    preferences.swallowGettersWithParameters = false // global setting. overridden by @Fluid annotation.
+
+    // optional parameters. Uncomment to activate.
+    preferences.prefixComponentGetter = "_" // prefix for Pos E::[get]pos()
+    // preferences.prefixComponentCreate = "" // prefix for E E::[]pos()
+    // preferences.prefixComponentHas = "has" // prefix for boolean E::[has]Pos()
+    // preferences.prefixComponentRemove = "remove" // prefix for E E::[remove]Pos()
+    // preferences.generateTagMethods = true // add tag convenience methods to E.
+    // preferences.generateGroupMethods = true // add group convenience methods to E.
+    // preferences.generateBooleanComponentAccessors = true // Generate boolean accessors for flag components?
+    // preferences.swallowGettersWithParameters = false // global setting. overridden by @Fluid annotation.
 }
 compileJava.dependsOn fluid
 classes.finalizedBy weave

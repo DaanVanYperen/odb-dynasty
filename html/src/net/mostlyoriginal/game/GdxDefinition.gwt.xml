@@ -25,6 +25,8 @@
     <extend-configuration-property name="artemis.reflect.include" value="net.mostlyoriginal.game.manager"/>
     <extend-configuration-property name="artemis.reflect.include" value="net.mostlyoriginal.game.util"/>
     <extend-configuration-property name="artemis.reflect.include" value="net.mostlyoriginal.api"/>
+    <extend-configuration-property name="artemis.reflect.include" value="com.artemis.SuperMapper"/>
+    <extend-configuration-property name="artemis.reflect.include" value="com.artemis.E"/>
 
     <extend-configuration-property name="gdx.reflect.include" value="net.mostlyoriginal.game.component"/>
     <extend-configuration-property name="gdx.reflect.include" value="net.mostlyoriginal.game.system"/>
@@ -32,7 +34,10 @@
     <extend-configuration-property name="gdx.reflect.include" value="net.mostlyoriginal.game.manager"/>
     <extend-configuration-property name="gdx.reflect.include" value="net.mostlyoriginal.game.util"/>
     <extend-configuration-property name="gdx.reflect.include" value="net.mostlyoriginal.api"/>
+    <extend-configuration-property name="gdx.reflect.include" value="com.artemis.SuperMapper"/>
+    <extend-configuration-property name="gdx.reflect.include" value="com.artemis.E"/>
 
+    <inherits name='GdxArtemisComponents'/>
     <inherits name='GdxArtemisGame'/>
     <entry-point class='net.mostlyoriginal.game.client.HtmlLauncher'/>
 

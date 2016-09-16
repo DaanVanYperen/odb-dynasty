@@ -131,6 +131,10 @@ project(":components") {
         compile "net.mostlyoriginal.artemis-odb:contrib-core:$artemisContribVersion"
         compile "net.mostlyoriginal.artemis-odb:contrib-jam:$artemisContribVersion"
 
+        compile "net.mostlyoriginal.artemis-odb:contrib-core:$artemisContribVersion:sources"
+        compile "net.mostlyoriginal.artemis-odb:contrib-jam:$artemisContribVersion:sources"
+
+
         compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
         compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
@@ -150,9 +154,9 @@ project(":core") {
     }
 
     dependencies {
+
         compile project(":components")
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-
 // Optional LibGDX Modules
 //        compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
 //        compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
